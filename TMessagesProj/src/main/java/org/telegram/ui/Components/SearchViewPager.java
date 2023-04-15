@@ -59,11 +59,10 @@ import org.telegram.ui.PremiumPreviewFragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Set;
 
-import it.owlgram.android.OwlConfig;
-import it.owlgram.android.utils.ForwardContext;
+import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.utils.ForwardContext;
 
 public class SearchViewPager extends ViewPagerFixed implements FilteredSearchView.UiCallback {
 

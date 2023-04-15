@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="AppName">OwlGram</string>
-    <string name="AppNameBeta">OwlGram Beta</string>
+    <string name="AppName">YukiGram</string>
+    <string name="AppNameBeta">YukiGram Beta</string>
     <string name="LanguageName">English</string>
     <string name="English">English</string>
     <string name="LanguageNameInEnglish">English</string>
@@ -1288,7 +1288,7 @@
     <string name="URL">URL</string>
     <string name="MapPreviewProvider">Map Preview Provider</string>
     <string name="MapPreviewProviderTitle">Map preview provider</string>
-    <string name="MapPreviewProviderTelegram">OwlGram</string>
+    <string name="MapPreviewProviderTelegram">YukiGram</string>
     <string name="MapPreviewProviderGoogle">Google</string>
     <string name="MapPreviewProviderYandex">Yandex</string>
     <string name="MapPreviewProviderNobody">No previews</string>
@@ -1489,8 +1489,8 @@
     <string name="NotificationGroupFew">%1$s sent %3$s to the group %2$s</string>
     <string name="NotificationGroupAlbum">%1$s sent an album to the group %2$s</string>
     <string name="NotificationGroupForwardedFew">%1$s forwarded %3$s to the group %2$s</string>
-    <string name="NotificationHiddenName">OwlGram</string>
-    <string name="NotificationHiddenChatName">OwlGram</string>
+    <string name="NotificationHiddenName">YukiGram</string>
+    <string name="NotificationHiddenChatName">YukiGram</string>
     <string name="NotificationHiddenChatUserName">User</string>
     <string name="NotificationHiddenMessage">New message</string>
     <string name="Reply">Reply</string>
@@ -1555,7 +1555,7 @@
     <string name="NotificationActionPinnedGeoLiveUser">%1$s pinned a live location</string>
     <string name="NotificationActionPinnedGifUser">%1$s pinned a GIF</string>
     <string name="NotificationActionPinnedMusicUser">%1$s pinned an audio file</string>
-    <string name="SecretChatName">OwlGram</string>
+    <string name="SecretChatName">YukiGram</string>
     <!--contacts view-->
     <string name="SelectContact">Select Contact</string>
     <string name="SelectContacts">Select Contacts</string>
@@ -2346,7 +2346,7 @@
     <string name="Emoji">Emoji</string>
     <string name="LargeEmoji">Large Emoji</string>
     <string name="EmojiUseDefault">Use system default emoji</string>
-    <string name="TelegramVersion">Owlgram for Android %1$s</string>
+    <string name="TelegramVersion">YukiGram for Android %1$s</string>
     <string name="DebugMenu">Debug Menu</string>
     <string name="DebugMenuLongPress">Long press again for debug menu</string>
     <string name="DebugSendLogs">Send Logs</string>
@@ -3919,12 +3919,13 @@
     <string name="ViewMessageStatistic">Message Statistic</string>
     <string name="ViewMessage">Open Message</string>
     <!--Intro view-->
-    <string name="Page1Title">OwlGram</string>
+    <string name="Page1Title">YukiGram</string>
     <string name="Page2Title">Fast</string>
     <string name="Page3Title">Free</string>
     <string name="Page4Title">Secure</string>
     <string name="Page5Title">Powerful</string>
     <string name="Page6Title">Cloud-Based</string>
+    <string name="Page7Title">About YukiGram</string>
     <string name="Page1Message">The world\'s **fastest** messaging app.\nIt is **free** and **secure**.</string>
     <string name="Page2Message">**Telegram** delivers messages faster than\nany other application.</string>
     <string name="Page3Message">**Telegram** provides free unlimited cloud storage for chats and media.</string>
@@ -6371,4 +6372,5 @@
     <string name="LoginEmailResetPremiumRequiredTitle">Telegram Premium Required</string>
     <string name="LoginEmailResetPremiumRequiredMessage">Due to the high cost of SMS in your country, you need a **Telegram Premium** account to immediately reset this email via an SMS code.\n\nYou can ask a friend to gift a Premium subscription for your account **%1$s**</string>
     <string name="LoginEmailResetPleaseWait">Resetting email, please wait...</string>
+    <string name="Page7Message">YukiGram is a fork of the popular **OwlGram**. We would like to thank the amazing developers behind that project.</string>
 </resources>

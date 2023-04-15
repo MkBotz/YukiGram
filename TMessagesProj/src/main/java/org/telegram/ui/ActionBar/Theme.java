@@ -66,7 +66,6 @@ import android.util.SparseArray;
 import android.util.StateSet;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -142,9 +141,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 
-import it.owlgram.android.OwlConfig;
-import it.owlgram.android.MonetThemeController;
-import it.owlgram.android.entities.syntax_highlight.SyntaxHighlight;
+import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.MonetThemeController;
+import me.onlyfire.yukigram.android.entities.syntax_highlight.SyntaxHighlight;
 
 public class Theme {
 

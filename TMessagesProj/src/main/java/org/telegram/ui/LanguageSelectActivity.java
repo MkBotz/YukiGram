@@ -59,7 +59,7 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Timer;
 
-import it.owlgram.ui.OwlgramGeneralSettings;
+import me.onlyfire.yukigram.ui.OwlgramGeneralSettings;
 
 public class LanguageSelectActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate {
 

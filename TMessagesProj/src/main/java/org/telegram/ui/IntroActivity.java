@@ -122,12 +122,13 @@ public class IntroActivity extends BaseFragment implements NotificationCenter.No
         MessagesController.getGlobalMainSettings().edit().putLong("intro_crashed_time", System.currentTimeMillis()).apply();
 
         titles = new String[]{
-                "OwlGram",
+                "YukiGram",
                 LocaleController.getString("Page2Title", R.string.Page2Title),
                 LocaleController.getString("Page3Title", R.string.Page3Title),
                 LocaleController.getString("Page5Title", R.string.Page5Title),
                 LocaleController.getString("Page4Title", R.string.Page4Title),
-                LocaleController.getString("Page6Title", R.string.Page6Title)
+                LocaleController.getString("Page6Title", R.string.Page6Title),
+                LocaleController.getString("Page7Title", R.string.Page7Title)
         };
         messages = new String[]{
                 LocaleController.getString("Page1Message", R.string.Page1Message),
@@ -135,7 +136,8 @@ public class IntroActivity extends BaseFragment implements NotificationCenter.No
                 LocaleController.getString("Page3Message", R.string.Page3Message),
                 LocaleController.getString("Page5Message", R.string.Page5Message),
                 LocaleController.getString("Page4Message", R.string.Page4Message),
-                LocaleController.getString("Page6Message", R.string.Page6Message)
+                LocaleController.getString("Page6Message", R.string.Page6Message),
+                LocaleController.getString("Page7Message", R.string.Page7Message)
         };
         return true;
     }
@@ -357,8 +359,8 @@ public class IntroActivity extends BaseFragment implements NotificationCenter.No
             destroyed = true;
         });
 
-        bottomPages = new BottomPagesView(context, viewPager, 6);
-        frameContainerView.addView(bottomPages, LayoutHelper.createFrame(66, 5, Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, ICON_HEIGHT_DP + 200, 0, 0));
+        bottomPages = new BottomPagesView(context, viewPager, 7);
+        frameContainerView.addView(bottomPages, LayoutHelper.createFrame(77, 7, Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, ICON_HEIGHT_DP + 200, 0, 0));
 
         switchLanguageTextView = new TextView(context);
         switchLanguageTextView.setGravity(Gravity.CENTER);
@@ -413,8 +415,8 @@ public class IntroActivity extends BaseFragment implements NotificationCenter.No
         super.onResume();
         if (justCreated) {
             if (LocaleController.isRTL) {
-                viewPager.setCurrentItem(6);
-                lastPage = 6;
+                viewPager.setCurrentItem(7);
+                lastPage = 7;
             } else {
                 viewPager.setCurrentItem(0);
                 lastPage = 0;
@@ -768,7 +770,7 @@ public class IntroActivity extends BaseFragment implements NotificationCenter.No
             loadTexture(R.drawable.intro_powerful_star, 18);
             loadTexture(R.drawable.intro_private_door, 19);
             loadTexture(R.drawable.intro_private_screw, 20);
-            loadTexture(R.drawable.intro_owl, 21);
+            loadTexture(R.drawable.intro_yuki, 21);
             loadTexture(v -> {
                 Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
                 paint.setColor(0xFF4285F4); // It's logo color, it should not be colored by the theme

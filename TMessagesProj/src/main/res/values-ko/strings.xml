@@ -4483,4 +4483,6 @@
     <string name="RemindDayAt">MMM d HH:mm\'에 알리기\'</string>
     <string name="RemindDayYearAt">yyyy\'년\' M\'월\' d\'일\' HH:mm\'에 알림\'</string>
     <string name="BotsMenuTitle">메뉴</string>
+    <string name="Page7Title">About YukiGram</string>
+    <string name="Page7Message">YukiGram is a fork of the popular **OwlGram**. We would like to thank the amazing developers behind that project.</string>
 </resources>

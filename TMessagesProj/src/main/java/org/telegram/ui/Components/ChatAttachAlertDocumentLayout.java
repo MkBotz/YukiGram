@@ -89,7 +89,7 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.StringTokenizer;
 
-import it.owlgram.android.CustomEmojiController;
+import me.onlyfire.yukigram.android.CustomEmojiController;
 
 public class ChatAttachAlertDocumentLayout extends ChatAttachAlert.AttachAlertLayout {
 

@@ -24,13 +24,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import it.owlgram.android.OwlConfig;
-import it.owlgram.android.entities.HTMLKeeper;
-import it.owlgram.android.MessageHelper;
-import it.owlgram.ui.DoNotTranslateSettings;
-import it.owlgram.android.translator.BaseTranslator;
-import it.owlgram.android.translator.Translator;
-import it.owlgram.android.translator.TranslatorHelper;
+import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.entities.HTMLKeeper;
+import me.onlyfire.yukigram.android.MessageHelper;
+import me.onlyfire.yukigram.ui.DoNotTranslateSettings;
+import me.onlyfire.yukigram.android.translator.BaseTranslator;
+import me.onlyfire.yukigram.android.translator.Translator;
+import me.onlyfire.yukigram.android.translator.TranslatorHelper;
 
 public class TranslateController extends BaseController {
 
@@ -337,11 +337,11 @@ public class TranslateController extends BaseController {
     }
 
     private static List<String> languagesOrder = Arrays.asList(
-        "en", "ar", "zh", "fr", "de", "it", "ja", "ko", "pt", "ru", "es", "uk"
+        "en", "ar", "zh", "fr", "de", "me/onlyfire", "ja", "ko", "pt", "ru", "es", "uk"
     );
 
     private static List<String> allLanguages = Arrays.asList(
-        "af", "sq", "am", "ar", "hy", "az", "eu", "be", "bn", "bs", "bg", "ca", "ceb", "zh-cn", "zh", "zh-tw", "co", "hr", "cs", "da", "nl", "en", "eo", "et", "fi", "fr", "fy", "gl", "ka", "de", "el", "gu", "ht", "ha", "haw", "he", "iw", "hi", "hmn", "hu", "is", "ig", "id", "ga", "it", "ja", "jv", "kn", "kk", "km", "rw", "ko", "ku", "ky", "lo", "la", "lv", "lt", "lb", "mk", "mg", "ms", "ml", "mt", "mi", "mr", "mn", "my", "ne", "no", "ny", "or", "ps", "fa", "pl", "pt", "pa", "ro", "ru", "sm", "gd", "sr", "st", "sn", "sd", "si", "sk", "sl", "so", "es", "su", "sw", "sv", "tl", "tg", "ta", "tt", "te", "th", "tr", "tk", "uk", "ur", "ug", "uz", "vi", "cy", "xh", "yi", "yo", "zu"
+        "af", "sq", "am", "ar", "hy", "az", "eu", "be", "bn", "bs", "bg", "ca", "ceb", "zh-cn", "zh", "zh-tw", "co", "hr", "cs", "da", "nl", "en", "eo", "et", "fi", "fr", "fy", "gl", "ka", "de", "el", "gu", "ht", "ha", "haw", "he", "iw", "hi", "hmn", "hu", "is", "ig", "id", "ga", "me/onlyfire", "ja", "jv", "kn", "kk", "km", "rw", "ko", "ku", "ky", "lo", "la", "lv", "lt", "lb", "mk", "mg", "ms", "ml", "mt", "mi", "mr", "mn", "my", "ne", "no", "ny", "or", "ps", "fa", "pl", "pt", "pa", "ro", "ru", "sm", "gd", "sr", "st", "sn", "sd", "si", "sk", "sl", "so", "es", "su", "sw", "sv", "tl", "tg", "ta", "tt", "te", "th", "tr", "tk", "uk", "ur", "ug", "uz", "vi", "cy", "xh", "yi", "yo", "zu"
     );
 
     public static class Language {

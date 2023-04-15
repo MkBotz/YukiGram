@@ -37,7 +37,7 @@ import org.telegram.ui.DialogsActivity;
 
 import java.util.ArrayList;
 
-import it.owlgram.android.FolderIconController;
+import me.onlyfire.yukigram.android.FolderIconController;
 
 public class FiltersListBottomSheet extends BottomSheet implements NotificationCenter.NotificationCenterDelegate {
 

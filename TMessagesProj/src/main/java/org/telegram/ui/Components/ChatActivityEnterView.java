@@ -162,11 +162,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-import it.owlgram.android.OwlConfig;
-import it.owlgram.android.entities.EntitiesHelper;
-import it.owlgram.android.MessageHelper;
-import it.owlgram.android.translator.BaseTranslator;
-import it.owlgram.android.translator.Translator;
+import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.entities.EntitiesHelper;
+import me.onlyfire.yukigram.android.MessageHelper;
+import me.onlyfire.yukigram.android.translator.BaseTranslator;
+import me.onlyfire.yukigram.android.translator.Translator;
 
 public class ChatActivityEnterView extends BlurredFrameLayout implements NotificationCenter.NotificationCenterDelegate, SizeNotifierFrameLayout.SizeNotifierFrameLayoutDelegate, StickersAlert.StickersAlertDelegate {
 

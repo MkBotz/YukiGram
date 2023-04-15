@@ -51,7 +51,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.HapticFeedbackConstants;
 import android.view.MotionEvent;
@@ -121,11 +120,10 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.egl.EGLContext;
 import javax.microedition.khronos.egl.EGLDisplay;
 import javax.microedition.khronos.egl.EGLSurface;
-import javax.microedition.khronos.opengles.GL;
 
-import it.owlgram.android.OwlConfig;
-import it.owlgram.android.camera.CameraXController;
-import it.owlgram.android.camera.CameraXUtils;
+import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.camera.CameraXController;
+import me.onlyfire.yukigram.android.camera.CameraXUtils;
 
 @TargetApi(18)
 public class InstantCameraView extends FrameLayout implements NotificationCenter.NotificationCenterDelegate {

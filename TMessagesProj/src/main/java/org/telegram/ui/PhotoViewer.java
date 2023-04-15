@@ -265,14 +265,14 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
-import it.owlgram.android.OwlConfig;
-import it.owlgram.android.media.VideoUtils;
-import it.owlgram.android.utils.ForwardContext;
-import it.owlgram.android.MessageHelper;
-import it.owlgram.ui.DoNotTranslateSettings;
-import it.owlgram.android.translator.BaseTranslator;
-import it.owlgram.android.translator.Translator;
-import it.owlgram.android.translator.TranslatorHelper;
+import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.media.VideoUtils;
+import me.onlyfire.yukigram.android.utils.ForwardContext;
+import me.onlyfire.yukigram.android.MessageHelper;
+import me.onlyfire.yukigram.ui.DoNotTranslateSettings;
+import me.onlyfire.yukigram.android.translator.BaseTranslator;
+import me.onlyfire.yukigram.android.translator.Translator;
+import me.onlyfire.yukigram.android.translator.TranslatorHelper;
 
 @SuppressLint("WrongConstant")
 @SuppressWarnings("unchecked")

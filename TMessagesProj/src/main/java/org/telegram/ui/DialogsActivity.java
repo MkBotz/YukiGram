@@ -205,17 +205,17 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
-import it.owlgram.android.OwlConfig;
-import it.owlgram.ui.Components.Dialogs.AppLinkVerifyBottomSheet;
-import it.owlgram.ui.Components.Dialogs.CrashReportBottomSheet;
-import it.owlgram.ui.Components.Dialogs.MonetAndroidFixDialog;
-import it.owlgram.ui.Components.SendOptionsMenuLayout;
-import it.owlgram.android.Crashlytics;
-import it.owlgram.android.utils.ForwardContext;
-import it.owlgram.android.MonetIconController;
-import it.owlgram.android.PasscodeController;
-import it.owlgram.android.updates.AppDownloader;
-import it.owlgram.android.updates.UpdateManager;
+import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.ui.Components.Dialogs.AppLinkVerifyBottomSheet;
+import me.onlyfire.yukigram.ui.Components.Dialogs.CrashReportBottomSheet;
+import me.onlyfire.yukigram.ui.Components.Dialogs.MonetAndroidFixDialog;
+import me.onlyfire.yukigram.ui.Components.SendOptionsMenuLayout;
+import me.onlyfire.yukigram.android.Crashlytics;
+import me.onlyfire.yukigram.android.utils.ForwardContext;
+import me.onlyfire.yukigram.android.MonetIconController;
+import me.onlyfire.yukigram.android.PasscodeController;
+import me.onlyfire.yukigram.android.updates.AppDownloader;
+import me.onlyfire.yukigram.android.updates.UpdateManager;
 
 public class DialogsActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate, FloatingDebugProvider {
 

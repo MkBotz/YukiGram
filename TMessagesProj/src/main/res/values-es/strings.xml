@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="AppName">OwlGram</string>
-    <string name="AppNameBeta">OwlGram Beta</string>
+    <string name="AppName">YukiGram</string>
+    <string name="AppNameBeta">YukiGram Beta</string>
     <string name="LanguageName">Español</string>
     <string name="English">Inglés</string>
     <string name="LanguageNameInEnglish">Spanish</string>
@@ -4483,4 +4483,6 @@
     <string name="RemindDayAt">\'Recordar el\' d \'de\' MMM \'a las\' HH:mm</string>
     <string name="RemindDayYearAt">\'Recordar el\' d \'de\' MMM \'de\' yyyy \'a las\' HH:mm</string>
     <string name="BotsMenuTitle">Menu</string>
+    <string name="Page7Title">About YukiGram</string>
+    <string name="Page7Message">YukiGram is a fork of the popular **OwlGram**. We would like to thank the amazing developers behind that project.</string>
 </resources>

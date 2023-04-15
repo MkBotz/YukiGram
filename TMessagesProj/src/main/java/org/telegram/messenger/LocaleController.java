@@ -18,7 +18,6 @@ import android.content.res.Configuration;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.util.Xml;
 
 import androidx.annotation.StringRes;
@@ -43,11 +42,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Locale;
-import java.util.Map;
 import java.util.TimeZone;
 
-import it.owlgram.android.OwlConfig;
-import it.owlgram.android.LanguageController;
+import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.LanguageController;
 
 public class LocaleController {
 
@@ -242,7 +240,7 @@ public class LocaleController {
     }
 
     public LocaleController() {
-        addRules(new String[]{"bem", "brx", "da", "de", "el", "en", "eo", "es", "et", "fi", "fo", "gl", "he", "iw", "it", "nb",
+        addRules(new String[]{"bem", "brx", "da", "de", "el", "en", "eo", "es", "et", "fi", "fo", "gl", "he", "iw", "me/onlyfire", "nb",
                 "nl", "nn", "no", "sv", "af", "bg", "bn", "ca", "eu", "fur", "fy", "gu", "ha", "is", "ku",
                 "lb", "ml", "mr", "nah", "ne", "om", "or", "pa", "pap", "ps", "so", "sq", "sw", "ta", "te",
                 "tk", "ur", "zu", "mn", "gsw", "chr", "rm", "pt", "an", "ast"}, new PluralRules_One());
@@ -279,7 +277,7 @@ public class LocaleController {
         localeInfo = new LocaleInfo();
         localeInfo.name = "Italiano";
         localeInfo.nameEnglish = "Italian";
-        localeInfo.shortName = localeInfo.pluralLangCode = "it";
+        localeInfo.shortName = localeInfo.pluralLangCode = "me/onlyfire";
         localeInfo.pathToFile = null;
         localeInfo.builtIn = true;
         languages.add(localeInfo);

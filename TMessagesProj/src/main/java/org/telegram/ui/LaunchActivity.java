@@ -206,28 +206,28 @@ import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import it.owlgram.android.StoreUtils;
-import it.owlgram.android.OwlConfig;
-import it.owlgram.android.magic.OWLENC;
-import it.owlgram.ui.Components.Dialogs.UpdateAlertDialog;
-import it.owlgram.android.Crashlytics;
-import it.owlgram.android.CustomEmojiController;
-import it.owlgram.android.utils.ForwardContext;
-import it.owlgram.android.LanguageController;
-import it.owlgram.android.MonetThemeController;
-import it.owlgram.android.StickersUtils;
-import it.owlgram.android.updates.UpdateSignaling;
-import it.owlgram.ui.OwlgramAppearanceSettings;
-import it.owlgram.ui.OwlgramChatSettings;
-import it.owlgram.ui.OwlgramExperimentalSettings;
-import it.owlgram.ui.OwlgramGeneralSettings;
-import it.owlgram.ui.OwlgramSettings;
-import it.owlgram.ui.DatacenterActivity;
-import it.owlgram.android.http.FileDownloader;
-import it.owlgram.android.updates.ApkInstaller;
-import it.owlgram.android.updates.AppDownloader;
-import it.owlgram.android.updates.PlayStoreAPI;
-import it.owlgram.android.updates.UpdateManager;
+import me.onlyfire.yukigram.android.StoreUtils;
+import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.magic.OWLENC;
+import me.onlyfire.yukigram.ui.Components.Dialogs.UpdateAlertDialog;
+import me.onlyfire.yukigram.android.Crashlytics;
+import me.onlyfire.yukigram.android.CustomEmojiController;
+import me.onlyfire.yukigram.android.utils.ForwardContext;
+import me.onlyfire.yukigram.android.LanguageController;
+import me.onlyfire.yukigram.android.MonetThemeController;
+import me.onlyfire.yukigram.android.StickersUtils;
+import me.onlyfire.yukigram.android.updates.UpdateSignaling;
+import me.onlyfire.yukigram.ui.OwlgramAppearanceSettings;
+import me.onlyfire.yukigram.ui.OwlgramChatSettings;
+import me.onlyfire.yukigram.ui.OwlgramExperimentalSettings;
+import me.onlyfire.yukigram.ui.OwlgramGeneralSettings;
+import me.onlyfire.yukigram.ui.OwlgramSettings;
+import me.onlyfire.yukigram.ui.DatacenterActivity;
+import me.onlyfire.yukigram.android.http.FileDownloader;
+import me.onlyfire.yukigram.android.updates.ApkInstaller;
+import me.onlyfire.yukigram.android.updates.AppDownloader;
+import me.onlyfire.yukigram.android.updates.PlayStoreAPI;
+import me.onlyfire.yukigram.android.updates.UpdateManager;
 
 public class LaunchActivity extends BasePermissionsActivity implements INavigationLayout.INavigationLayoutDelegate, NotificationCenter.NotificationCenterDelegate, DialogsActivity.DialogsActivityDelegate {
     public final static Pattern PREFIX_T_ME_PATTERN = Pattern.compile("^(?:http(?:s|)://|)([A-z0-9-]+?)\\.t\\.me");
@@ -2793,9 +2793,9 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                                             NotificationCenter.getInstance(intentAccount[0]).postNotificationName(NotificationCenter.closeChats);
                                             push_user_id = userId;
                                             @SuppressLint("Range") String mimeType = cursor.getString(cursor.getColumnIndex(ContactsContract.Data.MIMETYPE));
-                                            if (TextUtils.equals(mimeType, "vnd.android.cursor.item/vnd.it.owlgram.android.android.call")) {
+                                            if (TextUtils.equals(mimeType, "vnd.android.cursor.item/vnd.me.onlyfire.yukigram.android.android.call")) {
                                                 audioCallUser = true;
-                                            } else if (TextUtils.equals(mimeType, "vnd.android.cursor.item/vnd.it.owlgram.android.android.call.video")) {
+                                            } else if (TextUtils.equals(mimeType, "vnd.android.cursor.item/vnd.me.onlyfire.yukigram.android.android.call.video")) {
                                                 videoCallUser = true;
                                             }
                                         }

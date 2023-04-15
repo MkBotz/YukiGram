@@ -59,8 +59,8 @@ import org.telegram.ui.Components.RecyclerListView;
 
 import java.util.ArrayList;
 
-import it.owlgram.android.OwlConfig;
-import it.owlgram.android.FolderIconController;
+import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.FolderIconController;
 
 public class FiltersSetupActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate {
 

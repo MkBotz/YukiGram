@@ -22,13 +22,11 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Outline;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.Rect;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.hardware.Camera;
 import android.media.MediaMetadataRetriever;
@@ -37,7 +35,6 @@ import android.os.Build;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -106,15 +103,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import it.owlgram.android.OwlConfig;
-import it.owlgram.ui.Components.BaseCameraView;
-import it.owlgram.android.camera.CameraXController;
-import it.owlgram.android.camera.CameraXUtils;
-import it.owlgram.ui.Components.CameraXView;
-import it.owlgram.ui.Components.EffectSelectorView;
-import it.owlgram.ui.Components.LockAnimationView;
-import it.owlgram.ui.Components.SlideControlView;
-import it.owlgram.android.PermissionsUtils;
+import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.ui.Components.BaseCameraView;
+import me.onlyfire.yukigram.android.camera.CameraXController;
+import me.onlyfire.yukigram.android.camera.CameraXUtils;
+import me.onlyfire.yukigram.ui.Components.CameraXView;
+import me.onlyfire.yukigram.ui.Components.EffectSelectorView;
+import me.onlyfire.yukigram.ui.Components.LockAnimationView;
+import me.onlyfire.yukigram.ui.Components.SlideControlView;
+import me.onlyfire.yukigram.android.PermissionsUtils;
 
 public class ChatAttachAlertPhotoLayout extends ChatAttachAlert.AttachAlertLayout implements NotificationCenter.NotificationCenterDelegate {
 

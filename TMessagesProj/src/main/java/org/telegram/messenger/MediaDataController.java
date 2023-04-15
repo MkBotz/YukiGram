@@ -34,7 +34,6 @@ import android.text.TextUtils;
 import android.text.style.CharacterStyle;
 import android.text.style.URLSpan;
 import android.text.util.Linkify;
-import android.util.Log;
 import android.util.Pair;
 import android.util.SparseArray;
 
@@ -53,7 +52,6 @@ import org.telegram.SQLite.SQLiteException;
 import org.telegram.SQLite.SQLitePreparedStatement;
 import org.telegram.messenger.ringtone.RingtoneDataStore;
 import org.telegram.messenger.ringtone.RingtoneUploader;
-import org.telegram.messenger.support.SparseLongArray;
 import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.NativeByteBuffer;
 import org.telegram.tgnet.RequestDelegate;
@@ -91,7 +89,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import it.owlgram.android.OwlConfig;
+import me.onlyfire.yukigram.android.OwlConfig;
 
 @SuppressWarnings("unchecked")
 public class MediaDataController extends BaseController {

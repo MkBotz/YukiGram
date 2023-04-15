@@ -12,7 +12,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 
-import it.owlgram.android.StoreUtils;
+import me.onlyfire.yukigram.android.StoreUtils;
 import com.android.billingclient.api.ProductDetails;
 
 import java.util.Objects;
@@ -31,8 +31,8 @@ public class BuildVars {
     public static String BUILD_VERSION_STRING = BuildConfig.BUILD_VERSION_STRING;
     public static int TELEGRAM_BUILD_VERSION = 3227;
     public static String TELEGRAM_VERSION_STRING = "9.5.4";
-    public static int APP_ID = 10029733;
-    public static String APP_HASH = "d0d81009d46e774f78c0e0e622f5fa21";
+    public static int APP_ID = 1148749;
+    public static String APP_HASH = "7817b661cdd1e3391f8a7e560e3226aa";
 
     // SafetyNet key for Google Identity SDK, set it to empty to disable
     public static String SAFETYNET_KEY = "";
@@ -75,7 +75,7 @@ public class BuildVars {
     private static Boolean standaloneApp;
     public static boolean isStandaloneApp() {
         if (standaloneApp == null) {
-            standaloneApp = ApplicationLoader.applicationContext != null && "it.owlgram.android".equals(ApplicationLoader.applicationContext.getPackageName());
+            standaloneApp = ApplicationLoader.applicationContext != null && "me.onlyfire.yukigram".equals(ApplicationLoader.applicationContext.getPackageName());
         }
         return standaloneApp;
     }
@@ -83,7 +83,7 @@ public class BuildVars {
     private static Boolean betaApp;
     public static boolean isBetaApp() {
         if (betaApp == null) {
-            betaApp = ApplicationLoader.applicationContext != null && "it.owlgram.android.beta".equals(ApplicationLoader.applicationContext.getPackageName());
+            betaApp = ApplicationLoader.applicationContext != null && "me.onlyfire.yukigram.beta".equals(ApplicationLoader.applicationContext.getPackageName());
         }
         return betaApp;
     }

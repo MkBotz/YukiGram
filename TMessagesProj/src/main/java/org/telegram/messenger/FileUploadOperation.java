@@ -11,7 +11,6 @@ package org.telegram.messenger;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
 
@@ -26,7 +25,7 @@ import java.io.RandomAccessFile;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
-import it.owlgram.android.OwlConfig;
+import me.onlyfire.yukigram.android.OwlConfig;
 
 public class FileUploadOperation {
 

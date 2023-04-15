@@ -234,22 +234,22 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import it.owlgram.android.OwlConfig;
-import it.owlgram.android.StoreUtils;
-import it.owlgram.ui.Cells.ActionPanel;
-import it.owlgram.ui.Cells.Datacenter;
-import it.owlgram.ui.Cells.DcStyleSelector;
-import it.owlgram.ui.Cells.Dynamic.ThemeInfo;
-import it.owlgram.android.ActionButtonController;
-import it.owlgram.android.utils.DCHelper;
-import it.owlgram.ui.BaseSettingsActivity;
-import it.owlgram.ui.DoNotTranslateSettings;
-import it.owlgram.ui.OwlgramSettings;
-import it.owlgram.ui.Components.AutoTranslatePopupWrapper;
-import it.owlgram.android.translator.BaseTranslator;
-import it.owlgram.android.translator.Translator;
-import it.owlgram.android.translator.TranslatorHelper;
-import it.owlgram.android.updates.UpdateManager;
+import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.StoreUtils;
+import me.onlyfire.yukigram.ui.Cells.ActionPanel;
+import me.onlyfire.yukigram.ui.Cells.Datacenter;
+import me.onlyfire.yukigram.ui.Cells.DcStyleSelector;
+import me.onlyfire.yukigram.ui.Cells.Dynamic.ThemeInfo;
+import me.onlyfire.yukigram.android.ActionButtonController;
+import me.onlyfire.yukigram.android.utils.DCHelper;
+import me.onlyfire.yukigram.ui.BaseSettingsActivity;
+import me.onlyfire.yukigram.ui.DoNotTranslateSettings;
+import me.onlyfire.yukigram.ui.OwlgramSettings;
+import me.onlyfire.yukigram.ui.Components.AutoTranslatePopupWrapper;
+import me.onlyfire.yukigram.android.translator.BaseTranslator;
+import me.onlyfire.yukigram.android.translator.Translator;
+import me.onlyfire.yukigram.android.translator.TranslatorHelper;
+import me.onlyfire.yukigram.android.updates.UpdateManager;
 
 public class ProfileActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate, DialogsActivity.DialogsActivityDelegate, SharedMediaLayout.SharedMediaPreloaderDelegate, ImageUpdater.ImageUpdaterDelegate, SharedMediaLayout.Delegate {
     private final static int PHONE_OPTION_CALL = 0,
@@ -10013,7 +10013,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                         textCell.setImageLeft(12);
                         setAvatarCell = textCell;
                     }else if (position == owlSettingsRow){
-                        textCell.setTextAndIcon(LocaleController.getString("OwlSetting", R.string.OwlSetting), R.drawable.msg_settings, true);
+                        textCell.setTextAndIcon(LocaleController.getString("OwlSetting", R.string.YukiSetting), R.drawable.msg_settings, true);
                     } else if (position == addToGroupButtonRow) {
                         textCell.setTextAndIcon(LocaleController.getString("AddToGroupOrChannel", R.string.AddToGroupOrChannel), R.drawable.msg_groups_create, false);
                         textCell.setColors(Theme.key_windowBackgroundWhiteBlueIcon, Theme.key_windowBackgroundWhiteBlueButton);

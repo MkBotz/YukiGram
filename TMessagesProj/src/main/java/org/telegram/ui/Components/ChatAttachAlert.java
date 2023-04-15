@@ -37,7 +37,6 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.style.ImageSpan;
-import android.util.Log;
 import android.util.LongSparseArray;
 import android.util.Property;
 import android.util.TypedValue;
@@ -83,7 +82,6 @@ import org.telegram.messenger.MessagesController;
 import org.telegram.messenger.NotificationCenter;
 import org.telegram.messenger.R;
 import org.telegram.messenger.SendMessagesHelper;
-import org.telegram.messenger.SharedConfig;
 import org.telegram.messenger.UserConfig;
 import org.telegram.messenger.UserObject;
 import org.telegram.tgnet.ConnectionsManager;
@@ -116,7 +114,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-import it.owlgram.android.PermissionsUtils;
+import me.onlyfire.yukigram.android.PermissionsUtils;
 
 public class ChatAttachAlert extends BottomSheet implements NotificationCenter.NotificationCenterDelegate, BottomSheet.BottomSheetDelegateInterface {
 
