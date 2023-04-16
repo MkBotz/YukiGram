@@ -593,7 +593,6 @@ target_link_libraries(${NATIVE_LIB}
         tgvoip
         tgcalls
         tgcalls_tp
-        mozjpeg
         tgnet
         lz4
         webp

@@ -127,8 +127,7 @@ public class IntroActivity extends BaseFragment implements NotificationCenter.No
                 LocaleController.getString("Page3Title", R.string.Page3Title),
                 LocaleController.getString("Page5Title", R.string.Page5Title),
                 LocaleController.getString("Page4Title", R.string.Page4Title),
-                LocaleController.getString("Page6Title", R.string.Page6Title),
-                LocaleController.getString("Page7Title", R.string.Page7Title)
+                LocaleController.getString("Page6Title", R.string.Page6Title)
         };
         messages = new String[]{
                 LocaleController.getString("Page1Message", R.string.Page1Message),
@@ -136,8 +135,7 @@ public class IntroActivity extends BaseFragment implements NotificationCenter.No
                 LocaleController.getString("Page3Message", R.string.Page3Message),
                 LocaleController.getString("Page5Message", R.string.Page5Message),
                 LocaleController.getString("Page4Message", R.string.Page4Message),
-                LocaleController.getString("Page6Message", R.string.Page6Message),
-                LocaleController.getString("Page7Message", R.string.Page7Message)
+                LocaleController.getString("Page6Message", R.string.Page6Message)
         };
         return true;
     }
@@ -359,8 +357,8 @@ public class IntroActivity extends BaseFragment implements NotificationCenter.No
             destroyed = true;
         });
 
-        bottomPages = new BottomPagesView(context, viewPager, 7);
-        frameContainerView.addView(bottomPages, LayoutHelper.createFrame(77, 7, Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, ICON_HEIGHT_DP + 200, 0, 0));
+        bottomPages = new BottomPagesView(context, viewPager, 6);
+        frameContainerView.addView(bottomPages, LayoutHelper.createFrame(66, 7, Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, ICON_HEIGHT_DP + 200, 0, 0));
 
         switchLanguageTextView = new TextView(context);
         switchLanguageTextView.setGravity(Gravity.CENTER);
