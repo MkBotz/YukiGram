@@ -501,6 +501,16 @@ public class AndroidUtilities {
     }
 
     public static void recycleBitmaps(List<Bitmap> bitmapToRecycle) {
+        if (Build.VERSION.SDK_INT <= 23) {
+            // cause to crash:
+            // /system/lib/libskia.so (SkPixelRef::unlockPixels()+3)
+            // /system/lib/libskia.so (SkBitmap::freePixels()+14)
+            // /system/lib/libskia.so (SkBitmap::setPixelRef(SkPixelRef*, int, int)+50)
+            // /system/lib/libhwui.so (android::uirenderer::ResourceCache::recycleLocked(SkBitmap*)+30)
+            // /system/lib/libhwui.so (android::uirenderer::ResourceCache::recycle(SkBitmap*)+20)
+            // gc recycle it automatically
+            return;
+        }
         if (bitmapToRecycle != null && !bitmapToRecycle.isEmpty()) {
             AndroidUtilities.runOnUIThread(() -> Utilities.globalQueue.postRunnable(() -> {
                 for (int i = 0; i < bitmapToRecycle.size(); i++) {
@@ -513,7 +523,7 @@ public class AndroidUtilities {
                         }
                     }
                 }
-            }), Build.VERSION.SDK_INT <= 23 ? 100 : 36);
+            }), 36);
         }
     }
 
@@ -635,6 +645,11 @@ public class AndroidUtilities {
     private static void gatherLinks(ArrayList<LinkSpec> links, Spannable s, Pattern pattern, String[] schemes, Linkify.MatchFilter matchFilter, boolean internalOnly) {
         if (TextUtils.indexOf(s, '─') >= 0) {
             s = new SpannableStringBuilder(s.toString().replace('─', ' '));
+        }
+        if (!TextUtils.isEmpty(s) && TextUtils.lastIndexOf(s, '_') == s.length() - 1) {
+            //fix infinity loop regex
+            SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(s.toString());
+            s = spannableStringBuilder.replace(s.length() - 1, s.length(), "a");
         }
         Matcher m = pattern.matcher(s);
         while (m.find()) {
@@ -1973,20 +1988,18 @@ public class AndroidUtilities {
             FileLog.d("external dir mounted");
             try {
                 File file;
-                if (Build.VERSION.SDK_INT >= 19) {
-                    File[] dirs = ApplicationLoader.applicationContext.getExternalCacheDirs();
-                    file = dirs[0];
-                    if (!TextUtils.isEmpty(SharedConfig.storageCacheDir)) {
-                        for (int a = 0; a < dirs.length; a++) {
-                            if (dirs[a] != null && dirs[a].getAbsolutePath().startsWith(SharedConfig.storageCacheDir)) {
-                                file = dirs[a];
-                                break;
-                            }
+
+                File[] dirs = ApplicationLoader.applicationContext.getExternalCacheDirs();
+                file = dirs[0];
+                if (!TextUtils.isEmpty(SharedConfig.storageCacheDir)) {
+                    for (int a = 0; a < dirs.length; a++) {
+                        if (dirs[a] != null && dirs[a].getAbsolutePath().startsWith(SharedConfig.storageCacheDir)) {
+                            file = dirs[a];
+                            break;
                         }
                     }
-                } else {
-                    file = ApplicationLoader.applicationContext.getExternalCacheDir();
                 }
+
                 FileLog.d("check dir " + (file == null ? null : file.getPath()) + " ");
                 if (file != null && (file.exists() || file.mkdirs()) && file.canWrite()) {
 //                    boolean canWrite = true;
@@ -4870,6 +4883,13 @@ public class AndroidUtilities {
                         (e.getCause() instanceof ErrnoException &&
                                 ((ErrnoException) e.getCause()).errno == OsConstants.ENOSPC) ||
                         (e.getMessage() != null && e.getMessage().equalsIgnoreCase("no space left on device"))
+        );
+    }
+
+    public static boolean isEROFS(Exception e) {
+        return (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && e instanceof IOException &&
+                (e.getCause() instanceof ErrnoException && ((ErrnoException) e.getCause()).errno == OsConstants.EROFS) ||
+                (e.getMessage() != null && e.getMessage().toLowerCase().contains("read-only file system"))
         );
     }
 

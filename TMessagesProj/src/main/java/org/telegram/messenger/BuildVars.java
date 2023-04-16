@@ -26,11 +26,11 @@ public class BuildVars {
     public static boolean CHECK_UPDATES = false;
     public static boolean IGNORE_VERSION_CHECK = false;
     public static boolean MAGIC_OWL_EXCEPTIONS = false;
-    public static boolean NO_SCOPED_STORAGE = Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q;
+    public static boolean NO_SCOPED_STORAGE = Build.VERSION.SDK_INT <= 29;
     public static int BUILD_VERSION = BuildConfig.BUILD_VERSION;
     public static String BUILD_VERSION_STRING = BuildConfig.BUILD_VERSION_STRING;
-    public static int TELEGRAM_BUILD_VERSION = 3227;
-    public static String TELEGRAM_VERSION_STRING = "9.5.4";
+    public static int TELEGRAM_BUILD_VERSION = 3252;
+    public static String TELEGRAM_VERSION_STRING = "9.5.8";
     public static int APP_ID = 1148749;
     public static String APP_HASH = "7817b661cdd1e3391f8a7e560e3226aa";
 

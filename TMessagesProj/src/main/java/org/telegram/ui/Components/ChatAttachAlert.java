@@ -283,7 +283,7 @@ public class ChatAttachAlert extends BottomSheet implements NotificationCenter.N
 
                     @Override
                     public void onSetupMainButton(boolean isVisible, boolean isActive, String text, int color, int textColor, boolean isProgressVisible) {
-                        if (currentAttachLayout != webViewLayout || !webViewLayout.isBotButtonAvailable()) {
+                        if (currentAttachLayout != webViewLayout || !webViewLayout.isBotButtonAvailable() && startCommand == null) {
                             return;
                         }
                         botMainButtonTextView.setClickable(isActive);

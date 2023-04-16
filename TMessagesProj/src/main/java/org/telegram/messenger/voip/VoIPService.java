@@ -3120,7 +3120,11 @@ public class VoIPService extends Service implements SensorEventListener, AudioMa
 			if (hasAudioFocus) {
 				am.abandonAudioFocus(this);
 			}
-			Utilities.globalQueue.postRunnable(() -> soundPool.release());
+			Utilities.globalQueue.postRunnable(() -> {
+				if (soundPool != null) {
+					soundPool.release();
+				}
+			});
 		}
 
 		if (USE_CONNECTION_SERVICE) {
@@ -3570,6 +3574,7 @@ public class VoIPService extends Service implements SensorEventListener, AudioMa
 		if (!USE_CONNECTION_SERVICE && btAdapter != null && btAdapter.isEnabled()) {
 			try {
 				MediaRouter mr = (MediaRouter) getSystemService(Context.MEDIA_ROUTER_SERVICE);
+				AudioManager am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 				if (Build.VERSION.SDK_INT < 24) {
 					int headsetState = btAdapter.getProfileConnectionState(BluetoothProfile.HEADSET);
 					updateBluetoothHeadsetState(headsetState == BluetoothProfile.STATE_CONNECTED);
@@ -3585,7 +3590,7 @@ public class VoIPService extends Service implements SensorEventListener, AudioMa
 							l.onAudioSettingsChanged();
 						}
 					} else {
-						updateBluetoothHeadsetState(false);
+						updateBluetoothHeadsetState(am.isBluetoothA2dpOn());
 					}
 				}
 			} catch (Throwable e) {

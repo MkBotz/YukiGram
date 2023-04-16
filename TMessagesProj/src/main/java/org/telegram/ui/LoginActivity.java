@@ -1702,9 +1702,9 @@ public class LoginActivity extends BaseFragment {
 
                                         if (obj.optBoolean("basicIntegrity") && obj.optBoolean("ctsProfileMatch")) {
                                             ConnectionsManager.getInstance(currentAccount).sendRequest(req, (response, error) -> {
-                                                needHideProgress(false);
-                                                isRequestingFirebaseSms = false;
                                                 if (response instanceof TLRPC.TL_boolTrue) {
+                                                    needHideProgress(false);
+                                                    isRequestingFirebaseSms = false;
                                                     res.type.verifiedFirebase = true;
                                                     AndroidUtilities.runOnUIThread(() -> fillNextCodeParams(params, res, animate));
                                                 } else {
@@ -3720,17 +3720,6 @@ public class LoginActivity extends BaseFragment {
             wrongCode.setPadding(0, AndroidUtilities.dp(4), 0, AndroidUtilities.dp(4));
             errorViewSwitcher.addView(wrongCode, LayoutHelper.createFrame(LayoutHelper.WRAP_CONTENT, LayoutHelper.WRAP_CONTENT, Gravity.CENTER));
 
-            if (currentType != AUTH_TYPE_FRAGMENT_SMS) {
-                if (currentType == AUTH_TYPE_MESSAGE) {
-                    if (nextType == AUTH_TYPE_FLASH_CALL || nextType == AUTH_TYPE_CALL || nextType == AUTH_TYPE_MISSED_CALL) {
-                        problemText.setText(LocaleController.getString("DidNotGetTheCodePhone", R.string.DidNotGetTheCodePhone));
-                    } else {
-                        problemText.setText(LocaleController.getString("DidNotGetTheCodeSms", R.string.DidNotGetTheCodeSms));
-                    }
-                } else {
-                    problemText.setText(LocaleController.getString("DidNotGetTheCode", R.string.DidNotGetTheCode));
-                }
-            }
             if (centerContainer == null) {
                 bottomContainer = new FrameLayout(context);
                 bottomContainer.addView(errorViewSwitcher, LayoutHelper.createFrame(currentType == VIEW_CODE_FRAGMENT_SMS ? LayoutHelper.MATCH_PARENT : LayoutHelper.WRAP_CONTENT, LayoutHelper.WRAP_CONTENT, Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 0, 0, 32));
@@ -3973,9 +3962,11 @@ public class LoginActivity extends BaseFragment {
             } else if (currentType == AUTH_TYPE_FLASH_CALL) {
                 AndroidUtilities.setWaitingForCall(true);
                 NotificationCenter.getGlobalInstance().addObserver(this, NotificationCenter.didReceiveCall);
-                AndroidUtilities.runOnUIThread(() -> {
-                    CallReceiver.checkLastReceivedCall();
-                });
+                if (restore) {
+                    AndroidUtilities.runOnUIThread(() -> {
+                        CallReceiver.checkLastReceivedCall();
+                    });
+                }
             }
 
             currentParams = params;
@@ -4060,6 +4051,20 @@ public class LoginActivity extends BaseFragment {
             }
             confirmTextView.setText(str);
 
+            if (currentType != AUTH_TYPE_FRAGMENT_SMS) {
+                if (currentType == AUTH_TYPE_MESSAGE) {
+                    if (nextType == AUTH_TYPE_FLASH_CALL || nextType == AUTH_TYPE_CALL || nextType == AUTH_TYPE_MISSED_CALL) {
+                        problemText.setText(LocaleController.getString("DidNotGetTheCodePhone", R.string.DidNotGetTheCodePhone));
+                    } else if (nextType == 0) {
+                        problemText.setText(LocaleController.getString("DidNotGetTheCode", R.string.DidNotGetTheCode));
+                    } else {
+                        problemText.setText(LocaleController.getString("DidNotGetTheCodeSms", R.string.DidNotGetTheCodeSms));
+                    }
+                } else {
+                    problemText.setText(LocaleController.getString("DidNotGetTheCode", R.string.DidNotGetTheCode));
+                }
+            }
+
             if (currentType != AUTH_TYPE_FLASH_CALL) {
                 showKeyboard(codeFieldContainer.codeField[0]);
                 codeFieldContainer.codeField[0].requestFocus();
@@ -4077,21 +4082,23 @@ public class LoginActivity extends BaseFragment {
                 if (problemText != null) {
                     problemText.setVisibility(VISIBLE);
                 }
-            } else if (currentType == AUTH_TYPE_FLASH_CALL && (nextType == AUTH_TYPE_CALL || nextType == AUTH_TYPE_SMS)) {
-                setProblemTextVisible(false);
-                timeText.setVisibility(VISIBLE);
-                problemText.setVisibility(GONE);
-                if (nextType == AUTH_TYPE_CALL || nextType == AUTH_TYPE_MISSED_CALL) {
-                    timeText.setText(LocaleController.formatString("CallAvailableIn", R.string.CallAvailableIn, 1, 0));
-                } else if (nextType == AUTH_TYPE_SMS) {
-                    timeText.setText(LocaleController.formatString("SmsAvailableIn", R.string.SmsAvailableIn, 1, 0));
+            } else if (currentType == AUTH_TYPE_FLASH_CALL) {
+                if (nextType == AUTH_TYPE_CALL || nextType == AUTH_TYPE_SMS || nextType == AUTH_TYPE_MISSED_CALL) {
+                    setProblemTextVisible(false);
+                    timeText.setVisibility(VISIBLE);
+                    problemText.setVisibility(GONE);
+                    if (nextType == AUTH_TYPE_CALL || nextType == AUTH_TYPE_MISSED_CALL) {
+                        timeText.setText(LocaleController.formatString("CallAvailableIn", R.string.CallAvailableIn, 1, 0));
+                    } else if (nextType == AUTH_TYPE_SMS) {
+                        timeText.setText(LocaleController.formatString("SmsAvailableIn", R.string.SmsAvailableIn, 1, 0));
+                    }
                 }
                 String callLogNumber = restore ? AndroidUtilities.obtainLoginPhoneCall(pattern) : null;
                 if (callLogNumber != null) {
                     onNextPressed(callLogNumber);
                 } else if (catchedPhone != null) {
                     onNextPressed(catchedPhone);
-                } else {
+                } else if (nextType == AUTH_TYPE_CALL || nextType == AUTH_TYPE_SMS || nextType == AUTH_TYPE_MISSED_CALL) {
                     createTimer();
                 }
             } else if (currentType == AUTH_TYPE_SMS && (nextType == AUTH_TYPE_CALL || nextType == AUTH_TYPE_FLASH_CALL)) {
@@ -4304,7 +4311,6 @@ public class LoginActivity extends BaseFragment {
                 AndroidUtilities.setWaitingForSms(false);
                 NotificationCenter.getGlobalInstance().removeObserver(this, NotificationCenter.didReceiveSmsCode);
             } else if (currentType == AUTH_TYPE_FLASH_CALL) {
-                AndroidUtilities.setWaitingForCall(false);
                 NotificationCenter.getGlobalInstance().removeObserver(this, NotificationCenter.didReceiveCall);
             }
             waitingForEvent = false;
@@ -4535,6 +4541,9 @@ public class LoginActivity extends BaseFragment {
                                 } else if (currentType == AUTH_TYPE_FLASH_CALL) {
                                     AndroidUtilities.setWaitingForCall(true);
                                     NotificationCenter.getGlobalInstance().addObserver(LoginActivitySmsView.this, NotificationCenter.didReceiveCall);
+                                    AndroidUtilities.runOnUIThread(() -> {
+                                        CallReceiver.checkLastReceivedCall();
+                                    });
                                 }
                                 waitingForEvent = true;
                                 if (currentType != AUTH_TYPE_FLASH_CALL) {
@@ -4568,6 +4577,7 @@ public class LoginActivity extends BaseFragment {
                         if (ok) {
                             if (currentType == AUTH_TYPE_FLASH_CALL) {
                                 AndroidUtilities.endIncomingCall();
+                                AndroidUtilities.setWaitingForCall(false);
                             }
                         }
                     }), ConnectionsManager.RequestFlagFailOnServerErrors | ConnectionsManager.RequestFlagWithoutLogin);
@@ -4579,6 +4589,10 @@ public class LoginActivity extends BaseFragment {
         }
 
         private void animateSuccess(Runnable callback) {
+            if (currentType == AUTH_TYPE_FLASH_CALL) {
+                callback.run();
+                return;
+            }
             for (int i = 0; i < codeFieldContainer.codeField.length; i++) {
                 int finalI = i;
                 codeFieldContainer.postDelayed(()-> codeFieldContainer.codeField[finalI].animateSuccessProgress(1f), i * 75L);
@@ -6150,6 +6164,10 @@ public class LoginActivity extends BaseFragment {
             int hours = (timeRemaining % 86400) / 3600;
             int minutes = ((timeRemaining % 86400) % 3600) / 60;
             int seconds = ((timeRemaining % 86400) % 3600) % 60;
+
+            if (hours >= 16) {
+                days++;
+            }
 
             String time;
             if (days != 0) {
