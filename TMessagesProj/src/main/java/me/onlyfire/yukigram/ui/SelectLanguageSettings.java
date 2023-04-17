@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.telegram.messenger.AndroidUtilities;
+import org.telegram.messenger.LanguageDetector;
 import org.telegram.messenger.LocaleController;
 import org.telegram.messenger.R;
 import org.telegram.ui.ActionBar.ActionBarMenu;
@@ -16,6 +17,7 @@ import org.telegram.ui.Cells.HeaderCell;
 import org.telegram.ui.Cells.TextRadioCell;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import me.onlyfire.yukigram.android.OwlConfig;
 import me.onlyfire.yukigram.android.translator.BaseTranslator;
@@ -88,7 +90,7 @@ public class SelectLanguageSettings extends BaseSettingsActivity {
 
     private BaseTranslator loadLanguages() {
         BaseTranslator translator = Translator.getCurrentTranslator();
-        targetLanguages = new ArrayList<>(translator.getTargetLanguages());
+        targetLanguages = new ArrayList<>(LanguageDetector.SUPPORTED_LANGUAGES);
         names = new ArrayList<>();
         for (String language : targetLanguages) {
             names.add(getLanguage(language));
