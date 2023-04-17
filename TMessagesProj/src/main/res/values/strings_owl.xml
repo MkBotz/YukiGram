@@ -16,6 +16,8 @@
     <string name="SourceCode">View Source Code</string>
     <string name="CopyReportDetails">Copy Report Details</string>
     <string name="CopyReportDetailsDesc">Use when submitting a bug report</string>
+    <string name="SendIssue">Send an issue</string>
+    <string name="SendIssueDesc">Use to send a GitHub issue</string>
     <string name="ReportDetailsCopied">Report details copied to clipboard.</string>
     <string name="ImportSettings">Import Settings</string>
     <string name="ImportSettingsAlert">Are you sure you want to import these settings?</string>

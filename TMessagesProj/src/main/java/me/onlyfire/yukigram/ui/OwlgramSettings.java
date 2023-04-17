@@ -1,6 +1,8 @@
 package me.onlyfire.yukigram.ui;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.View;
 import android.widget.TextView;
 
@@ -41,6 +43,7 @@ public class OwlgramSettings extends BaseSettingsActivity {
     private int sourceCodeRow;
 
     private int bugReportRow;
+    private int submitIssueRow;
 
     @Override
     protected String getActionBarTitle() {
@@ -108,6 +111,9 @@ public class OwlgramSettings extends BaseSettingsActivity {
         } else if (position == bugReportRow) {
             AndroidUtilities.addToClipboard(Crashlytics.getReportMessage() + "\n\n#bug");
             BulletinFactory.of(OwlgramSettings.this).createCopyBulletin(LocaleController.getString("ReportDetailsCopied", R.string.ReportDetailsCopied)).show();
+        } else if (position == submitIssueRow) {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/ImOnlyFire/YukiGram/issues/new"));
+            startActivityForResult(browserIntent, 1);
         }
     }
 
@@ -128,6 +134,7 @@ public class OwlgramSettings extends BaseSettingsActivity {
         infoHeaderRow = rowCount++;
         sourceCodeRow = rowCount++;
         bugReportRow = rowCount++;
+        submitIssueRow = rowCount++;
     }
 
     @Override
@@ -154,6 +161,8 @@ public class OwlgramSettings extends BaseSettingsActivity {
                         textCell.setTextAndIcon(LocaleController.getString("Experimental", R.string.Experimental), R.drawable.outline_science_white, true);
                     } else if (position == appearanceSettingsRow) {
                         textCell.setTextAndIcon(LocaleController.getString("Appearance", R.string.Appearance), R.drawable.settings_appearance, true);
+                    } else if (position == updateSettingsRow) {
+                        textCell.setTextAndIcon(LocaleController.getString("OwlUpdates", R.string.OwlUpdates), R.drawable.round_update_white_28, false);
                     }
                     break;
                 case HEADER:
@@ -172,6 +181,8 @@ public class OwlgramSettings extends BaseSettingsActivity {
                         textDetailCell.setTextAndValueAndIcon(LocaleController.getString("SourceCode", R.string.SourceCode), commitInfo, R.drawable.outline_source_white_28, true);
                     } else if (position == bugReportRow) {
                         textDetailCell.setTextAndValueAndIcon(LocaleController.getString("CopyReportDetails", R.string.CopyReportDetails), LocaleController.getString("CopyReportDetailsDesc", R.string.CopyReportDetailsDesc), R.drawable.bug_report, false);
+                    } else if (position == submitIssueRow) {
+                        textDetailCell.setTextAndValueAndIcon(LocaleController.getString("SendIssue", R.string.SendIssue), LocaleController.getString("SendIssueDesc", R.string.SendIssueDesc), R.drawable.bug_report, false);
                     }
                     break;
             }
@@ -191,7 +202,7 @@ public class OwlgramSettings extends BaseSettingsActivity {
                 return ViewType.TEXT_CELL;
             } else if (position == categoryHeaderRow || position == infoHeaderRow) {
                 return ViewType.HEADER;
-            } else if (position == sourceCodeRow || position == bugReportRow) {
+            } else if (position == sourceCodeRow || position == bugReportRow || position == submitIssueRow) {
                 return ViewType.DETAILED_SETTINGS;
             }
             throw new IllegalArgumentException("Invalid position");
