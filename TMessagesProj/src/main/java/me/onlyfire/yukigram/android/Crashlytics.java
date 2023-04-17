@@ -115,10 +115,7 @@ public class Crashlytics implements Thread.UncaughtExceptionHandler {
                 CameraName = "Unknown";
         }
         String source = StoreUtils.isFromPlayStore() ? "Play Store" : StoreUtils.isFromHuaweiStore() ? "Huawei Store" : "APK";
-        return "Steps to reproduce\n" +
-                "Write here the steps to reproduce\n\n" +
-                "Details\n" +
-                "App Version: " + BuildVars.BUILD_VERSION_STRING + " (" + (BuildVars.DEBUG_PRIVATE_VERSION ? BuildConfig.GIT_COMMIT_HASH:BuildVars.BUILD_VERSION) + ")\n" +
+        return "App Version: " + BuildVars.BUILD_VERSION_STRING + " (" + (BuildVars.DEBUG_PRIVATE_VERSION ? BuildConfig.GIT_COMMIT_HASH : BuildVars.BUILD_VERSION) + ")\n" +
                 "Base Version: " + BuildVars.TELEGRAM_VERSION_STRING + " (" + BuildVars.TELEGRAM_BUILD_VERSION + ")\n" +
                 "Device: " + AndroidUtilities.capitalize(Build.MANUFACTURER) + " " + Build.MODEL + "\n" +
                 "OS Version: " + Build.VERSION.RELEASE + "\n" +
