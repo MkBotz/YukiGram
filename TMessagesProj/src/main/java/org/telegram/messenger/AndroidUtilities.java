@@ -3356,7 +3356,7 @@ public class AndroidUtilities {
         }
         if (f != null && f.exists()) {
             int statusConf = OwlConfig.isValidFileSettings(message);
-            if (parentFragment != null && message.getDocumentName().toLowerCase().endsWith("owl") && statusConf >= OwlConfig.VALID_CONFIGURATION) {
+            if (parentFragment != null && message.getDocumentName().toLowerCase().endsWith("yuki") && statusConf >= OwlConfig.VALID_CONFIGURATION) {
                 if (statusConf == OwlConfig.VALID_CONFIGURATION) {
                     new ImportSettingsDialog(parentFragment, message).checkCanShowDialog();
                 } else {

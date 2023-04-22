@@ -501,7 +501,7 @@ public class SettingsController extends SharedPreferencesHelper {
         Activity activity = fragment.getParentActivity();
         new FileSettingsNameDialog(activity, fileName -> {
             try {
-                File cacheFile = new File(FileLoader.getDirectory(FileLoader.MEDIA_DIR_CACHE), fileName + ".owl");
+                File cacheFile = new File(FileLoader.getDirectory(FileLoader.MEDIA_DIR_CACHE), fileName + ".yuki");
                 if (cacheFile.exists()) {
                     cacheFile.delete();
                 }
