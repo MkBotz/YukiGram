@@ -14298,7 +14298,7 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
                                         return 10;
                                     } else if (mime.endsWith("/xml")) {
                                         return 5;
-                                    } else if (messageObject.getDocumentName().toLowerCase().endsWith("yuki") && OwlConfig.isValidFileSettings(messageObject) >= OwlConfig.VALID_CONFIGURATION) {
+                                    } else if ((messageObject.getDocumentName().toLowerCase().endsWith("yuki") || messageObject.getDocumentName().toLowerCase().endsWith("owl")) && OwlConfig.isValidFileSettings(messageObject) >= OwlConfig.VALID_CONFIGURATION) {
                                         return 207;
                                     } else if (!messageObject.isNewGif() && mime.endsWith("/mp4") || mime.endsWith("/png") || mime.endsWith("/jpg") || mime.endsWith("/jpeg")) {
                                         return 6;
