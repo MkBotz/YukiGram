@@ -26,6 +26,7 @@ import org.telegram.messenger.time.FastDateFormat;
 import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.TLObject;
 import org.telegram.tgnet.TLRPC;
+import org.telegram.ui.RestrictedLanguagesSelectActivity;
 import org.xmlpull.v1.XmlPullParser;
 
 import java.io.BufferedWriter;
@@ -1069,6 +1070,7 @@ public class LocaleController {
                 } else {
                     NotificationCenter.getGlobalInstance().postNotificationName(NotificationCenter.reloadInterface);
                 }
+                RestrictedLanguagesSelectActivity.invalidateRestrictedLanguages();
                 if (onDone != null) {
                     onDone.run();
                 }
@@ -1199,7 +1201,7 @@ public class LocaleController {
             }
             String param = getInstance().stringForQuantity(getInstance().currentPluralRules.quantityForNumber(plural));
             param = key + "_" + param;
-            StringBuilder stringBuilder = new StringBuilder(String.format(Locale.US, "%d", plural));
+            StringBuilder stringBuilder = new StringBuilder(String.format("%d", plural));
             for (int a = stringBuilder.length() - 3; a > 0; a -= 3) {
                 stringBuilder.insert(a, symbol);
             }
@@ -2332,6 +2334,8 @@ public class LocaleController {
                         config.locale = currentLocale;
                         ApplicationLoader.applicationContext.getResources().updateConfiguration(config, ApplicationLoader.applicationContext.getResources().getDisplayMetrics());
                         changingConfiguration = false;
+
+                        RestrictedLanguagesSelectActivity.invalidateRestrictedLanguages();
                     } else {
                         FileLog.d("saveRemoteLocaleStrings: currentLocaleInfo != localeInfo, do nothing");
                     }

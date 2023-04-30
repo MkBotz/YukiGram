@@ -50,6 +50,17 @@ public class FileLoadOperation {
         this.stream = stream;
         this.streamOffset = streamOffset;
         this.streamPriority = streamPriority;
+        Utilities.stageQueue.postRunnable(() -> {
+            if (streamListeners == null) {
+                streamListeners = new ArrayList<>();
+            }
+            if (stream != null && !streamListeners.contains(stream)) {
+                streamListeners.add(stream);
+            }
+            if (stream != null && state != stateDownloading && state != stateIdle) {
+                stream.newDataAvailable();
+            }
+        });
     }
 
     public int getPositionInQueue() {
@@ -614,6 +625,14 @@ public class FileLoadOperation {
         return result[0];
     }
 
+    protected File getCurrentFileFast() {
+        if (state == stateFinished) {
+            return cacheFileFinal;
+        } else {
+            return cacheFileTemp;
+        }
+    }
+
     private long getDownloadedLengthFromOffsetInternal(ArrayList<Range> ranges, final long offset, final long length) {
         if (ranges == null || state == stateFinished || ranges.isEmpty()) {
             if (state == stateFinished) {
@@ -747,7 +766,6 @@ public class FileLoadOperation {
                 } else {
                     streamStartOffset = streamOffset / currentDownloadChunkSize * currentDownloadChunkSize;
                 }
-                streamListeners.add(stream);
                 if (alreadyStarted) {
                     if (preloadedBytesRanges != null && getDownloadedLengthFromOffsetInternal(notLoadedBytesRanges, streamStartOffset, 1) == 0) {
                         if (preloadedBytesRanges.get(streamStartOffset) != null) {
@@ -1428,6 +1446,16 @@ public class FileLoadOperation {
                                 FileLog.e(e);
                             }
                         }
+                        if (!renameResult && renameRetryCount == 3) {
+                            try {
+                                renameResult = AndroidUtilities.copyFile(cacheFileTempLocal, cacheFileFinal);
+                                if (renameResult) {
+                                    cacheFileFinal.delete();
+                                }
+                            } catch (Throwable e) {
+                                FileLog.e(e);
+                            }
+                        }
                         if (!renameResult) {
                             if (BuildVars.LOGS_ENABLED) {
                                 FileLog.e("unable to rename temp = " + cacheFileTempLocal + " to final = " + cacheFileFinal + " retry = " + renameRetryCount);
@@ -1887,11 +1915,19 @@ public class FileLoadOperation {
                     FileLog.d("failed downloading file to " + cacheFileFinal + " reason = " + reason + " time = " + time + " dc = " + datacenterId + " size = " + AndroidUtilities.formatFileSize(totalBytesCount));
                 }
             }
-            if (thread) {
-                Utilities.stageQueue.postRunnable(() -> delegate.didFailedLoadingFile(FileLoadOperation.this, reason));
-            } else {
+        }
+        if (thread) {
+            Utilities.stageQueue.postRunnable(() -> {
+                if (delegate != null) {
+                    delegate.didFailedLoadingFile(FileLoadOperation.this, reason);
+                }
+                notifyStreamListeners();
+            });
+        } else {
+            if (delegate != null) {
                 delegate.didFailedLoadingFile(FileLoadOperation.this, reason);
             }
+            notifyStreamListeners();
         }
     }
 
@@ -2246,7 +2282,7 @@ public class FileLoadOperation {
                 }
             }, null, null, flags, datacenterId, connectionType, isLast);
             if (BuildVars.LOGS_ENABLED) {
-                FileLog.d("debug_loading: " + cacheFileFinal.getName() + " send reqId " + requestInfo.requestToken);
+                FileLog.d("debug_loading: " + cacheFileFinal.getName() + " dc=" + datacenterId + " send reqId " + requestInfo.requestToken);
             }
             requestsCount++;
         }

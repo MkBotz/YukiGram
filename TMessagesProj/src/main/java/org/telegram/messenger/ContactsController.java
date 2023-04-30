@@ -8,6 +8,7 @@
 
 package org.telegram.messenger;
 
+import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.ContentProviderOperation;
@@ -28,10 +29,9 @@ import android.util.SparseArray;
 
 import androidx.collection.LongSparseArray;
 
-import com.google.android.exoplayer2.util.Log;
-
 import org.telegram.PhoneFormat.PhoneFormat;
 import org.telegram.tgnet.ConnectionsManager;
+import org.telegram.tgnet.TLObject;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.Components.Bulletin;
 
@@ -1969,12 +1969,19 @@ public class ContactsController extends BaseController {
         return true;
     }
 
+    private boolean hasContactsWritePermission() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            return ApplicationLoader.applicationContext.checkSelfPermission(Manifest.permission.WRITE_CONTACTS) == PackageManager.PERMISSION_GRANTED;
+        }
+        return true;
+    }
+
     private void performWriteContactsToPhoneBookInternal(ArrayList<TLRPC.TL_contact> contactsArray) {
         Cursor cursor = null;
         long time = System.currentTimeMillis();
         try {
             Account account = systemAccount;
-            if (!hasContactsPermission() || account == null) {
+            if (!hasContactsPermission() || account == null || !hasContactsWritePermission()) {
                 return;
             }
             final SharedPreferences settings = MessagesController.getMainSettings(currentAccount);
@@ -2814,6 +2821,17 @@ public class ContactsController extends BaseController {
             //resolver.delete(ContactsContract.Groups.CONTENT_URI, ContactsContract.Groups._ID+"=?", new String[]{groupID+""});
         } catch (Exception x) {
             FileLog.e(x);
+        }
+    }
+
+    public static String formatName(TLObject object) {
+        if (object instanceof TLRPC.User) {
+            return formatName((TLRPC.User) object);
+        } else if (object instanceof TLRPC.Chat) {
+            TLRPC.Chat chat = (TLRPC.Chat) object;
+            return chat.title;
+        } else {
+            return "DELETED";
         }
     }
 

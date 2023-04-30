@@ -72,6 +72,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
 
 import com.google.android.exoplayer2.ExoPlayer;
+import com.google.android.exoplayer2.util.Log;
 
 import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.ApplicationLoader;
@@ -2002,6 +2003,7 @@ public class InstantCameraView extends FrameLayout implements NotificationCenter
             handler.sendMessage(handler.obtainMessage(MSG_STOP_RECORDING, send, 0));
         }
 
+        long prevTimestamp;
         public void frameAvailable(SurfaceTexture st, Integer cameraId, long timestampInternal) {
             synchronized (sync) {
                 if (!ready) {
@@ -2023,7 +2025,7 @@ public class InstantCameraView extends FrameLayout implements NotificationCenter
             } else {
                 zeroTimeStamps = 0;
             }
-
+            prevTimestamp = timestamp;
             handler.sendMessage(handler.obtainMessage(MSG_VIDEOFRAME_AVAILABLE, (int) (timestamp >> 32), (int) timestamp, cameraId));
         }
 
@@ -2123,9 +2125,15 @@ public class InstantCameraView extends FrameLayout implements NotificationCenter
                         long startWriteTime = input.offset[input.lastWroteBuffer];
                         for (int a = input.lastWroteBuffer; a <= input.results; a++) {
                             if (a < input.results) {
-                                if (!running && input.offset[a] >= videoLast - desyncTime) {
+                                long totalTime = input.offset[a] - audioStartTime;
+                                if (!running && (input.offset[a] >= videoLast - desyncTime || totalTime >= 60_000000)) {
                                     if (BuildVars.LOGS_ENABLED) {
-                                        FileLog.d("stop audio encoding because of stoped video recording at " + input.offset[a] + " last video " + videoLast);
+                                        if (totalTime >= 60_000000) {
+                                            FileLog.d("stop audio encoding because recorded time more than 60s");
+                                        } else {
+                                            FileLog.d("stop audio encoding because of stoped video recording at " + input.offset[a] + " last video " + videoLast);
+                                        }
+
                                     }
                                     audioStopedByTime = true;
                                     isLast = true;
@@ -2170,7 +2178,9 @@ public class InstantCameraView extends FrameLayout implements NotificationCenter
             }
             long dt, alphaDt;
             if (!lastCameraId.equals(cameraId)) {
-                lastTimestamp = -1;
+                if (timestampNanos - lastTimestamp > 10_000) {
+                    lastTimestamp = -1;
+                }
                 lastCameraId = cameraId;
             }
             if (lastTimestamp == -1) {
@@ -2827,7 +2837,7 @@ public class InstantCameraView extends FrameLayout implements NotificationCenter
     }
 
     private String createFragmentShader(Size previewSize) {
-        if (!allowBigSizeCamera() || Math.max(previewSize.getHeight(), previewSize.getWidth()) * 0.7f < MessagesController.getInstance(currentAccount).roundVideoSize) {
+        if (!SharedConfig.deviceIsHigh() || !allowBigSizeCamera() || Math.max(previewSize.getHeight(), previewSize.getWidth()) * 0.7f < MessagesController.getInstance(currentAccount).roundVideoSize) {
             return "#extension GL_OES_EGL_image_external : require\n" +
                     "precision highp float;\n" +
                     "varying vec2 vTextureCoord;\n" +

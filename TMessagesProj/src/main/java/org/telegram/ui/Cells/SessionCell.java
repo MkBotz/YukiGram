@@ -295,7 +295,7 @@ public class SessionCell extends FrameLayout {
         }
         String deviceModel = session.device_model.toLowerCase();
         int iconId;
-        String colorKey = null, colorKey2 = null;
+        int colorKey = null, colorKey2 = null;
         int colorValue = 0;
         if (deviceModel.contains("safari")) {
             iconId = R.drawable.device_web_safari;
