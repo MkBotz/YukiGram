@@ -9,7 +9,7 @@ import org.telegram.ui.ActionBar.Theme;
 import me.onlyfire.yukigram.android.OwlConfig;
 
 public class ButtonCell {
-    public static BaseButtonCell getCurrentButtonCell(Context context, Theme.ResourcesProvider resourcesProvider, String text, int iconId, String color) {
+    public static BaseButtonCell getCurrentButtonCell(Context context, Theme.ResourcesProvider resourcesProvider, String text, int iconId, int color) {
         switch (OwlConfig.buttonStyleType) {
             case 1:
                 return new RoundedButtonCell(context, resourcesProvider, text, iconId, color);

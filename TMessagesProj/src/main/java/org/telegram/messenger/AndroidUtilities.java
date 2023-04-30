@@ -5238,6 +5238,25 @@ public class AndroidUtilities {
         return null;
     }
 
+    public static Spanned fromHtml(@NonNull String source) {
+        return fromHtml(source, null);
+    }
+    public static Spanned fromHtml(@NonNull String source, Html.TagHandler tagHandler) {
+        return HtmlCompat.fromHtml(source, HtmlCompat.FROM_HTML_MODE_LEGACY,null, tagHandler);
+    }
+
+    public static InputStream decompressStream(InputStream input) throws IOException {
+        PushbackInputStream pb = new PushbackInputStream(input, 2);
+        byte[] signature = new byte[2];
+        int len = pb.read(signature);
+        pb.unread(signature, 0, len);
+        if (signature[0] == (byte) 0x1f && signature[1] == (byte) 0x8b) {
+            return new GZIPInputStream(pb);
+        } else {
+            return pb;
+        }
+    }
+
     public static boolean isActivityRunning(Activity activity) {
         if (activity == null) {
             return false;

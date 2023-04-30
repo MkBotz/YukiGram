@@ -183,7 +183,7 @@ public class CustomEmojiController {
     }
 
     public static void loadEmojisInfo() {
-        loadEmojisInfo(() -> NotificationCenter.getGlobalInstance().postNotificationName(NotificationCenter.emojiPacksLoaded));
+        loadEmojisInfo(() -> NotificationCenter.getGlobalInstance().postNotificationName(NotificationCenter.emojiLoaded));
     }
 
     private static void invalidateCache(boolean isRemotePack) {

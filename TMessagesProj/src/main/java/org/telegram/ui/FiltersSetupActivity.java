@@ -74,24 +74,6 @@ public class FiltersSetupActivity extends BaseFragment implements NotificationCe
     private UndoView undoView;
 
     private boolean orderChanged;
-    private boolean showAllChats;
-
-    private int filterHelpRow;
-    private int folderStyleHeaderRow;
-    private int folderStyleTitlesRow;
-    private int folderStyleEmojiTitlesRow;
-    private int folderStyleEmojiRow;
-    private int folderStyleSectionRow;
-    private int recommendedHeaderRow;
-    private int recommendedStartRow;
-    private int recommendedEndRow;
-    private int recommendedSectionRow;
-    private int filtersHeaderRow;
-    private int filtersStartRow;
-    private int filtersEndRow;
-    private int createFilterRow;
-    private int createSectionRow;
-    private int rowCount = 0;
 
     private boolean ignoreUpdates;
 
@@ -321,10 +303,10 @@ public class FiltersSetupActivity extends BaseFragment implements NotificationCe
             shareLoadingDrawable.setGradientScale(2f);
             int selector = Theme.getColor(Theme.key_listSelector);
             shareLoadingDrawable.setColors(
-                Theme.multAlpha(selector, 0.4f),
-                Theme.multAlpha(selector, 1),
-                Theme.multAlpha(selector, 0.9f),
-                Theme.multAlpha(selector, 1.7f)
+                    Theme.multAlpha(selector, 0.4f),
+                    Theme.multAlpha(selector, 1),
+                    Theme.multAlpha(selector, 0.9f),
+                    Theme.multAlpha(selector, 1.7f)
             );
             int stroke = AndroidUtilities.dp(1);
             shareLoadingDrawable.strokePaint.setStrokeWidth(stroke);
@@ -514,31 +496,24 @@ public class FiltersSetupActivity extends BaseFragment implements NotificationCe
         items.clear();
 
         ArrayList<TLRPC.TL_dialogFilterSuggested> suggestedFilters = getMessagesController().suggestedFilters;
-        rowCount = 0;
-        filterHelpRow = rowCount++;
-        folderStyleHeaderRow = rowCount++;
-        folderStyleTitlesRow = rowCount++;
-        folderStyleEmojiRow = rowCount++;
-        folderStyleEmojiTitlesRow = rowCount++;
-        folderStyleSectionRow = rowCount++;
-        int count = getMessagesController().dialogFilters.size();
-        showAllChats = true;
-        if (!suggestedFilters.isEmpty() && count < 10) {
-            recommendedHeaderRow = rowCount++;
-            recommendedStartRow = rowCount;
-            rowCount += suggestedFilters.size();
-            recommendedEndRow = rowCount;
-            recommendedSectionRow = rowCount++;
+        ArrayList<MessagesController.DialogFilter> dialogFilters = getMessagesController().getDialogFilters();
+        items.add(ItemInner.asHint());
+
+        // YukiGram - START
+        items.add(ItemInner.asHeader(LocaleController.getString("FoldersType", R.string.FoldersType)));
+        items.add(ItemInner.asRadio(LocaleController.getString("FoldersTypeTitles", R.string.FoldersTypeTitles), OwlConfig.tabMode == OwlConfig.TAB_TYPE_TEXT, true));
+        items.add(ItemInner.asRadio(LocaleController.getString("FoldersTypeIcons", R.string.FoldersTypeIcons), OwlConfig.tabMode == OwlConfig.TAB_TYPE_ICON, true));
+        items.add(ItemInner.asRadio(LocaleController.getString("FoldersTypeIconsTitles", R.string.FoldersTypeIconsTitles), OwlConfig.tabMode == OwlConfig.TAB_TYPE_MIX, true));
+        items.add(ItemInner.asShadow(null));
+        // YukiGram - END
+
+        if (!suggestedFilters.isEmpty() && dialogFilters.size() < 10) {
+            items.add(ItemInner.asHeader(LocaleController.getString("FilterRecommended", R.string.FilterRecommended)));
+            for (int i = 0; i < suggestedFilters.size(); ++i) {
+                items.add(ItemInner.asSuggested(suggestedFilters.get(i)));
+            }
+            items.add(ItemInner.asShadow(null));
         }
-//        ArrayList<MessagesController.DialogFilter> dialogFilters = getMessagesController().getDialogFilters();
-//        items.add(ItemInner.asHint());
-//        if (!suggestedFilters.isEmpty() && dialogFilters.size() < 10) {
-//            items.add(ItemInner.asHeader(LocaleController.getString("FilterRecommended", R.string.FilterRecommended)));
-//            for (int i = 0; i < suggestedFilters.size(); ++i) {
-//                items.add(ItemInner.asSuggested(suggestedFilters.get(i)));
-//            }
-//            items.add(ItemInner.asShadow(null));
-//        }
         if (!dialogFilters.isEmpty()) {
             filtersSectionStart = items.size();
             items.add(ItemInner.asHeader(LocaleController.getString("Filters", R.string.Filters)));
@@ -633,11 +608,18 @@ public class FiltersSetupActivity extends BaseFragment implements NotificationCe
         frameLayout.addView(listView, LayoutHelper.createFrame(LayoutHelper.MATCH_PARENT, LayoutHelper.MATCH_PARENT));
         listView.setAdapter(adapter = new ListAdapter(context));
         listView.setOnItemClickListener((view, position, x, y) -> {
-            if (position == folderStyleTitlesRow || position == folderStyleEmojiRow || position == folderStyleEmojiTitlesRow) {
+            if (position < 0 || position >= items.size()) {
+                return;
+            }
+            ItemInner item = items.get(position);
+            if (item == null) {
+                return;
+            }
+            if (item.viewType == VIEW_TYPE_RADIO) {
                 int oldRow = getCurrentSelectedStylePosition();
-                if (position == folderStyleTitlesRow) {
+                if (position == 2) {
                     OwlConfig.setTabMode(0);
-                } else if (position == folderStyleEmojiRow) {
+                } else if (position == 3) {
                     OwlConfig.setTabMode(2);
                 } else {
                     OwlConfig.setTabMode(1);
@@ -649,12 +631,6 @@ public class FiltersSetupActivity extends BaseFragment implements NotificationCe
                 ignoreUpdates = true;
                 getNotificationCenter().postNotificationName(NotificationCenter.dialogFiltersUpdated);
                 ignoreUpdates = false;
-            } else if (position < 0 || position >= items.size()) {
-                return;
-            }
-            ItemInner item = items.get(position);
-            if (item == null) {
-                return;
             }
             if (item.viewType == VIEW_TYPE_FILTER) {
                 MessagesController.DialogFilter filter = item.filter;
@@ -669,8 +645,8 @@ public class FiltersSetupActivity extends BaseFragment implements NotificationCe
             } else if (item.viewType == VIEW_TYPE_BUTTON) {
                 final int count = getMessagesController().getDialogFilters().size();
                 if (
-                    count - 1 >= getMessagesController().dialogFiltersLimitDefault && !getUserConfig().isPremium() ||
-                    count >= getMessagesController().dialogFiltersLimitPremium
+                        count - 1 >= getMessagesController().dialogFiltersLimitDefault && !getUserConfig().isPremium() ||
+                                count >= getMessagesController().dialogFiltersLimitPremium
                 ) {
                     showDialog(new LimitReachedBottomSheet(this, context, LimitReachedBottomSheet.TYPE_FOLDERS, currentAccount));
                 } else {
@@ -685,12 +661,12 @@ public class FiltersSetupActivity extends BaseFragment implements NotificationCe
     private int getCurrentSelectedStylePosition() {
         switch (OwlConfig.tabMode) {
             case 0:
-                return folderStyleTitlesRow;
+                return 2;
             case 1:
-                return folderStyleEmojiTitlesRow;
+                return 3;
             case 2:
             default:
-                return folderStyleEmojiRow;
+                return 4;
         }
     }
 
@@ -714,6 +690,9 @@ public class FiltersSetupActivity extends BaseFragment implements NotificationCe
 
     @Override
     public void didReceivedNotification(int id, int account, Object... args) {
+        if (ignoreUpdates) {
+            return;
+        }
         if (id == NotificationCenter.dialogFiltersUpdated) {
             if (ignoreUpdates) {
                 return;
@@ -730,6 +709,7 @@ public class FiltersSetupActivity extends BaseFragment implements NotificationCe
     private static final int VIEW_TYPE_SHADOW = 3;
     private static final int VIEW_TYPE_BUTTON = 4;
     private static final int VIEW_TYPE_FILTER_SUGGESTION = 5;
+    private static final int VIEW_TYPE_RADIO = 6;
 
     private static class ItemInner extends AdapterWithDiffUtils.Item {
         public ItemInner(int viewType) {
@@ -737,6 +717,7 @@ public class FiltersSetupActivity extends BaseFragment implements NotificationCe
         }
 
         CharSequence text;
+        boolean checked, divider;
         MessagesController.DialogFilter filter;
         TLRPC.TL_dialogFilterSuggested suggested;
 
@@ -761,6 +742,13 @@ public class FiltersSetupActivity extends BaseFragment implements NotificationCe
         public static ItemInner asButton(CharSequence text) {
             ItemInner i = new ItemInner(VIEW_TYPE_BUTTON);
             i.text = text;
+            return i;
+        }
+        public static ItemInner asRadio(CharSequence text, boolean checked, boolean divider) {
+            ItemInner i = new ItemInner(VIEW_TYPE_RADIO);
+            i.text = text;
+            i.divider = divider;
+            i.checked = checked;
             return i;
         }
         public static ItemInner asSuggested(TLRPC.TL_dialogFilterSuggested suggested) {
@@ -912,7 +900,7 @@ public class FiltersSetupActivity extends BaseFragment implements NotificationCe
                     view = new TextCell(mContext);
                     view.setBackgroundColor(Theme.getColor(Theme.key_windowBackgroundWhite));
                     break;
-                case 6:
+                case VIEW_TYPE_RADIO:
                     view = new RadioCell(mContext);
                     view.setBackgroundColor(Theme.getColor(Theme.key_windowBackgroundWhite));
                     break;
@@ -971,8 +959,7 @@ public class FiltersSetupActivity extends BaseFragment implements NotificationCe
                             filter.flags |= MessagesController.DIALOG_FILTER_FLAG_EXCLUDE_MUTED;
                         }
                         filter.emoticon = FolderIconController.getEmoticonData(filter.flags)[1];
-                        //ignoreUpdates = true;
-                        FilterCreateActivity.saveFilterToServer(filter, filter.flags, filter.name, filter.alwaysShow, filter.neverShow, filter.pinnedDialogs, true, true, true, true, true, FiltersSetupActivity.this, () -> {
+                        FilterCreateActivity.saveFilterToServer(filter, filter.flags, filter.emoticon, filter.name, filter.alwaysShow, filter.neverShow, filter.pinnedDialogs, true, true, true, true, true, FiltersSetupActivity.this, () -> {
                             getMessagesController().suggestedFilters.remove(suggested);
                             getNotificationCenter().postNotificationName(NotificationCenter.dialogFiltersUpdated);
                         });
@@ -1022,15 +1009,9 @@ public class FiltersSetupActivity extends BaseFragment implements NotificationCe
                     filterCell.setFilter(item.suggested, divider);
                     break;
                 }
-                case 6: {
+                case VIEW_TYPE_RADIO: {
                     RadioCell radioCell = (RadioCell) holder.itemView;
-                    if (position == folderStyleTitlesRow) {
-                        radioCell.setText(LocaleController.getString("FoldersTypeTitles", R.string.FoldersTypeTitles), OwlConfig.tabMode == OwlConfig.TAB_TYPE_TEXT, true);
-                    } else if (position == folderStyleEmojiRow) {
-                        radioCell.setText(LocaleController.getString("FoldersTypeIcons", R.string.FoldersTypeIcons), OwlConfig.tabMode == OwlConfig.TAB_TYPE_ICON, true);
-                    } else if (position == folderStyleEmojiTitlesRow) {
-                        radioCell.setText(LocaleController.getString("FoldersTypeIconsTitles", R.string.FoldersTypeIconsTitles), OwlConfig.tabMode == OwlConfig.TAB_TYPE_MIX, true);
-                    }
+                    radioCell.setText(item.text.toString(), item.checked, item.divider);
                     break;
                 }
             }

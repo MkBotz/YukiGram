@@ -2807,7 +2807,7 @@ public class DialogsActivity extends BaseFragment implements NotificationCenter.
         });
 
         if (
-            (initialDialogsType == DIALOGS_TYPE_FORWARD && OwlConfig.showFolderWhenForward) || initialDialogsType == DIALOGS_TYPE_DEFAULT && !onlySelect || initialDialogsType == DIALOGS_TYPE_FORWARD) &&
+            (initialDialogsType == DIALOGS_TYPE_FORWARD && OwlConfig.showFolderWhenForward) || initialDialogsType == DIALOGS_TYPE_DEFAULT && !onlySelect || initialDialogsType == DIALOGS_TYPE_FORWARD &&
             folderId == 0 && TextUtils.isEmpty(searchString)
         ) {
             filterTabsView = new FilterTabsView(context) {

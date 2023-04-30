@@ -2572,12 +2572,23 @@ public class MessageObject {
         return true;
     }
 
+    public boolean isDoneTranslation() {
+        TranslateController translateController = MessagesController.getInstance(currentAccount).getTranslateController();
+        return TranslateController.isTranslatable(this, true) &&
+                translateController.isGeneralTranslating(this) &&
+                !translateController.isHiddenTranslation(this) &&
+                messageOwner != null &&
+                (!DoNotTranslateSettings.getRestrictedLanguages().contains(messageOwner.originalLanguage) || translateController.isManualTranslation(this)) &&
+                (messageOwner.translatedText != null || messageOwner.translatedPoll != null) &&
+                TranslateController.isValidTranslation(messageOwner);
+    }
+
     public boolean updateTranslation(boolean force) {
         boolean replyUpdated = replyMessageObject != null && replyMessageObject.updateTranslation(force);
         TranslateController translateController = MessagesController.getInstance(currentAccount).getTranslateController();
         if (
             TranslateController.isTranslatable(this) &&
-            translateController.isTranslatingDialog(getDialogId()) &&
+            translateController.isTranslatingDialog(getDialogId(), getTopicId(messageOwner)) &&
             messageOwner != null &&
             messageOwner.translatedText != null &&
             TextUtils.equals(translateController.getDialogTranslateTo(getDialogId()), messageOwner.translatedToLanguage)

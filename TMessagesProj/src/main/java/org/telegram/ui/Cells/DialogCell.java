@@ -519,7 +519,8 @@ public class DialogCell extends BaseCell {
 
         if (needCheck) {
             checkBox = new CheckBox2(context, 21, resourcesProvider);
-            checkBox.setColor(null, Theme.key_windowBackgroundWhite, Theme.key_checkboxCheck);
+            // todo test
+            checkBox.setColor(0, Theme.key_windowBackgroundWhite, Theme.key_checkboxCheck);
             checkBox.setDrawUnchecked(false);
             checkBox.setDrawBackgroundAsArc(3);
             addView(checkBox);
@@ -4913,7 +4914,7 @@ public class DialogCell extends BaseCell {
             }
             int draftHash = draftMessage == null ? 0 : draftMessage.message.hashCode() + (draftMessage.reply_to_msg_id << 16);
             boolean hasCall = chat != null && chat.call_active && chat.call_not_empty;
-            boolean translated = MessagesController.getInstance(currentAccount).getTranslateController().isTranslatingDialog(currentDialogId);
+            boolean translated = MessagesController.getInstance(currentAccount).getTranslateController().isTranslatingDialog(currentDialogId, getTopicId());
             if (lastDrawnSizeHash == sizeHash &&
                     lastDrawnMessageId == messageHash &&
                     lastDrawnTranslated == translated &&

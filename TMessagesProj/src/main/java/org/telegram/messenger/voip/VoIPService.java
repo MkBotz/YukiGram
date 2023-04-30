@@ -4125,9 +4125,10 @@ public class VoIPService extends Service implements SensorEventListener, AudioMa
 				}
 			}
 		}
+
 		Notification incomingNotification;
+		Bitmap avatar = getRoundAvatarBitmap(userOrChat);
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-			Bitmap avatar = getRoundAvatarBitmap(userOrChat);
 			String presonName = ContactsController.formatName(userOrChat);
 			if (TextUtils.isEmpty(presonName)) {
 				//java.lang.IllegalArgumentException: person must have a non-empty a name
@@ -4168,7 +4169,7 @@ public class VoIPService extends Service implements SensorEventListener, AudioMa
 			builder.addAction(R.drawable.ic_call, answerTitle, answerPendingIntent);
 			incomingNotification = builder.getNotification();
 		}
-		startForeground(ID_INCOMING_CALL_NOTIFICATION, notification);
+		startForeground(ID_INCOMING_CALL_NOTIFICATION, incomingNotification);
 		startRingtoneAndVibration();
 	}
 

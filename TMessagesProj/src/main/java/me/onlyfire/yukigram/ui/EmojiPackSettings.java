@@ -243,7 +243,7 @@ public class EmojiPackSettings extends BaseSettingsActivity implements Notificat
 
     @Override
     public boolean onFragmentCreate() {
-        NotificationCenter.getGlobalInstance().addObserver(this, NotificationCenter.emojiPacksLoaded);
+        NotificationCenter.getGlobalInstance().addObserver(this, NotificationCenter.emojiLoaded);
         CustomEmojiController.loadEmojisInfo();
         return super.onFragmentCreate();
     }
@@ -251,7 +251,7 @@ public class EmojiPackSettings extends BaseSettingsActivity implements Notificat
     @Override
     public void onFragmentDestroy() {
         super.onFragmentDestroy();
-        NotificationCenter.getGlobalInstance().removeObserver(this, NotificationCenter.emojiPacksLoaded);
+        NotificationCenter.getGlobalInstance().removeObserver(this, NotificationCenter.emojiLoaded);
     }
 
     @Override
@@ -306,7 +306,7 @@ public class EmojiPackSettings extends BaseSettingsActivity implements Notificat
 
     @Override
     public void didReceivedNotification(int id, int account, Object... args) {
-        if (id == NotificationCenter.emojiPacksLoaded) {
+        if (id == NotificationCenter.emojiLoaded) {
             if (CustomEmojiController.getLoadingStatus() == CustomEmojiController.FAILED) {
                 AndroidUtilities.runOnUIThread(CustomEmojiController::loadEmojisInfo, 1000);
             } else {

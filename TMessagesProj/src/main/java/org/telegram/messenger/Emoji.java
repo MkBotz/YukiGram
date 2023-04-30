@@ -162,31 +162,12 @@ public class Emoji {
 
             Bitmap bitmap = null;
             try {
-                if (OwlConfig.useSystemEmoji || isSelectedCustomEmojiPack) {
-                    int emojiSize = 66;
-                    bitmap = Bitmap.createBitmap(emojiSize, emojiSize, Bitmap.Config.ARGB_8888);
-                    Canvas canvas = new Canvas(bitmap);
-                    CustomEmojiController.drawEmojiFont(
-                            canvas,
-                            0,
-                            0,
-                            CustomEmojiController.getCurrentTypeface(),
-                            fixEmoji(EmojiData.data[page][page2]),
-                            emojiSize
-                    );
-                } else {
-                    InputStream is;
-                    if (isSelectedEmojiPack) {
-                        is = new FileInputStream(new File(emojiFile, String.format(Locale.US, "%d_%d.png", page, page2)));
-                    } else {
-                        is = ApplicationLoader.applicationContext.getAssets().open(path);
-                    }
-                    BitmapFactory.Options opts = new BitmapFactory.Options();
-                    opts.inJustDecodeBounds = false;
-                    opts.inSampleSize = imageResize;
-                    bitmap = BitmapFactory.decodeStream(is, null, opts);
-                    is.close();
-                }
+                InputStream is = ApplicationLoader.applicationContext.getAssets().open(path);
+                BitmapFactory.Options opts = new BitmapFactory.Options();
+                opts.inJustDecodeBounds = false;
+                opts.inSampleSize = imageResize;
+                bitmap = BitmapFactory.decodeStream(is, null, opts);
+                is.close();
             } catch (Throwable e) {
                 FileLog.e(e);
             }
@@ -198,6 +179,55 @@ public class Emoji {
         }
         return null;
     }
+
+    // TODO fix
+//    public static Bitmap loadBitmap(String path) {
+//        try {
+//            int imageResize;
+//            if (AndroidUtilities.density <= 1.0f) {
+//                imageResize = 2;
+//            } else {
+//                imageResize = 1;
+//            }
+//
+//            Bitmap bitmap = null;
+//            try {
+//                if (OwlConfig.useSystemEmoji || isSelectedCustomEmojiPack) {
+//                    int emojiSize = 66;
+//                    bitmap = Bitmap.createBitmap(emojiSize, emojiSize, Bitmap.Config.ARGB_8888);
+//                    Canvas canvas = new Canvas(bitmap);
+//                    CustomEmojiController.drawEmojiFont(
+//                            canvas,
+//                            0,
+//                            0,
+//                            CustomEmojiController.getCurrentTypeface(),
+//                            fixEmoji(EmojiData.data[page][page2]),
+//                            emojiSize
+//                    );
+//                } else {
+//                    InputStream is;
+//                    if (isSelectedEmojiPack) {
+//                        is = new FileInputStream(new File(emojiFile, String.format(Locale.US, "%d_%d.png", page, page2)));
+//                    } else {
+//                        is = ApplicationLoader.applicationContext.getAssets().open(path);
+//                    }
+//                    BitmapFactory.Options opts = new BitmapFactory.Options();
+//                    opts.inJustDecodeBounds = false;
+//                    opts.inSampleSize = imageResize;
+//                    bitmap = BitmapFactory.decodeStream(is, null, opts);
+//                    is.close();
+//                }
+//            } catch (Throwable e) {
+//                FileLog.e(e);
+//            }
+//            return bitmap;
+//        } catch (Throwable x) {
+//            if (BuildVars.LOGS_ENABLED) {
+//                FileLog.e("Error loading emoji", x);
+//            }
+//        }
+//        return null;
+//    }
 
     public static void invalidateAll(View view) {
         if (view instanceof ViewGroup) {
