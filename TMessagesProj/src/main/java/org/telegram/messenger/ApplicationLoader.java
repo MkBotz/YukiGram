@@ -32,6 +32,7 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import org.telegram.messenger.voip.VideoCapturerDevice;
 import org.telegram.tgnet.ConnectionsManager;
@@ -41,6 +42,7 @@ import org.telegram.ui.LauncherIconController;
 
 import java.io.File;
 
+import me.onlyfire.yukigram.android.OwlConfig;
 import me.onlyfire.yukigram.android.camera.CameraXUtils;
 
 public class ApplicationLoader extends Application {
@@ -283,6 +285,7 @@ public class ApplicationLoader extends Application {
 
         LauncherIconController.tryFixLauncherIconIfNeeded();
         ProxyRotationController.init();
+        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(OwlConfig.crashlyticsEnabled);
     }
 
     public static void startPushService() {

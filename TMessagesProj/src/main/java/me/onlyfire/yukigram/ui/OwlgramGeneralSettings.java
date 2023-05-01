@@ -66,12 +66,14 @@ public class OwlgramGeneralSettings extends BaseSettingsActivity {
     private int divisorDCIdRow;
     private int hintIdRow;
     private int notificationHeaderRow;
+    private int otherRow;
     private int notificationAccentRow;
     private int dividerNotificationRow;
+    private int dividerCallRow;
     private int callHeaderRow;
     private int confirmCallSwitchRow;
     private int deepLFormalityRow;
-    private int translateEntireChatRow;
+    private int crashlyticsEnabledRow;
 
     public OwlgramGeneralSettings() {
         supportLanguageDetector = LanguageDetector.hasSupport();
@@ -193,14 +195,10 @@ public class OwlgramGeneralSettings extends BaseSettingsActivity {
             if (view instanceof TextCheckCell) {
                 ((TextCheckCell) view).setChecked(OwlConfig.showTranslate);
             }
-        } else if (position == translateEntireChatRow) {
-            if (!getUserConfig().isPremium() && OwlConfig.translationProvider == Translator.PROVIDER_TELEGRAM) {
-                showDialog(new PremiumFeatureBottomSheet(OwlgramGeneralSettings.this, PremiumPreviewFragment.PREMIUM_FEATURE_TRANSLATIONS, false));
-            } else {
-                OwlConfig.toggleTranslateEntireChat();
-                if (view instanceof TextCheckCell) {
-                    ((TextCheckCell) view).setChecked(OwlConfig.translateEntireChat);
-                }
+        } else if (position == crashlyticsEnabledRow) {
+            OwlConfig.toggleCrashlytics();
+            if (view instanceof TextCheckCell) {
+                ((TextCheckCell) view).setChecked(OwlConfig.crashlyticsEnabled);
             }
         }
     }
@@ -214,7 +212,6 @@ public class OwlgramGeneralSettings extends BaseSettingsActivity {
         divisorPrivacyRow = rowCount++;
         translationHeaderRow = rowCount++;
         showTranslateButtonRow = rowCount++;
-        translateEntireChatRow = TranslatorHelper.showPremiumFeatures() && TranslatorHelper.isSupportAutoTranslate() ? rowCount++: -1;
         translationStyle = rowCount++;
         translationProviderSelectRow = rowCount++;
         destinationLanguageSelectRow = rowCount++;
@@ -236,6 +233,9 @@ public class OwlgramGeneralSettings extends BaseSettingsActivity {
         dividerNotificationRow = rowCount++;
         callHeaderRow = rowCount++;
         confirmCallSwitchRow = rowCount++;
+        dividerCallRow = rowCount++;
+        otherRow = rowCount++;
+        crashlyticsEnabledRow = rowCount++;
     }
 
     @Override
@@ -263,6 +263,8 @@ public class OwlgramGeneralSettings extends BaseSettingsActivity {
                         headerCell.setText(LocaleController.getString("DC_IDSettings", R.string.DC_IDSettings));
                     } else if (position == notificationHeaderRow) {
                         headerCell.setText(LocaleController.getString("Notifications", R.string.Notifications));
+                    } else if (position == otherRow) {
+                        headerCell.setText(LocaleController.getString("Other", R.string.OtherSettings));
                     }
                     break;
                 case SWITCH:
@@ -285,9 +287,8 @@ public class OwlgramGeneralSettings extends BaseSettingsActivity {
                         textCheckCell.setCheckBoxIcon(isLocked ? R.drawable.permission_locked : 0);
                     } else if (position == showTranslateButtonRow) {
                         textCheckCell.setTextAndCheck(LocaleController.getString("ShowTranslateButton", R.string.ShowTranslateButton), OwlConfig.showTranslate, true);
-                    } else if (position == translateEntireChatRow) {
-                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("ShowTranslateChatButton", R.string.ShowTranslateChatButton), LocaleController.getString("ShowTranslateChatButtonDesc", R.string.ShowTranslateChatButtonDesc), OwlConfig.translateEntireChat, true, true);
-                        textCheckCell.setCheckBoxIcon(isLocked ? R.drawable.permission_locked : 0);
+                    } else if (position == crashlyticsEnabledRow) {
+                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("ToggleCrashlyticsButton", R.string.ToggleCrashlyticsButton), LocaleController.getString("ToggleCrashlyticsButtonDesc", R.string.ToggleCrashlyticsButtonDesc), OwlConfig.crashlyticsEnabled, true, true);
                     }
                     break;
                 case SETTINGS:
@@ -470,14 +471,14 @@ public class OwlgramGeneralSettings extends BaseSettingsActivity {
         @Override
         public ViewType getViewType(int position) {
             if (position == divisorPrivacyRow || position == divisorTranslationRow || position == divisorDCIdRow ||
-                    position == dividerNotificationRow) {
+                    position == dividerNotificationRow || position == dividerCallRow) {
                 return ViewType.SHADOW;
             } else if (position == privacyHeaderRow || position == translationHeaderRow || position == callHeaderRow ||
-                    position == dcIdSettingsHeaderRow || position == notificationHeaderRow) {
+                    position == dcIdSettingsHeaderRow || position == notificationHeaderRow || position == otherRow) {
                 return ViewType.HEADER;
             } else if (position == phoneNumberSwitchRow || position == phoneContactsSwitchRow || position == dcIdRow ||
                     position == confirmCallSwitchRow || position == notificationAccentRow || position == keepMarkdownRow ||
-                    position == showTranslateButtonRow || position == translateEntireChatRow) {
+                    position == showTranslateButtonRow || position == crashlyticsEnabledRow) {
                 return ViewType.SWITCH;
             } else if (position == translationProviderSelectRow || position == destinationLanguageSelectRow || position == deepLFormalityRow ||
                     position == translationStyle || position == doNotTranslateSelectRow || position == idTypeRow || position == autoTranslateRow) {
@@ -606,6 +607,9 @@ public class OwlgramGeneralSettings extends BaseSettingsActivity {
             put(++pointer, dividerNotificationRow, sparseIntArray);
             put(++pointer, callHeaderRow, sparseIntArray);
             put(++pointer, confirmCallSwitchRow, sparseIntArray);
+            put(++pointer, dividerCallRow, sparseIntArray);
+            put(++pointer, otherRow, sparseIntArray);
+            put(++pointer, crashlyticsEnabledRow, sparseIntArray);
         }
 
         private void put(int id, int position, SparseIntArray sparseIntArray) {

@@ -1,5 +1,7 @@
 package me.onlyfire.yukigram.android;
 
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
+
 import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.ApplicationLoader;
 import org.telegram.messenger.BuildVars;
@@ -85,7 +87,7 @@ public class OwlConfig extends SettingsController {
     public static boolean showNameInActionBar;
     public static boolean sendLargePhotos;
     public static boolean reduceCameraXLatency;
-    public static boolean translateEntireChat;
+    public static boolean crashlyticsEnabled;
     public static String translationTarget = "app";
     public static String translationKeyboardTarget = "app";
     public static String oldBuildVersion = null;
@@ -212,7 +214,7 @@ public class OwlConfig extends SettingsController {
             showNameInActionBar = getBoolean("showNameInActionBar", false);
             emojiPackSelected = getString("emojiPackSelected", "default");
             lastSelectedCompression = getInt("lastSelectedCompression", 3);
-            translateEntireChat = getBoolean("translateEntireChat", false);
+            crashlyticsEnabled = getBoolean("crashlyticsEnabled", true);
             confirmSending.readParams(getByteArray("confirmSending"), magicException);
             contextMenu.readParams(getByteArray("contextMenu"), magicException);
 
@@ -424,8 +426,13 @@ public class OwlConfig extends SettingsController {
         putValue("showNameInActionBar", showNameInActionBar ^= true);
     }
 
-    public static void toggleTranslateEntireChat() {
-        putValue("translateEntireChat", translateEntireChat ^= true);
+    public static void toggleCrashlytics() {
+        crashlyticsEnabled ^= true;
+        putValue("crashlyticsEnabled", crashlyticsEnabled);
+        new Thread(() -> {
+            FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(crashlyticsEnabled);
+            System.out.println("Crashlytics: " + (crashlyticsEnabled ? "enabled" : "disabled"));
+        }).start();
     }
 
     public static void toggleSendLargePhotos() {
