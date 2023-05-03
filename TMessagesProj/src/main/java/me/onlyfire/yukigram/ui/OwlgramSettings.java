@@ -103,13 +103,14 @@ public class OwlgramSettings extends BaseSettingsActivity {
         } else if (position == chatSettingsRow) {
             presentFragment(new OwlgramChatSettings());
         } else if (position == updateSettingsRow) {
-            presentFragment(new OwlgramUpdateSettings());
+//            presentFragment(new OwlgramUpdateSettings());
+            BulletinFactory.of(OwlgramSettings.this).createErrorBulletin(LocaleController.getString("ComingSoon", R.string.ComingSoon)).show();
         } else if (position == experimentalSettingsRow) {
             presentFragment(new OwlgramExperimentalSettings());
         } else if (position == appearanceSettingsRow) {
             presentFragment(new OwlgramAppearanceSettings());
         } else if (position == bugReportRow) {
-            AndroidUtilities.addToClipboard(Crashlytics.getReportMessage() + "\n\n#bug");
+            AndroidUtilities.addToClipboard(Crashlytics.getReportMessage());
             BulletinFactory.of(OwlgramSettings.this).createCopyBulletin(LocaleController.getString("ReportDetailsCopied", R.string.ReportDetailsCopied)).show();
         } else if (position == submitIssueRow) {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/ImOnlyFire/YukiGram/issues/new"));

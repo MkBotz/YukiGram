@@ -328,4 +328,5 @@
     <string name="TranslateInfo">Manage your translation and auto-translation preferences in YukiGram settings.</string>
     <string name="ToggleCrashlyticsButton">Toggle Firebase Crashlytics</string>
     <string name="ToggleCrashlyticsButtonDesc">Toggle firebase crash analytics for development purposes</string>
+    <string name="ComingSoon">This feature is not yet available.</string>
 </resources>
