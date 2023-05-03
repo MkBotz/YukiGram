@@ -88,13 +88,13 @@ dependencies {
     compileOnly 'org.checkerframework:checker-compat-qual:2.5.5'
 
     // Firebase dependencies
-    implementation platform('com.google.firebase:firebase-bom:31.5.0')
     implementation 'com.google.firebase:firebase-messaging:23.1.2'
     implementation 'com.google.firebase:firebase-config:21.2.1'
     implementation 'com.google.firebase:firebase-datatransport:18.1.7'
     implementation 'com.google.firebase:firebase-appindexing:20.0.0'
-    implementation 'com.google.firebase:firebase-crashlytics'
-    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-crashlytics-ndk:18.3.7'
+//    implementation 'com.google.firebase:firebase-analytics'
+
 
     // Google Play Services dependencies
     implementation 'com.google.android.gms:play-services-maps:18.1.0'

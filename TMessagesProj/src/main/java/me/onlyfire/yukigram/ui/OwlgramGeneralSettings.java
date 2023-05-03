@@ -26,6 +26,7 @@ import org.telegram.ui.Cells.TextInfoPrivacyCell;
 import org.telegram.ui.Cells.TextSettingsCell;
 import org.telegram.ui.Components.BulletinFactory;
 import org.telegram.ui.Components.Premium.PremiumFeatureBottomSheet;
+import org.telegram.ui.Components.UndoView;
 import org.telegram.ui.PremiumPreviewFragment;
 
 import java.util.ArrayList;
@@ -200,6 +201,7 @@ public class OwlgramGeneralSettings extends BaseSettingsActivity {
             if (view instanceof TextCheckCell) {
                 ((TextCheckCell) view).setChecked(OwlConfig.crashlyticsEnabled);
             }
+            restartTooltip.showWithAction(0, UndoView.ACTION_NEED_RESTART, null, null);
         }
     }
 
