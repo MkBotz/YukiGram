@@ -10,7 +10,4 @@ public class Extra {
     public static final boolean MAGIC_OWL_EXCEPTIONS = false;
     public static String SMS_HASH = BuildVars.isStandaloneApp() ? "w0lkcmTZkKh" : (BuildVars.DEBUG_VERSION ? "w0lkcmTZkKh" : "w0lkcmTZkKh");
 
-    public static String YUKI_VERSION_STRING = "3.1.5";
-    public static String YUKI_VERSION = "3305";
-
 }
