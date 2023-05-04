@@ -35,6 +35,7 @@ import java.io.File;
 import java.util.Date;
 import java.util.Locale;
 
+import me.onlyfire.yukigram.android.AccountAgeController;
 import me.onlyfire.yukigram.android.entities.EntitiesHelper;
 import me.onlyfire.yukigram.android.utils.DCHelper;
 import me.onlyfire.yukigram.ui.Cells.DetailsPreviewMessages;
@@ -50,6 +51,7 @@ public class DetailsActivity extends BaseFragment implements NotificationCenter.
 
     private int aboutInfoHeaderRow;
     private int nameUserHeaderRow;
+    private int userCreationDateRow;
     private int idUserHeaderRow;
     private int dcRow;
     private int usernameRow;
@@ -228,6 +230,7 @@ public class DetailsActivity extends BaseFragment implements NotificationCenter.
         rowCount = 0;
         aboutInfoHeaderRow = -1;
         nameUserHeaderRow = -1;
+        userCreationDateRow = -1;
         idUserHeaderRow = -1;
         usernameRow = -1;
         dcRow = -1;
@@ -306,6 +309,7 @@ public class DetailsActivity extends BaseFragment implements NotificationCenter.
                 dcRow = rowCount++;
             }
             idUserHeaderRow = rowCount++;
+            userCreationDateRow = rowCount++;
             aboutDividerRow = rowCount++;
         }
         messageHeaderRow = rowCount++;
@@ -499,6 +503,9 @@ public class DetailsActivity extends BaseFragment implements NotificationCenter.
                             full_name += " " + fromUser.last_name;
                         }
                         textDetailCell.setTextWithEmojiAndValue(full_name, LocaleController.getString("FullName", R.string.FullName), true);
+                    } else if (position == userCreationDateRow) {
+                        String date = AccountAgeController.getAge(fromUserInfo.tID);
+                        textDetailCell.setTextWithEmojiAndValue(date, LocaleController.getString("CreationDate", R.string.CreationDate), true);
                     } else if (position == usernameRow) {
                         textDetailCell.setTextAndValue("@" + UserObject.getPublicUsername(fromUser), LocaleController.getString("Username", R.string.Username), true);
                     } else if (position == messageIdRow) {
@@ -646,7 +653,7 @@ public class DetailsActivity extends BaseFragment implements NotificationCenter.
                     position == forwardUserHeaderRow || position == repliedMessageHeaderRow || position == repliedUserHeaderRow ||
                     position == groupHeaderRow || position == fileHeaderRow) {
                 return 2;
-            } else if (position == idUserHeaderRow || position == nameUserHeaderRow || position == usernameRow ||
+            } else if (position == idUserHeaderRow || position == nameUserHeaderRow || position == userCreationDateRow || position == usernameRow ||
                     position == messageIdRow || position == messageTextRow || position == messageDateRow ||
                     position == forwardMessageDateRow || position == forwardUserIdRow || position == forwardUserUsernameRow ||
                     position == forwardUserNameRow || position == repliedMessageTextRow || position == repliedMessageDateRow ||

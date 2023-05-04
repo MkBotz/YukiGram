@@ -157,6 +157,7 @@
     <string name="UserInfo">User</string>
     <string name="BotInfo">Bot</string>
     <string name="FullName">Full Name</string>
+    <string name="CreationDate">Creation Date</string>
     <string name="MessageText">Text</string>
     <string name="MessageTextLength">Text Length</string>
     <string name="EditedDate">Edited Date</string>
