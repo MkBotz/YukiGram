@@ -1,0 +1,16 @@
+package me.onlyfire.yukigram.android;
+
+import org.telegram.messenger.BuildVars;
+
+public class Extra {
+
+    public static final int APP_ID = 4;
+    public static final String APP_HASH = "111111111111111111";
+    public static final boolean IGNORE_VERSION_CHECK = false;
+    public static final boolean MAGIC_OWL_EXCEPTIONS = false;
+    public static String SMS_HASH = BuildVars.isStandaloneApp() ? "w0lkcmTZkKh" : (BuildVars.DEBUG_VERSION ? "w0lkcmTZkKh" : "w0lkcmTZkKh");
+
+    public static String YUKI_VERSION_STRING = "3.1.5";
+    public static String YUKI_VERSION = "3305";
+
+}

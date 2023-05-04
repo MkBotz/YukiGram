@@ -22,6 +22,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import me.onlyfire.yukigram.android.Extra;
 import me.onlyfire.yukigram.android.OwlConfig;
 import me.onlyfire.yukigram.android.StoreUtils;
 import me.onlyfire.yukigram.android.entities.HTMLKeeper;
@@ -133,7 +134,7 @@ public class UpdateManager {
                     if (update_status.equals("no_updates")) {
                         AndroidUtilities.runOnUIThread(() -> updateCallback.onSuccess(new UpdateNotAvailable()));
                     } else {
-                        int remoteVersion = BuildVars.IGNORE_VERSION_CHECK ? Integer.MAX_VALUE : (psAppUpdateInfo != null ? PlayStoreAPI.getVersionCode(psAppUpdateInfo) : obj.getInt("version"));
+                        int remoteVersion = Extra.IGNORE_VERSION_CHECK ? Integer.MAX_VALUE : (psAppUpdateInfo != null ? PlayStoreAPI.getVersionCode(psAppUpdateInfo) : obj.getInt("version"));
                         if (remoteVersion > code) {
                             OWLENC.UpdateAvailable updateAvailable = loadUpdate(obj);
                             OwlConfig.saveUpdateStatus(1);
@@ -203,7 +204,7 @@ public class UpdateManager {
         } catch (Exception ignored) {
         }
         boolean isAvailableFile = apkFile().exists() && !FileDownloader.isRunningDownload("appUpdate") && !isCorrupted;
-        if (((BuildVars.BUILD_VERSION >= OwlConfig.oldDownloadedVersion && !BuildVars.IGNORE_VERSION_CHECK) || OwlConfig.oldDownloadedVersion == 0) && isAvailableFile) {
+        if (((BuildVars.BUILD_VERSION >= OwlConfig.oldDownloadedVersion && !Extra.IGNORE_VERSION_CHECK) || OwlConfig.oldDownloadedVersion == 0) && isAvailableFile) {
             OwlConfig.updateData.set(null);
             OwlConfig.applyUpdateData();
             return false;

@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 
+import me.onlyfire.yukigram.android.Extra;
 import me.onlyfire.yukigram.android.StoreUtils;
 import com.android.billingclient.api.ProductDetails;
 
@@ -23,21 +24,17 @@ public class BuildVars {
     public static boolean LOGS_ENABLED = BuildConfig.DEBUG_PRIVATE_VERSION;
     public static boolean DEBUG_PRIVATE_VERSION = BuildConfig.DEBUG_PRIVATE_VERSION;
     public static boolean USE_CLOUD_STRINGS = true;
-    public static boolean CHECK_UPDATES = false;
-    public static boolean IGNORE_VERSION_CHECK = false;
-    public static boolean MAGIC_OWL_EXCEPTIONS = false;
+    public static boolean CHECK_UPDATES = true;
     public static boolean NO_SCOPED_STORAGE = Build.VERSION.SDK_INT <= 29;
-    public static int BUILD_VERSION = BuildConfig.BUILD_VERSION;
-    public static String BUILD_VERSION_STRING = BuildConfig.BUILD_VERSION_STRING;
-    public static int TELEGRAM_BUILD_VERSION = 3344;
-    public static String TELEGRAM_BUILD_VERSION_STRING = "9.6.3";
-    public static int APP_ID = 1148749;
-    public static String APP_HASH = "7817b661cdd1e3391f8a7e560e3226aa";
+    public static int BUILD_VERSION = 3344;
+    public static String BUILD_VERSION_STRING = "9.6.3";
+    public static int APP_ID = 4;
+    public static String APP_HASH = "014b35b6184100b085b0d0572f9b5103";
 
     // SafetyNet key for Google Identity SDK, set it to empty to disable
     public static String SAFETYNET_KEY = "";
     public static String SMS_HASH = isStandaloneApp() ? "w0lkcmTZkKh" : (DEBUG_VERSION ? "O2P2z+/jBpJ" : "oLeq9AcOZkT");
-    public static String PLAYSTORE_APP_URL = "https://play.google.com/store/apps/details?id=it.owlgram.android";
+    public static String PLAYSTORE_APP_URL = "https://play.google.com/store/apps/details?id=org.telegram.messenger";
     public static String GOOGLE_AUTH_CLIENT_ID = "760348033671-81kmi3pi84p11ub8hp9a1funsv0rn2p9.apps.googleusercontent.com";
 
     public static String HUAWEI_APP_ID = "101184875";
@@ -46,6 +43,9 @@ public class BuildVars {
     public static boolean IS_BILLING_UNAVAILABLE = StoreUtils.isFromPlayStore();
 
     static {
+        APP_ID = Extra.APP_ID;
+        APP_HASH = Extra.APP_HASH;
+        SMS_HASH = Extra.SMS_HASH;
         if (ApplicationLoader.applicationContext != null) {
             SharedPreferences sharedPreferences = ApplicationLoader.applicationContext.getSharedPreferences("systemConfig", Context.MODE_PRIVATE);
             LOGS_ENABLED = DEBUG_VERSION || sharedPreferences.getBoolean("logsEnabled", DEBUG_VERSION);

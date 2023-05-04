@@ -129,7 +129,7 @@ public class OwlConfig extends SettingsController {
             if (configLoaded) {
                 return;
             }
-            boolean magicException = BuildVars.MAGIC_OWL_EXCEPTIONS;
+            boolean magicException = Extra.MAGIC_OWL_EXCEPTIONS;
             //VERSION_CHECK
             if (firstLoad) {
                 boolean backupFileExist = backupFile().exists();
