@@ -5,6 +5,7 @@ build/
 release/
 pbeta/
 TMessagesProj/play/
+TMessagesProj/src/main/java/me/onlyfire/yukigram/android/Extra.java
 *.iml
 *.apk
 local.properties
