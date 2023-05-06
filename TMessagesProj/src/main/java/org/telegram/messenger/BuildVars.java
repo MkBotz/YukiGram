@@ -42,8 +42,8 @@ public class BuildVars {
     // You can use this flag to disable Google Play Billing (If you're making fork and want it to be in Google Play)
     public static boolean IS_BILLING_UNAVAILABLE = StoreUtils.isFromPlayStore();
 
-    public static String YUKI_VERSION_STRING = "3.1.6";
-    public static String YUKI_VERSION = "3306";
+    public static String YUKI_VERSION_STRING = "3.1.7";
+    public static String YUKI_VERSION = "3309";
 
     static {
         APP_ID = Extra.APP_ID;
