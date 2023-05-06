@@ -977,7 +977,8 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             MonetThemeController.registerReceiver(this);
         }
-        CustomEmojiController.checkEmojiPacks();
+        // TODO: Emoji packs
+//        CustomEmojiController.checkEmojiPacks();
         BackupAgent.requestBackup(this);
 
         RestrictedLanguagesSelectActivity.checkRestrictedLanguages(false);
@@ -2635,16 +2636,6 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                                             Bulletin bulletin = Bulletin.make(fragment, layout, Bulletin.DURATION_LONG);
                                             bulletin.show();
                                         });
-                                    } else if (url.startsWith("tg:chupagram") || url.startsWith("tg://chupagram")) {
-                                        if (!OwlConfig.unlockedChupa) {
-                                            BaseFragment fragment = mainFragmentsStack.get(mainFragmentsStack.size() - 1);
-                                            AppIconBulletinLayout layout = new AppIconBulletinLayout(fragment.getParentActivity(), LauncherIconController.LauncherIcon.CHUPA, null);
-                                            layout.textView.setText(LocaleController.getString("UnlockedHiddenChupaIcon", R.string.UnlockedHiddenChupaIcon));
-                                            fireworksOverlay.start();
-                                            layout.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP, HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING);
-                                            Bulletin.make(fragment, layout, Bulletin.DURATION_SHORT).show();
-                                            OwlConfig.unlockChupa();
-                                        }
                                     } else if (url.startsWith("tg:experimental") || url.startsWith("tg://experimental")) {
                                         AndroidUtilities.runOnUIThread(() -> presentFragment(new OwlgramExperimentalSettings(), false, false));
                                         if (AndroidUtilities.isTablet()) {
@@ -6023,9 +6014,10 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
         } else if (SharedConfig.pendingAppUpdate != null && SharedConfig.pendingAppUpdate.can_not_skip) {
             showUpdateActivity(UserConfig.selectedAccount, SharedConfig.pendingAppUpdate, true);
         }
-        checkAppUpdate();
-        LanguageController.loadRemoteLanguageFromCache(LocaleController.getInstance().getCurrentLocale(), false);
-        UpdateSignaling.checkWasUpdated();
+        // TODO: stuff
+//        checkAppUpdate();
+//        LanguageController.loadRemoteLanguageFromCache(LocaleController.getInstance().getCurrentLocale(), false);
+//        UpdateSignaling.checkWasUpdated();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             ApplicationLoader.canDrawOverlays = Settings.canDrawOverlays(this);
