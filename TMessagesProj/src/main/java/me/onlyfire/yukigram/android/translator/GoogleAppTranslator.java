@@ -26,7 +26,7 @@ public class GoogleAppTranslator extends BaseTranslator {
             "mi", "mn", "bn", "my", "hmn", "xh", "zu", "ne", "no", "pa", "pt", "ps", "ny",
             "ja", "sv", "sm", "sr", "st", "si", "eo", "sk", "sl", "sw", "gd", "ceb", "so",
             "tg", "te", "ta", "th", "tr", "tk", "cy", "ug", "ur", "uk", "uz", "es", "iw",
-            "el", "haw", "sd", "hu", "sn", "hy", "ig", "me/onlyfire", "yi", "hi", "su", "id", "jw",
+            "el", "haw", "sd", "hu", "sn", "hy", "ig", "it", "yi", "hi", "su", "id", "jw",
             "en", "yo", "vi", "zh-TW", "zh-CN", "zh");
 
     private final String[] devices = new String[]{

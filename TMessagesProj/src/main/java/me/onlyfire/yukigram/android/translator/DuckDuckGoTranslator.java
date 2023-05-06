@@ -24,7 +24,7 @@ public class DuckDuckGoTranslator extends BaseTranslator {
             "af", "sq", "ar", "am", "hy", "as", "az", "bn", "bs", "bg", "yue", "ca", "cs",
             "zh-Hans", "zh-Hant", "ko", "ht", "hr", "ku", "kmr", "da", "he", "et", "sw",
             "fj", "fil", "fi", "fr", "fr-CA", "cy", "ja", "el", "gu", "hi", "mww", "id",
-            "en", "iu", "ga", "is", "me/onlyfire", "kn", "kk", "km", "lo", "lv", "lt", "ml", "ms",
+            "en", "iu", "ga", "is", "it", "kn", "kk", "km", "lo", "lv", "lt", "ml", "ms",
             "mt", "mi", "mr", "my", "ne", "nb", "nl", "or", "ps", "fa", "pl", "pt", "ty",
             "pt-PT", "pa", "ro", "ru", "sm", "sr-Cyrl", "sr-Latn", "sl", "es", "sv", "mg",
             "th", "ta", "de", "te", "ti", "to", "tr", "uk", "hu", "ur", "vi"

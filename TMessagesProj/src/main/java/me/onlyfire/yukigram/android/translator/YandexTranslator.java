@@ -20,7 +20,7 @@ public class YandexTranslator extends BaseTranslator {
             "af", "sq", "am", "ar", "hy", "az", "ba", "eu", "be", "bn", "bs", "bg", "my",
             "ca", "ceb", "zh", "cv", "hr", "cs", "da", "nl", "en", "eo", "et", "fi", "fr",
             "gl", "ka", "de", "el", "gu", "ht", "he", "mrj", "hi", "hu", "is", "id", "ga",
-            "me/onlyfire", "ja", "jv", "kn", "kk", "km", "ko", "ky", "lo", "la", "lv",
+            "it", "ja", "jv", "kn", "kk", "km", "ko", "ky", "lo", "la", "lv",
             "lt", "lb", "mk", "mg", "ms", "ml", "mt", "mi", "mr", "mn", "ne", "no", "pap",
             "fa", "pl", "pt", "pa", "ro", "ru", "gd", "sr", "si", "sk", "sl", "es", "su",
             "sw", "sv", "tl", "tg", "ta", "tt", "te", "th", "tr", "udm", "uk", "ur", "uz",

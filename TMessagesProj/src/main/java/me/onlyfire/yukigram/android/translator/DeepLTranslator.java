@@ -16,7 +16,7 @@ public class DeepLTranslator extends BaseTranslator {
 
     private final List<String> targetLanguages = Arrays.asList(
             "bg", "cs", "da", "de", "el", "en", "en-GB", "en-US", "es", "fi", "fr", "hu", "id",
-            "me/onlyfire", "ja", "lt", "lv", "nl", "pl", "pt", "pt-BR", "pt-PT", "ro", "ru", "sk", "sl",
+            "it", "ja", "lt", "lv", "nl", "pl", "pt", "pt-BR", "pt-PT", "ro", "ru", "sk", "sl",
             "sv", "tr", "uk", "zh");
 
     private final RawDeepLTranslator deeplTranslator = new RawDeepLTranslator();
