@@ -81,7 +81,6 @@ public class OwlConfig extends SettingsController {
     public static boolean uploadSpeedBoost;
     public static boolean hideTimeOnSticker;
     public static boolean showStatusInChat;
-    public static boolean unlockedChupa;
     public static boolean hideAllTab;
     public static boolean hideSendAsChannel;
     public static boolean showNameInActionBar;
@@ -208,7 +207,6 @@ public class OwlConfig extends SettingsController {
             hideTimeOnSticker = getBoolean("hideTimeOnSticker", false);
             showStatusInChat = getBoolean("showStatusInChat", false);
             unlockedSecretIcon = getInt("unlockedSecretIcon", 0);
-            unlockedChupa = getBoolean("unlockedChupa", false);
             hideAllTab = getBoolean("hideAllTab", false);
             hideSendAsChannel = getBoolean("hideSendAsChannel", false);
             showNameInActionBar = getBoolean("showNameInActionBar", false);
@@ -437,10 +435,6 @@ public class OwlConfig extends SettingsController {
 
     public static void toggleSendLargePhotos() {
         putValue("sendLargePhotos", sendLargePhotos ^= true);
-    }
-
-    public static void unlockChupa() {
-        putValue("unlockedChupa", unlockedChupa = true);
     }
 
     public static void setUnlockedSecretIcon(int value) {
