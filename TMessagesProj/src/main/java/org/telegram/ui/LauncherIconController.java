@@ -34,7 +34,8 @@ public class LauncherIconController {
     }
 
     public enum LauncherIcon {
-        DEFAULT("DefaultIcon", R.drawable.icon_background_sa, R.drawable.icon_launcher_foreground, R.string.AppIconDefault),
+        DEFAULT("DefaultIcon", R.drawable.icon_background_sa, R.drawable.icon_white_launcher_foreground, R.string.AppIconDefault),
+        TELEGRAM("TelegramIcon", R.drawable.icontg_background_sa, R.drawable.icon_plane, R.string.TelegramName),
         DEVELOPER("DeveloperIcon", R.drawable.iconc_1_background_sa, R.drawable.icon_white_launcher_foreground, R.string.AppIconDeveloper),
         AQUA("AquaIcon", R.drawable.icon_4_background_sa, R.drawable.icon_white_launcher_foreground, R.string.AppIconAqua),
         FOXGRAM("FoxgramIcon", R.drawable.icon_7_launcher_background, R.drawable.icon_white_launcher_foreground, R.string.AppIconFoxgram, false, true),
