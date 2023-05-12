@@ -19,6 +19,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
@@ -349,11 +350,11 @@ public class TranslateController extends BaseController {
     }
 
     private static List<String> languagesOrder = Arrays.asList(
-        "en", "ar", "zh", "fr", "de", "me/onlyfire", "ja", "ko", "pt", "ru", "es", "uk"
+        "en", "ar", "zh", "fr", "de", "it", "ja", "ko", "pt", "ru", "es", "uk"
     );
 
     private static List<String> allLanguages = Arrays.asList(
-        "af", "sq", "am", "ar", "hy", "az", "eu", "be", "bn", "bs", "bg", "ca", "ceb", "zh-cn", "zh", "zh-tw", "co", "hr", "cs", "da", "nl", "en", "eo", "et", "fi", "fr", "fy", "gl", "ka", "de", "el", "gu", "ht", "ha", "haw", "he", "iw", "hi", "hmn", "hu", "is", "ig", "id", "ga", "me/onlyfire", "ja", "jv", "kn", "kk", "km", "rw", "ko", "ku", "ky", "lo", "la", "lv", "lt", "lb", "mk", "mg", "ms", "ml", "mt", "mi", "mr", "mn", "my", "ne", "no", "ny", "or", "ps", "fa", "pl", "pt", "pa", "ro", "ru", "sm", "gd", "sr", "st", "sn", "sd", "si", "sk", "sl", "so", "es", "su", "sw", "sv", "tl", "tg", "ta", "tt", "te", "th", "tr", "tk", "uk", "ur", "ug", "uz", "vi", "cy", "xh", "yi", "yo", "zu"
+        "af", "sq", "am", "ar", "hy", "az", "eu", "be", "bn", "bs", "bg", "ca", "ceb", "zh-cn", "zh", "zh-tw", "co", "hr", "cs", "da", "nl", "en", "eo", "et", "fi", "fr", "fy", "gl", "ka", "de", "el", "gu", "ht", "ha", "haw", "he", "iw", "hi", "hmn", "hu", "is", "ig", "id", "ga", "it", "ja", "jv", "kn", "kk", "km", "rw", "ko", "ku", "ky", "lo", "la", "lv", "lt", "lb", "mk", "mg", "ms", "ml", "mt", "mi", "mr", "mn", "my", "ne", "no", "ny", "or", "ps", "fa", "pl", "pt", "pa", "ro", "ru", "sm", "gd", "sr", "st", "sn", "sd", "si", "sk", "sl", "so", "es", "su", "sw", "sv", "tl", "tg", "ta", "tt", "te", "th", "tr", "tk", "uk", "ur", "ug", "uz", "vi", "cy", "xh", "yi", "yo", "zu"
     );
 
     public static class Language {
@@ -1078,40 +1079,40 @@ public class TranslateController extends BaseController {
     }
 
     private void saveTranslatingDialogsCache() {
-        /*StringBuilder langset = new StringBuilder();
-        Iterator<Long> i = translatingDialogs.iterator();
-        boolean first = true;
-        while (i.hasNext()) {
-            try {
-                long did = i.next();
-                if (!first) {
-                    langset.append(";");
-                }
-                if (first) {
-                    first = false;
-                }
-                String lang = detectedDialogLanguage.get(did);
-                if (lang == null) {
-                    lang = "null";
-                }
-                String tolang = getDialogTranslateTo(did);
-                if (tolang == null) {
-                    tolang = "null";
-                }
-                langset.append(did).append("=").append(lang).append(">").append(tolang);
-            } catch (Exception e) {}
-        }
-
-        Set<String> hidden = new HashSet<>();
-        i = hideTranslateDialogs.iterator();
-        while (i.hasNext()) {
-            try {
-                hidden.add("" + i.next());
-            } catch (Exception e) {
-                FileLog.e(e);
-            }
-        }
-        MessagesController.getMainSettings(currentAccount).edit().putString("translating_dialog_languages2", langset.toString()).putStringSet("hidden_translation_at", hidden).apply();*/
+//        StringBuilder langset = new StringBuilder();
+//        Iterator<Long> i = translatingDialogs.iterator();
+//        boolean first = true;
+//        while (i.hasNext()) {
+//            try {
+//                long did = i.next();
+//                if (!first) {
+//                    langset.append(";");
+//                }
+//                if (first) {
+//                    first = false;
+//                }
+//                String lang = detectedDialogLanguage.get(did);
+//                if (lang == null) {
+//                    lang = "null";
+//                }
+//                String tolang = getDialogTranslateTo(did);
+//                if (tolang == null) {
+//                    tolang = "null";
+//                }
+//                langset.append(did).append("=").append(lang).append(">").append(tolang);
+//            } catch (Exception e) {}
+//        }
+//
+//        Set<String> hidden = new HashSet<>();
+//        i = hideTranslateDialogs.iterator();
+//        while (i.hasNext()) {
+//            try {
+//                hidden.add("" + i.next());
+//            } catch (Exception e) {
+//                FileLog.e(e);
+//            }
+//        }
+//        MessagesController.getMainSettings(currentAccount).edit().putString("translating_dialog_languages2", langset.toString()).putStringSet("hidden_translation_at", hidden).apply();
     }
 
     private void resetTranslatingDialogsCache() {
