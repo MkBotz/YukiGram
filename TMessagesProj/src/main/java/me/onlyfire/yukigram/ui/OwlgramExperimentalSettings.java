@@ -24,6 +24,7 @@ import org.telegram.ui.Cells.TextSettingsCell;
 import org.telegram.ui.Components.LayoutHelper;
 import org.telegram.ui.Components.SlideChooseView;
 import org.telegram.ui.Components.StickerImageView;
+import org.telegram.ui.Components.UndoView;
 
 import java.util.ArrayList;
 
@@ -46,6 +47,7 @@ public class OwlgramExperimentalSettings extends BaseSettingsActivity {
     private int headerDownloadSpeed;
     private int downloadSpeedBoostRow;
     private int uploadSpeedBoostRow;
+    private int altNavigationRow;
     private int bottomSpaceRow;
 
     @Override
@@ -105,6 +107,12 @@ public class OwlgramExperimentalSettings extends BaseSettingsActivity {
             if (view instanceof TextCheckCell) {
                 ((TextCheckCell) view).setChecked(YukiConfig.uploadSpeedBoost);
             }
+        } else if (position == altNavigationRow) {
+            YukiConfig.toggleAlternativeNavigation();
+            if (view instanceof TextCheckCell) {
+                ((TextCheckCell) view).setChecked(YukiConfig.alternativeNavigation);
+            }
+            restartTooltip.showWithAction(0, UndoView.ACTION_NEED_RESTART, null, null);
         } else if (position == sendLargePhotosRow) {
             YukiConfig.toggleSendLargePhotos();
             if (view instanceof TextCheckCell) {
@@ -149,6 +157,7 @@ public class OwlgramExperimentalSettings extends BaseSettingsActivity {
         headerDownloadSpeed = -1;
         downloadSpeedBoostRow = -1;
         uploadSpeedBoostRow = -1;
+        altNavigationRow = -1;
         experimentalMessageAlert = -1;
         bottomSpaceRow = -1;
 
@@ -163,6 +172,7 @@ public class OwlgramExperimentalSettings extends BaseSettingsActivity {
                 monetIconRow = rowCount++;
             }
             maxRecentStickersRow = rowCount++;
+            altNavigationRow = rowCount++;
             downloadDividersRow = rowCount++;
             headerDownloadSpeed = rowCount++;
             downloadSpeedBoostRow = rowCount++;
@@ -199,6 +209,8 @@ public class OwlgramExperimentalSettings extends BaseSettingsActivity {
                         textCheckCell.setTextAndValueAndCheck(LocaleController.getString("MonetIcon", R.string.MonetIcon), LocaleController.getString("MonetIconDesc", R.string.MonetIconDesc), MonetIconController.isSelectedMonet(), true, true);
                     } else if (position == uploadSpeedBoostRow) {
                         textCheckCell.setTextAndCheck(LocaleController.getString("FasterUploadSpeed", R.string.FasterUploadSpeed), YukiConfig.uploadSpeedBoost, false);
+                    } else if (position == altNavigationRow) {
+                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("AltNavigation", R.string.AltNavigation), LocaleController.getString("AltNavigationDesc", R.string.AltNavigationDesc), YukiConfig.alternativeNavigation, true, true);
                     } else if (position == sendLargePhotosRow) {
                         textCheckCell.setTextAndValueAndCheck(LocaleController.getString("HRPhotos", R.string.HRPhotos), LocaleController.getString("HRPhotosDesc", R.string.HRPhotosDesc), YukiConfig.sendLargePhotos, true, true);
                     } else if (position == reduceCameraXLatency) {
@@ -280,7 +292,7 @@ public class OwlgramExperimentalSettings extends BaseSettingsActivity {
             if (position == downloadDividersRow) {
                 return ViewType.SHADOW;
             } else if (position == betterAudioCallRow || position == checkBoxExperimentalRow || position == monetIconRow ||
-                    position == uploadSpeedBoostRow || position == sendLargePhotosRow || position == reduceCameraXLatency) {
+                    position == uploadSpeedBoostRow || position == sendLargePhotosRow || position == reduceCameraXLatency || position == altNavigationRow) {
                 return ViewType.SWITCH;
             } else if (position == headerImageRow) {
                 return ViewType.IMAGE_HEADER;

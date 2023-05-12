@@ -329,4 +329,6 @@
     <string name="ToggleCrashlyticsButtonDesc">Toggle firebase crash analytics for development purposes</string>
     <string name="ComingSoon">This feature is not yet available.</string>
     <string name="TelegramName">Telegram</string>
+    <string name="AltNavigation">Alternative navigation</string>
+    <string name="AltNavigationDesc">Enable old telegram animations when navigating through the user interface</string>
 </resources>

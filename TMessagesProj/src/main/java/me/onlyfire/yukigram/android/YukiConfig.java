@@ -115,6 +115,7 @@ public class YukiConfig extends SettingsController {
     public static int dcStyleType;
     public static int idType;
     public static long lastUpdateCheck = 0;
+    public static boolean alternativeNavigation;
     public static int downloadSpeedBoost;
     public static int unlockedSecretIcon;
     public static int lastSelectedCompression;
@@ -227,6 +228,7 @@ public class YukiConfig extends SettingsController {
             uploadSpeedBoost = getBoolean("uploadSpeedBoost" + dS, false);
             reduceCameraXLatency = getBoolean("reduceCameraXLatency" + dS, false);
             sendLargePhotos = getBoolean("sendLargePhotos" + dS, false);
+            alternativeNavigation = getBoolean("alternateNavigation" + dS, false);
             configLoaded = true;
             migrate();
         }
@@ -399,6 +401,10 @@ public class YukiConfig extends SettingsController {
 
     public static void toggleUploadSpeedBoost() {
         putValue("uploadSpeedBoost", uploadSpeedBoost ^= true);
+    }
+
+    public static void toggleAlternativeNavigation() {
+        putValue("alternateNavigation", alternativeNavigation ^= true);
     }
 
     public static void toggleReduceCameraXLatency() {
