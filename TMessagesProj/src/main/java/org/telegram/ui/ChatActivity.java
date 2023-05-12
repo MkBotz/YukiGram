@@ -7549,6 +7549,9 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
     }
 
     private void createTranslateButton() {
+        if (OwlConfig.translationProvider != Translator.PROVIDER_TELEGRAM && !OwlConfig.translateEntireChat) {
+            return;
+        }
         if (translateButton != null || getContext() == null) {
             return;
         }

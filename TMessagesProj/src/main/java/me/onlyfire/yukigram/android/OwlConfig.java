@@ -87,6 +87,7 @@ public class OwlConfig extends SettingsController {
     public static boolean sendLargePhotos;
     public static boolean reduceCameraXLatency;
     public static boolean crashlyticsEnabled;
+    public static boolean translateEntireChat;
     public static String translationTarget = "app";
     public static String translationKeyboardTarget = "app";
     public static String oldBuildVersion = null;
@@ -410,6 +411,10 @@ public class OwlConfig extends SettingsController {
 
     public static void toggleShowStatusInChat() {
         putValue("showStatusInChat", showStatusInChat ^= true);
+    }
+
+    public static void toggleTranslateEntireChat() {
+        putValue("translateEntireChat", translateEntireChat ^= true);
     }
 
     public static void toggleHideAllTab() {
