@@ -49,7 +49,10 @@ public class OwlgramGeneralSettings extends BaseSettingsActivity {
     private int privacyHeaderRow;
     private int phoneNumberSwitchRow;
     private int phoneContactsSwitchRow;
+    private int antiPrivacyHeaderRow;
+    private int notificationContentWhenBlockedRow;
     private int translationHeaderRow;
+    private int divisorAntiPrivacyRow;
     private int showTranslateButtonRow;
     private int translationStyle;
     private int translationProviderSelectRow;
@@ -99,6 +102,11 @@ public class OwlgramGeneralSettings extends BaseSettingsActivity {
             YukiConfig.toggleHideContactNumber();
             if (view instanceof TextCheckCell) {
                 ((TextCheckCell) view).setChecked(YukiConfig.hideContactNumber);
+            }
+        } else if (position == notificationContentWhenBlockedRow) {
+            YukiConfig.toggleNotificationContentWhenBlocked();
+            if (view instanceof TextCheckCell) {
+                ((TextCheckCell) view).setChecked(YukiConfig.notificationContentWhenBlocked);
             }
         } else if (position == dcIdRow) {
             YukiConfig.toggleShowIDAndDC();
@@ -247,6 +255,9 @@ public class OwlgramGeneralSettings extends BaseSettingsActivity {
         callHeaderRow = rowCount++;
         confirmCallSwitchRow = rowCount++;
         dividerCallRow = rowCount++;
+        antiPrivacyHeaderRow = rowCount++;
+        notificationContentWhenBlockedRow = rowCount++;
+        divisorAntiPrivacyRow = rowCount++;
         otherRow = rowCount++;
         crashlyticsEnabledRow = rowCount++;
     }
@@ -268,6 +279,8 @@ public class OwlgramGeneralSettings extends BaseSettingsActivity {
                     HeaderCell headerCell = (HeaderCell) holder.itemView;
                     if (position == privacyHeaderRow) {
                         headerCell.setText(LocaleController.getString("PrivacyTitle", R.string.PrivacyTitle));
+                    } else if (position == antiPrivacyHeaderRow) {
+                        headerCell.setText(LocaleController.getString("AntiPrivacyHeader", R.string.AntiPrivacyHeader));
                     } else if (position == translationHeaderRow) {
                         headerCell.setText(LocaleController.getString("TranslateMessages", R.string.TranslateMessages));
                     } else if (position == callHeaderRow) {
@@ -289,6 +302,8 @@ public class OwlgramGeneralSettings extends BaseSettingsActivity {
                         textCheckCell.setTextAndValueAndCheck(LocaleController.getString("HidePhone", R.string.HidePhone), LocaleController.getString("HidePhoneDesc", R.string.HidePhoneDesc), YukiConfig.hidePhoneNumber, true, true);
                     } else if (position == phoneContactsSwitchRow) {
                         textCheckCell.setTextAndValueAndCheck(LocaleController.getString("HidePhoneOthers", R.string.HidePhoneOthers), LocaleController.getString("HidePhoneOthersDesc", R.string.HidePhoneOthersDesc), YukiConfig.hideContactNumber, true, true);
+                    } else if (position == notificationContentWhenBlockedRow) {
+                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("NotificationContentWhenBlocked", R.string.NotificationContentWhenBlocked), LocaleController.getString("NotificationContentWhenBlockedDesc", R.string.NotificationContentWhenBlockedDesc), YukiConfig.notificationContentWhenBlocked, true, true);
                     } else if (position == dcIdRow) {
                         textCheckCell.setTextAndCheck(LocaleController.getString("ShowID_DC", R.string.ShowID_DC), YukiConfig.showIDAndDC, true);
                     } else if (position == confirmCallSwitchRow) {
@@ -486,14 +501,15 @@ public class OwlgramGeneralSettings extends BaseSettingsActivity {
 
         @Override
         public ViewType getViewType(int position) {
-            if (position == divisorPrivacyRow || position == divisorTranslationRow || position == divisorDCIdRow ||
-                    position == dividerNotificationRow || position == dividerCallRow) {
+            if (position == divisorPrivacyRow || position == divisorAntiPrivacyRow || position == divisorTranslationRow
+                    || position == divisorDCIdRow || position == dividerNotificationRow || position == dividerCallRow) {
                 return ViewType.SHADOW;
-            } else if (position == privacyHeaderRow || position == translationHeaderRow || position == callHeaderRow ||
-                    position == dcIdSettingsHeaderRow || position == notificationHeaderRow || position == otherRow) {
+            } else if (position == privacyHeaderRow || position == antiPrivacyHeaderRow || position == translationHeaderRow ||
+                    position == callHeaderRow || position == dcIdSettingsHeaderRow || position == notificationHeaderRow ||
+                    position == otherRow) {
                 return ViewType.HEADER;
-            } else if (position == phoneNumberSwitchRow || position == phoneContactsSwitchRow || position == dcIdRow ||
-                    position == confirmCallSwitchRow || position == notificationAccentRow || position == keepMarkdownRow ||
+            } else if (position == phoneNumberSwitchRow || position == phoneContactsSwitchRow || position == notificationContentWhenBlockedRow
+                    || position == dcIdRow || position == confirmCallSwitchRow || position == notificationAccentRow || position == keepMarkdownRow ||
                     position == showTranslateButtonRow || position == crashlyticsEnabledRow || position == translateEntireChatRow) {
                 return ViewType.SWITCH;
             } else if (position == translationProviderSelectRow || position == destinationLanguageSelectRow || position == deepLFormalityRow ||
@@ -603,6 +619,9 @@ public class OwlgramGeneralSettings extends BaseSettingsActivity {
             put(++pointer, phoneNumberSwitchRow, sparseIntArray);
             put(++pointer, phoneContactsSwitchRow, sparseIntArray);
             put(++pointer, divisorPrivacyRow, sparseIntArray);
+            put(++pointer, antiPrivacyHeaderRow, sparseIntArray);
+            put(++pointer, notificationContentWhenBlockedRow, sparseIntArray);
+            put(++pointer, divisorAntiPrivacyRow, sparseIntArray);
             put(++pointer, translationHeaderRow, sparseIntArray);
             put(++pointer, showTranslateButtonRow, sparseIntArray);
             put(++pointer, translationStyle, sparseIntArray);

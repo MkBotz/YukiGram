@@ -36,6 +36,7 @@ public class YukiConfig extends SettingsController {
     private static final Object sync = new Object();
     public static boolean hidePhoneNumber;
     public static boolean hideContactNumber;
+    public static boolean notificationContentWhenBlocked;
     public static boolean fullTime;
     public static boolean roundedNumbers;
     public static boolean confirmCall;
@@ -144,6 +145,7 @@ public class YukiConfig extends SettingsController {
             isChineseUser = ApplicationLoader.applicationContext.getResources().getBoolean(R.bool.isChineseUser);
             hidePhoneNumber = getBoolean("hidePhoneNumber", true);
             hideContactNumber = getBoolean("hideContactNumber", true);
+            notificationContentWhenBlocked = getBoolean("notificationContentWhenBlocked", false);
             fullTime = getBoolean("fullTime", false);
             roundedNumbers = getBoolean("roundedNumbers", true);
             confirmCall = getBoolean("confirmCall", true);
@@ -250,6 +252,10 @@ public class YukiConfig extends SettingsController {
 
     public static void toggleHideContactNumber() {
         putValue("hideContactNumber", hideContactNumber ^= true);
+    }
+
+    public static void toggleNotificationContentWhenBlocked() {
+        putValue("notificationContentWhenBlocked", notificationContentWhenBlocked ^= true);
     }
 
     public static void toggleFullTime() {

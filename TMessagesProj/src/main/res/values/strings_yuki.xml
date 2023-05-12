@@ -64,6 +64,9 @@
     <string name="HidePhoneDesc">It will be hidden from settings and side menu</string>
     <string name="HidePhoneOthers">Hide other people\'s Phone Number</string>
     <string name="HidePhoneOthersDesc">It will be hidden just for you from their profile</string>
+    <string name="AntiPrivacyHeader">Anti-Privacy</string>
+    <string name="NotificationContentWhenBlocked">Notification contents when blocked</string>
+    <string name="NotificationContentWhenBlockedDesc">It will show notification contents even when the app is passcode-blocked. WARNING: This is an anti-privacy feature. Think twice before enabling it!</string>
     <string name="FontsAndEmojis">Fonts and Emoji</string>
     <string name="UseSystemFonts">Use System Fonts</string>
     <string name="UseSystemEmojis">Use System Emoji</string>

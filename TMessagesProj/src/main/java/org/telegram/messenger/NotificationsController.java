@@ -1415,7 +1415,7 @@ public class NotificationsController extends BaseController {
     }
 
     private String getShortStringForMessage(MessageObject messageObject, String[] userName, boolean[] preview) {
-        if (AndroidUtilities.needShowPasscode() || SharedConfig.isWaitingForPasscodeEnter) {
+        if ((AndroidUtilities.needShowPasscode() || SharedConfig.isWaitingForPasscodeEnter) && !YukiConfig.notificationContentWhenBlocked) {
             return LocaleController.getString("NotificationHiddenMessage", R.string.NotificationHiddenMessage);
         }
         long dialogId = messageObject.messageOwner.dialog_id;
@@ -3508,7 +3508,7 @@ public class NotificationsController extends BaseController {
             }
             boolean passcode = AndroidUtilities.needShowPasscode() || SharedConfig.isWaitingForPasscodeEnter;
             if (DialogObject.isEncryptedDialog(dialog_id) || pushDialogs.size() > 1 || passcode) {
-                if (passcode) {
+                if (passcode && !YukiConfig.notificationContentWhenBlocked) {
                     if (chatId != 0) {
                         name = LocaleController.getString("NotificationHiddenChatName", R.string.NotificationHiddenChatName);
                     } else {
@@ -4227,12 +4227,13 @@ public class NotificationsController extends BaseController {
                 photoPath = null;
             }
 
-            if (waitingForPasscode) {
+            if (waitingForPasscode && !YukiConfig.notificationContentWhenBlocked) {
                 if (DialogObject.isChatDialog(dialogId)) {
                     name = LocaleController.getString("NotificationHiddenChatName", R.string.NotificationHiddenChatName);
                 } else {
                     name = LocaleController.getString("NotificationHiddenName", R.string.NotificationHiddenName);
                 }
+
                 photoPath = null;
                 canReply = false;
             }
@@ -4383,7 +4384,7 @@ public class NotificationsController extends BaseController {
                 Person person = personCache.get(uid + ((long) topicId << 16));
                 CharSequence personName = "";
                 if (senderName[0] == null) {
-                    if (waitingForPasscode) {
+                    if (waitingForPasscode && !YukiConfig.notificationContentWhenBlocked) {
                         if (DialogObject.isChatDialog(dialogId)) {
                             if (isChannel) {
                                 if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O_MR1) {
@@ -4395,6 +4396,8 @@ public class NotificationsController extends BaseController {
                         } else if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O_MR1) {
                             personName = LocaleController.getString("NotificationHiddenName", R.string.NotificationHiddenName);
                         }
+                    } else {
+                        personName = senderName[0];
                     }
                 } else {
                     personName = senderName[0];
