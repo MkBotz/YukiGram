@@ -17,9 +17,8 @@ import org.telegram.ui.Cells.HeaderCell;
 import org.telegram.ui.Cells.TextRadioCell;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 import me.onlyfire.yukigram.android.translator.BaseTranslator;
 import me.onlyfire.yukigram.android.translator.Translator;
 
@@ -46,7 +45,7 @@ public class SelectLanguageSettings extends BaseSettingsActivity {
     protected void onItemClick(View view, int position, float x, float y) {
         if (position != languageHeaderRow) {
             String selectedLanguage = targetLanguages.get(position - languagesStartRow);
-            OwlConfig.setTranslationTarget(selectedLanguage);
+            YukiConfig.setTranslationTarget(selectedLanguage);
             finishFragment();
         }
     }
@@ -115,8 +114,8 @@ public class SelectLanguageSettings extends BaseSettingsActivity {
         targetLanguages.add(0, "app");
         names.add(0, getLanguage(appLanguage) + " - " + LocaleController.getString("Default", R.string.Default));
 
-        if (!OwlConfig.translationTarget.equals("app")) {
-            int indexLangSelected = targetLanguages.indexOf(OwlConfig.translationTarget);
+        if (!YukiConfig.translationTarget.equals("app")) {
+            int indexLangSelected = targetLanguages.indexOf(YukiConfig.translationTarget);
             names.add(0, names.get(indexLangSelected));
             targetLanguages.add(0, targetLanguages.get(indexLangSelected));
             names.remove(indexLangSelected + 1);
@@ -168,7 +167,7 @@ public class SelectLanguageSettings extends BaseSettingsActivity {
                 case TEXT_RADIO:
                     TextRadioCell textRadioCell = (TextRadioCell) holder.itemView;
                     String[] languages = names.get(position - languagesStartRow).toString().split(" - ");
-                    boolean isSelectedLanguage = OwlConfig.translationTarget.equals(targetLanguages.get(position - languagesStartRow));
+                    boolean isSelectedLanguage = YukiConfig.translationTarget.equals(targetLanguages.get(position - languagesStartRow));
                     textRadioCell.setTextAndValueAndCheck(
                             languages.length > 2 ? languages[2] : languages[1],
                             languages[0],

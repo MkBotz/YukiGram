@@ -72,7 +72,6 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
 
 import com.google.android.exoplayer2.ExoPlayer;
-import com.google.android.exoplayer2.util.Log;
 
 import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.ApplicationLoader;
@@ -122,7 +121,7 @@ import javax.microedition.khronos.egl.EGLContext;
 import javax.microedition.khronos.egl.EGLDisplay;
 import javax.microedition.khronos.egl.EGLSurface;
 
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 import me.onlyfire.yukigram.android.camera.CameraXController;
 import me.onlyfire.yukigram.android.camera.CameraXUtils;
 
@@ -139,7 +138,7 @@ public class InstantCameraView extends FrameLayout implements NotificationCenter
     private ImageView muteImageView;
     private float progress;
     private CameraInfo selectedCamera;
-    private boolean isFrontface = !OwlConfig.useRearCamera;
+    private boolean isFrontface = !YukiConfig.useRearCamera;
     private volatile boolean cameraReady;
     private AnimatorSet muteAnimation;
     private TLRPC.InputFile file;
@@ -332,7 +331,7 @@ public class InstantCameraView extends FrameLayout implements NotificationCenter
         switchCameraButton.setContentDescription(LocaleController.getString("AccDescrSwitchCamera", R.string.AccDescrSwitchCamera));
         addView(switchCameraButton, LayoutHelper.createFrame(62, 62, Gravity.LEFT | Gravity.BOTTOM, 8, 0, 0, 0));
         switchCameraButton.setOnClickListener(v -> {
-            if (!CameraXUtils.isCameraXSupported() || OwlConfig.cameraType != 1) {
+            if (!CameraXUtils.isCameraXSupported() || YukiConfig.cameraType != 1) {
                 if (!cameraReady || cameraSession == null || !cameraSession.isInitied() || cameraThread == null) {
                     return;
                 }
@@ -496,7 +495,7 @@ public class InstantCameraView extends FrameLayout implements NotificationCenter
     }
 
     public void destroy(boolean async, final Runnable beforeDestroyRunnable) {
-        if (!CameraXUtils.isCameraXSupported() || OwlConfig.cameraType != 1) {
+        if (!CameraXUtils.isCameraXSupported() || YukiConfig.cameraType != 1) {
             if (cameraSession != null) {
                 cameraSession.destroy();
                 CameraController.getInstance().close(cameraSession, !async ? new CountDownLatch(1) : null, beforeDestroyRunnable);
@@ -610,7 +609,7 @@ public class InstantCameraView extends FrameLayout implements NotificationCenter
             textureOverlayView.setImageResource(R.drawable.icplaceholder);
         }
         cameraReady = false;
-        isFrontface = !OwlConfig.useRearCamera;
+        isFrontface = !YukiConfig.useRearCamera;
         selectedCamera = null;
         recordedTime = 0;
         progress = 0;
@@ -676,7 +675,7 @@ public class InstantCameraView extends FrameLayout implements NotificationCenter
                     cameraThread.shutdown(0);
                     cameraThread = null;
                 }
-                if (!CameraXUtils.isCameraXSupported() || OwlConfig.cameraType != 1) {
+                if (!CameraXUtils.isCameraXSupported() || YukiConfig.cameraType != 1) {
                     if (cameraSession != null) {
                         CameraController.getInstance().close(cameraSession, null, null);
                     }
@@ -1135,7 +1134,7 @@ public class InstantCameraView extends FrameLayout implements NotificationCenter
             }
 
             surfaceTexture.setDefaultBufferSize(previewSize.getWidth(), previewSize.getHeight());
-            if (!CameraXUtils.isCameraXSupported() || OwlConfig.cameraType != 1) {
+            if (!CameraXUtils.isCameraXSupported() || YukiConfig.cameraType != 1) {
                 cameraSession = new CameraSession(selectedCamera, previewSize, pictureSize, ImageFormat.JPEG, true);
                 cameraThread.setCurrentSession(cameraSession);
                 CameraController.getInstance().openRound(cameraSession, surfaceTexture, () -> {
@@ -1563,7 +1562,7 @@ public class InstantCameraView extends FrameLayout implements NotificationCenter
                 videoEncoder.startRecording(cameraFile, EGL14.eglGetCurrentContext());
                 recording = true;
                 int orientation = 0;
-                if (!CameraXUtils.isCameraXSupported() || OwlConfig.cameraType != 1) {
+                if (!CameraXUtils.isCameraXSupported() || YukiConfig.cameraType != 1) {
                     orientation = currentSession.getCurrentOrientation();
                 } else {
                     float temp = scaleX;
@@ -2996,7 +2995,7 @@ public class InstantCameraView extends FrameLayout implements NotificationCenter
             pinchScale = (float) Math.hypot(ev.getX(index2) - ev.getX(index1), ev.getY(index2) - ev.getY(index1)) / pinchStartDistance;
             float zoom = Math.min(1f, Math.max(0, pinchScale - 1f));
 
-            if (!CameraXUtils.isCameraXSupported() || OwlConfig.cameraType != 1) {
+            if (!CameraXUtils.isCameraXSupported() || YukiConfig.cameraType != 1) {
                 cameraSession.setZoom(zoom);
             } else {
                 cameraXController.setZoom(zoom);
@@ -3021,7 +3020,7 @@ public class InstantCameraView extends FrameLayout implements NotificationCenter
             finishZoomTransition = ValueAnimator.ofFloat(zoom, 0);
             finishZoomTransition.addUpdateListener(valueAnimator -> {
                 if (cameraSession != null) {
-                    if (!CameraXUtils.isCameraXSupported() || OwlConfig.cameraType != 1) {
+                    if (!CameraXUtils.isCameraXSupported() || YukiConfig.cameraType != 1) {
                         cameraSession.setZoom((float) valueAnimator.getAnimatedValue());
                     } else {
                         cameraXController.setZoom((float) valueAnimator.getAnimatedValue());

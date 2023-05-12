@@ -47,7 +47,7 @@ public class MenuOrderController {
             if (configLoaded) {
                 return;
             }
-            if (OwlConfig.drawerItems.isEmpty()) {
+            if (YukiConfig.drawerItems.isEmpty()) {
                 loadDefaultItems();
             }
             configLoaded = true;
@@ -71,8 +71,8 @@ public class MenuOrderController {
     }
 
     public static void resetToDefaultPosition() {
-        if (OwlConfig.drawerItems.isPresent()) {
-            OwlConfig.drawerItems.get().clear();
+        if (YukiConfig.drawerItems.isPresent()) {
+            YukiConfig.drawerItems.get().clear();
             loadDefaultItems();
         }
     }
@@ -93,12 +93,12 @@ public class MenuOrderController {
     }
 
     private static void loadDefaultItems() {
-        OwlConfig.drawerItems.set(new OWLENC.DrawerItems());
+        YukiConfig.drawerItems.set(new OWLENC.DrawerItems());
         String[] defaultItems = getDefaultItems();
         for (String defaultItem : defaultItems) {
-            OwlConfig.drawerItems.get().add(defaultItem);
+            YukiConfig.drawerItems.get().add(defaultItem);
         }
-        OwlConfig.applyDrawerItems();
+        YukiConfig.applyDrawerItems();
     }
 
     private static int getArrayPosition(String id) {
@@ -106,9 +106,9 @@ public class MenuOrderController {
     }
 
     private static int getArrayPosition(String id, int startFrom) {
-        if (OwlConfig.drawerItems.isPresent()) {
-            for (int i = startFrom; i < OwlConfig.drawerItems.get().size() && startFrom >= 0; i++) {
-                if (OwlConfig.drawerItems.get().get(i).equals(id)) {
+        if (YukiConfig.drawerItems.isPresent()) {
+            for (int i = startFrom; i < YukiConfig.drawerItems.get().size() && startFrom >= 0; i++) {
+                if (YukiConfig.drawerItems.get().get(i).equals(id)) {
                     return i;
                 }
             }
@@ -117,16 +117,16 @@ public class MenuOrderController {
     }
 
     public static int getPositionItem(String id, int startFrom) {
-        if (OwlConfig.drawerItems.isPresent()) {
+        if (YukiConfig.drawerItems.isPresent()) {
             return getArrayPosition(id, startFrom);
         }
         return -1;
     }
 
     public static void changePosition(int oldPosition, int newPosition) {
-        if (OwlConfig.drawerItems.isPresent()) {
-            OwlConfig.drawerItems.get().move(oldPosition, newPosition);
-            OwlConfig.applyDrawerItems();
+        if (YukiConfig.drawerItems.isPresent()) {
+            YukiConfig.drawerItems.get().move(oldPosition, newPosition);
+            YukiConfig.applyDrawerItems();
         }
     }
 
@@ -267,8 +267,8 @@ public class MenuOrderController {
                     )
             );
         }
-        if (OwlConfig.drawerItems.isPresent()) {
-            for (String id : OwlConfig.drawerItems.get()) {
+        if (YukiConfig.drawerItems.isPresent()) {
+            for (String id : YukiConfig.drawerItems.get()) {
                 if (id.equals(DIVIDER_ITEM)) {
                     list.add(
                             new EditableMenuItem(
@@ -289,16 +289,16 @@ public class MenuOrderController {
     }
 
     private static void addAsFirst(String id) {
-        if (OwlConfig.drawerItems.isPresent()) {
-            OwlConfig.drawerItems.get().add(0, id);
-            OwlConfig.applyDrawerItems();
+        if (YukiConfig.drawerItems.isPresent()) {
+            YukiConfig.drawerItems.get().add(0, id);
+            YukiConfig.applyDrawerItems();
         }
     }
 
     public static void removeItem(int position) {
-        if (OwlConfig.drawerItems.isPresent()) {
-            OwlConfig.drawerItems.get().remove(position);
-            OwlConfig.applyDrawerItems();
+        if (YukiConfig.drawerItems.isPresent()) {
+            YukiConfig.drawerItems.get().remove(position);
+            YukiConfig.applyDrawerItems();
         }
     }
 

@@ -311,7 +311,7 @@ public class SettingsController extends SharedPreferencesHelper {
     }
 
     private static Field[] getFields() {
-        return Arrays.stream(OwlConfig.class.getDeclaredFields())
+        return Arrays.stream(YukiConfig.class.getDeclaredFields())
                 .filter(field -> !field.getName().equals("DB_VERSION"))
                 .filter(field -> !field.getName().equals("sync"))
                 .toArray(Field[]::new);
@@ -341,7 +341,7 @@ public class SettingsController extends SharedPreferencesHelper {
             }
             if (!isRestore) {
                 configLoaded = false;
-                OwlConfig.loadConfig(false);
+                YukiConfig.loadConfig(false);
                 MenuOrderController.reloadConfig();
             }
         } catch (Exception e) {
@@ -415,7 +415,7 @@ public class SettingsController extends SharedPreferencesHelper {
             LocaleController.getInstance().recreateFormatters();
         }
         if ((difference & NEED_RECREATE_SHADOW) > 0) {
-            parentLayout.setHeaderShadow(OwlConfig.showAppBarShadow ? parentLayout.getView().getResources().getDrawable(R.drawable.header_shadow).mutate():null);
+            parentLayout.setHeaderShadow(YukiConfig.showAppBarShadow ? parentLayout.getView().getResources().getDrawable(R.drawable.header_shadow).mutate():null);
         }
         if ((difference & NEED_FRAGMENT_REBASE) > 0) {
             parentLayout.rebuildAllFragmentViews(false, false);
@@ -472,7 +472,7 @@ public class SettingsController extends SharedPreferencesHelper {
     public static void resetSettings() {
         internalResetSettings();
         configLoaded = false;
-        OwlConfig.loadConfig(false);
+        YukiConfig.loadConfig(false);
         //noinspection ResultOfMethodCallIgnored
         backupFile().delete();
         MenuOrderController.reloadConfig();

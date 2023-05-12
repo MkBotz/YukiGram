@@ -97,7 +97,7 @@ public class CustomEmojiController {
     }
 
     public static Typeface getCurrentTypeface() {
-        if (OwlConfig.useSystemEmoji) return getSystemEmojiTypeface();
+        if (YukiConfig.useSystemEmoji) return getSystemEmojiTypeface();
         return getSelectedTypeface();
     }
 
@@ -139,7 +139,7 @@ public class CustomEmojiController {
     private static Typeface getSelectedTypeface() {
         return getEmojiCustomPacksInfo()
                 .stream()
-                .filter(emojiPackInfo -> emojiPackInfo.packId.equals(OwlConfig.emojiPackSelected))
+                .filter(emojiPackInfo -> emojiPackInfo.packId.equals(YukiConfig.emojiPackSelected))
                 .map(emojiPackInfo -> {
                     File emojiFile = new File(emojiPackInfo.fileLocation);
                     if (emojiFile.exists()) {
@@ -153,7 +153,7 @@ public class CustomEmojiController {
     }
 
     public static String getSelectedPackName() {
-        if (OwlConfig.useSystemEmoji) return LocaleController.getString("CameraTypeSystem", R.string.CameraTypeSystem);
+        if (YukiConfig.useSystemEmoji) return LocaleController.getString("CameraTypeSystem", R.string.CameraTypeSystem);
         synchronized (emojiPacksInfo) {
             return emojiPacksInfo
                     .stream()
@@ -163,7 +163,7 @@ public class CustomEmojiController {
                         }
                         return true;
                     })
-                    .filter(emojiPackInfo -> Objects.equals(emojiPackInfo.packId, OwlConfig.emojiPackSelected))
+                    .filter(emojiPackInfo -> Objects.equals(emojiPackInfo.packId, YukiConfig.emojiPackSelected))
                     .findFirst()
                     .map(e -> e.packName)
                     .orElse("Apple");
@@ -174,8 +174,8 @@ public class CustomEmojiController {
         return getAllEmojis()
                 .stream()
                 .map(File::getName)
-                .anyMatch(name -> name.startsWith(OwlConfig.emojiPackSelected) || name.endsWith(OwlConfig.emojiPackSelected))
-                ? OwlConfig.emojiPackSelected : "default";
+                .anyMatch(name -> name.startsWith(YukiConfig.emojiPackSelected) || name.endsWith(YukiConfig.emojiPackSelected))
+                ? YukiConfig.emojiPackSelected : "default";
     }
 
     public static int getLoadingStatus() {
@@ -347,7 +347,7 @@ public class CustomEmojiController {
     }
 
     public static File getCurrentEmojiPackOffline() {
-        return getAllVersions(OwlConfig.emojiPackSelected)
+        return getAllVersions(YukiConfig.emojiPackSelected)
                 .stream()
                 .findFirst()
                 .orElse(null);
@@ -385,7 +385,7 @@ public class CustomEmojiController {
 
     public static Long getEmojiSize() {
         return getAllEmojis().stream()
-                .filter(file -> !file.getName().startsWith(OwlConfig.emojiPackSelected))
+                .filter(file -> !file.getName().startsWith(YukiConfig.emojiPackSelected))
                 .filter(file -> !isValidCustomPack(file))
                 .map(CustomEmojiController::calculateFolderSize)
                 .reduce(0L, Long::sum);
@@ -408,7 +408,7 @@ public class CustomEmojiController {
 
     public static void deleteAll() {
         getAllEmojis().stream()
-                .filter(file -> !file.getName().startsWith(OwlConfig.emojiPackSelected))
+                .filter(file -> !file.getName().startsWith(YukiConfig.emojiPackSelected))
                 .filter(file -> !isValidCustomPack(file))
                 .forEach(FileUnzip::deleteFolder);
     }
@@ -471,8 +471,8 @@ public class CustomEmojiController {
             if (getSelectedEmojiPackId().equals("default")) return;
             synchronized (emojiPacksInfo) {
                 if (emojiPacksInfo.isEmpty()) {
-                    if (!isInstalledOffline(OwlConfig.emojiPackSelected)) {
-                        OwlConfig.emojiPackSelected = "default";
+                    if (!isInstalledOffline(YukiConfig.emojiPackSelected)) {
+                        YukiConfig.emojiPackSelected = "default";
                     }
                     Emoji.reloadEmoji();
                     AndroidUtilities.cancelRunOnUIThread(invalidateUiRunnable);
@@ -483,7 +483,7 @@ public class CustomEmojiController {
                     if (emojiPackBase instanceof EmojiPackInfo) {
                         EmojiPackInfo emojiPackInfo = (EmojiPackInfo) emojiPackBase;
                         boolean isUpdate = isInstalledOldVersion(emojiPackInfo.packId, emojiPackInfo.versionWithMd5);
-                        if (OwlConfig.emojiPackSelected.equals(emojiPackInfo.packId)) {
+                        if (YukiConfig.emojiPackSelected.equals(emojiPackInfo.packId)) {
                             if (!emojiDir(emojiPackInfo.packId, emojiPackInfo.versionWithMd5).exists()) {
                                 CustomEmojiController.mkDirs();
                                 FileDownloader.downloadFile(ApplicationLoader.applicationContext, emojiPackInfo.packId, CustomEmojiController.emojiTmp(emojiPackInfo.packId), emojiPackInfo.fileLocation);
@@ -512,7 +512,7 @@ public class CustomEmojiController {
                                             });
                                         } else if (isFailed) {
                                             CustomEmojiController.emojiTmp(id).delete();
-                                            if (!isUpdate) OwlConfig.setEmojiPackSelected("default");
+                                            if (!isUpdate) YukiConfig.setEmojiPackSelected("default");
                                             Emoji.reloadEmoji();
                                             AndroidUtilities.cancelRunOnUIThread(invalidateUiRunnable);
                                             AndroidUtilities.runOnUIThread(invalidateUiRunnable);
@@ -656,7 +656,7 @@ public class CustomEmojiController {
     public static boolean isSelectedCustomEmojiPack() {
         return getAllEmojis().stream()
                 .filter(CustomEmojiController::isValidCustomPack)
-                .anyMatch(file -> file.getName().endsWith(OwlConfig.emojiPackSelected));
+                .anyMatch(file -> file.getName().endsWith(YukiConfig.emojiPackSelected));
     }
 
     public static void cancelableDelete(BaseFragment fragment, EmojiPackBase emojiPackBase, OnBulletinAction onUndoBulletinAction) {
@@ -681,9 +681,9 @@ public class CustomEmojiController {
         }
         pendingDeleteEmojiPackId = emojiPackBase.getPackId();
         onUndoBulletinAction.onPreStart();
-        boolean wasSelected = emojiPackBase.getPackId().equals(OwlConfig.emojiPackSelected);
+        boolean wasSelected = emojiPackBase.getPackId().equals(YukiConfig.emojiPackSelected);
         if (wasSelected) {
-            OwlConfig.setEmojiPackSelected("default");
+            YukiConfig.setEmojiPackSelected("default");
         }
         EmojiSetBulletinLayout bulletinLayout = new EmojiSetBulletinLayout(
                 fragment.getParentActivity(),
@@ -694,7 +694,7 @@ public class CustomEmojiController {
                 );
         Bulletin.UndoButton undoButton = new Bulletin.UndoButton(fragment.getParentActivity(), false).setUndoAction(() -> {
             if (wasSelected) {
-                OwlConfig.setEmojiPackSelected(pendingDeleteEmojiPackId);
+                YukiConfig.setEmojiPackSelected(pendingDeleteEmojiPackId);
             }
             pendingDeleteEmojiPackId = null;
             onUndoBulletinAction.onUndo();
@@ -726,8 +726,8 @@ public class CustomEmojiController {
         synchronized (emojiPacksInfo) {
             emojiPacksInfo.remove(emojiPackBase);
         }
-        if (emojiPackBase.getPackId().equals(OwlConfig.emojiPackSelected)) {
-            OwlConfig.setEmojiPackSelected("default");
+        if (emojiPackBase.getPackId().equals(YukiConfig.emojiPackSelected)) {
+            YukiConfig.setEmojiPackSelected("default");
         }
     }
 

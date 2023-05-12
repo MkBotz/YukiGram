@@ -135,7 +135,7 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 import me.onlyfire.yukigram.ui.Components.Dialogs.ImportSettingsDialog;
 
 public class ChannelAdminLogActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate {
@@ -1751,8 +1751,8 @@ public class ChannelAdminLogActivity extends BaseFragment implements Notificatio
                 break;
             }
             case 207: {
-                int statusConf = OwlConfig.isValidFileSettings(selectedObject);
-                if (statusConf == OwlConfig.VALID_CONFIGURATION) {
+                int statusConf = YukiConfig.isValidFileSettings(selectedObject);
+                if (statusConf == YukiConfig.VALID_CONFIGURATION) {
                     new ImportSettingsDialog(ChannelAdminLogActivity.this, selectedObject).checkCanShowDialog();
                 } else {
                     BulletinFactory.of(ChannelAdminLogActivity.this).createSimpleBulletin(R.raw.gigagroup_convert, LocaleController.getString("UpdateToImport", R.string.UpdateToImport), true).show();
@@ -1911,7 +1911,7 @@ public class ChannelAdminLogActivity extends BaseFragment implements Notificatio
                                 return 10;
                             } else if (mime.endsWith("/xml")) {
                                 return 5;
-                            } else if ((messageObject.getDocumentName().toLowerCase().endsWith("yuki") || messageObject.getDocumentName().toLowerCase().endsWith("owl")) && OwlConfig.isValidFileSettings(messageObject) >= OwlConfig.VALID_CONFIGURATION) {
+                            } else if ((messageObject.getDocumentName().toLowerCase().endsWith("yuki") || messageObject.getDocumentName().toLowerCase().endsWith("owl")) && YukiConfig.isValidFileSettings(messageObject) >= YukiConfig.VALID_CONFIGURATION) {
                                 return 207;
                             } else if (mime.endsWith("/png") || mime.endsWith("/jpg") || mime.endsWith("/jpeg")) {
                                 return 6;
@@ -2652,9 +2652,9 @@ public class ChannelAdminLogActivity extends BaseFragment implements Notificatio
                                     scrollToPositionOnRecreate = -1;
                                 }
                             }
-                            int statusConf = OwlConfig.isValidFileSettings(message);
-                            if (message.getDocumentName().toLowerCase().endsWith("yuki") && statusConf >= OwlConfig.VALID_CONFIGURATION) {
-                                if (statusConf == OwlConfig.VALID_CONFIGURATION) {
+                            int statusConf = YukiConfig.isValidFileSettings(message);
+                            if (message.getDocumentName().toLowerCase().endsWith("yuki") && statusConf >= YukiConfig.VALID_CONFIGURATION) {
+                                if (statusConf == YukiConfig.VALID_CONFIGURATION) {
                                     new ImportSettingsDialog(ChannelAdminLogActivity.this, message).checkCanShowDialog();
                                 } else {
                                     BulletinFactory.of(ChannelAdminLogActivity.this).createSimpleBulletin(R.raw.gigagroup_convert, LocaleController.getString("UpdateToImport", R.string.UpdateToImport), true).show();

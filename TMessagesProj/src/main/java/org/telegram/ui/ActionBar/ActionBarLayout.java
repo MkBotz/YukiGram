@@ -64,7 +64,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 
 public class ActionBarLayout extends FrameLayout implements INavigationLayout, FloatingDebugProvider {
 
@@ -397,7 +397,7 @@ public class ActionBarLayout extends FrameLayout implements INavigationLayout, F
 
         if (layerShadowDrawable == null) {
             layerShadowDrawable = getResources().getDrawable(R.drawable.layer_shadow);
-            headerShadowDrawable = OwlConfig.showAppBarShadow ? getResources().getDrawable(R.drawable.header_shadow).mutate():null;
+            headerShadowDrawable = YukiConfig.showAppBarShadow ? getResources().getDrawable(R.drawable.header_shadow).mutate():null;
             scrimPaint = new Paint();
         }
     }

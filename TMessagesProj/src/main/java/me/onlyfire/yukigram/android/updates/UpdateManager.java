@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import me.onlyfire.yukigram.android.Extra;
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 import me.onlyfire.yukigram.android.StoreUtils;
 import me.onlyfire.yukigram.android.entities.HTMLKeeper;
 import me.onlyfire.yukigram.android.http.FileDownloader;
@@ -49,7 +49,7 @@ public class UpdateManager {
     }
 
     public static String getApkChannel() {
-        return OwlConfig.betaUpdates ? "OwlGramBeta" : "OwlGramAPKs";
+        return YukiConfig.betaUpdates ? "OwlGramBeta" : "OwlGramAPKs";
     }
 
     public static void getChangelogs(ChangelogCallback changelogCallback) {
@@ -98,7 +98,7 @@ public class UpdateManager {
 
     private static void checkInternal(UpdateCallback updateCallback, AppUpdateInfo psAppUpdateInfo) {
         Locale locale = LocaleController.getInstance().getCurrentLocale();
-        boolean betaMode = OwlConfig.betaUpdates && !StoreUtils.isDownloadedFromAnyStore();
+        boolean betaMode = YukiConfig.betaUpdates && !StoreUtils.isDownloadedFromAnyStore();
         new Thread() {
             @Override
             public void run() {
@@ -137,7 +137,7 @@ public class UpdateManager {
                         int remoteVersion = Extra.IGNORE_VERSION_CHECK ? Integer.MAX_VALUE : (psAppUpdateInfo != null ? PlayStoreAPI.getVersionCode(psAppUpdateInfo) : obj.getInt("version"));
                         if (remoteVersion > code) {
                             OWLENC.UpdateAvailable updateAvailable = loadUpdate(obj);
-                            OwlConfig.saveUpdateStatus(1);
+                            YukiConfig.saveUpdateStatus(1);
                             updateAvailable.setPlayStoreMetaData(psAppUpdateInfo);
                             AndroidUtilities.runOnUIThread(() -> updateCallback.onSuccess(updateAvailable));
                         } else {
@@ -161,8 +161,8 @@ public class UpdateManager {
     public static boolean isAvailableUpdate() {
         boolean updateValid = false;
         try {
-            if(OwlConfig.updateData.isPresent()) {
-                OWLENC.UpdateAvailable update = OwlConfig.updateData.get();
+            if(YukiConfig.updateData.isPresent()) {
+                OWLENC.UpdateAvailable update = YukiConfig.updateData.get();
                 if (update.version > BuildVars.BUILD_VERSION && !update.isReminded()) {
                     updateValid = true;
                 }
@@ -196,17 +196,17 @@ public class UpdateManager {
     public static boolean updateDownloaded() {
         boolean isCorrupted = true;
         try {
-            if (OwlConfig.updateData.isPresent()) {
-                if (OwlConfig.updateData.get().fileSize == apkFile().length()) {
+            if (YukiConfig.updateData.isPresent()) {
+                if (YukiConfig.updateData.get().fileSize == apkFile().length()) {
                     isCorrupted = false;
                 }
             }
         } catch (Exception ignored) {
         }
         boolean isAvailableFile = apkFile().exists() && !FileDownloader.isRunningDownload("appUpdate") && !isCorrupted;
-        if (((BuildVars.BUILD_VERSION >= OwlConfig.oldDownloadedVersion && !Extra.IGNORE_VERSION_CHECK) || OwlConfig.oldDownloadedVersion == 0) && isAvailableFile) {
-            OwlConfig.updateData.set(null);
-            OwlConfig.applyUpdateData();
+        if (((BuildVars.BUILD_VERSION >= YukiConfig.oldDownloadedVersion && !Extra.IGNORE_VERSION_CHECK) || YukiConfig.oldDownloadedVersion == 0) && isAvailableFile) {
+            YukiConfig.updateData.set(null);
+            YukiConfig.applyUpdateData();
             return false;
         }
         return isAvailableFile;

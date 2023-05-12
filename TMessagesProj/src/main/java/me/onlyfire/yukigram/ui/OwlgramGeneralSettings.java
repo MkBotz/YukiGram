@@ -34,7 +34,7 @@ import java.util.HashSet;
 import java.util.Locale;
 
 import me.onlyfire.yukigram.android.AlertController;
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 import me.onlyfire.yukigram.android.translator.AutoTranslateConfig;
 import me.onlyfire.yukigram.android.translator.BaseTranslator;
 import me.onlyfire.yukigram.android.translator.DeepLTranslator;
@@ -89,21 +89,21 @@ public class OwlgramGeneralSettings extends BaseSettingsActivity {
     @Override
     protected void onItemClick(View view, int position, float x, float y) {
         if (position == phoneNumberSwitchRow) {
-            OwlConfig.toggleHidePhone();
+            YukiConfig.toggleHidePhone();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.hidePhoneNumber);
+                ((TextCheckCell) view).setChecked(YukiConfig.hidePhoneNumber);
             }
             reloadInterface();
             reloadMainInfo();
         } else if (position == phoneContactsSwitchRow) {
-            OwlConfig.toggleHideContactNumber();
+            YukiConfig.toggleHideContactNumber();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.hideContactNumber);
+                ((TextCheckCell) view).setChecked(YukiConfig.hideContactNumber);
             }
         } else if (position == dcIdRow) {
-            OwlConfig.toggleShowIDAndDC();
+            YukiConfig.toggleShowIDAndDC();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.showIDAndDC);
+                ((TextCheckCell) view).setChecked(YukiConfig.showIDAndDC);
             }
             reloadInterface();
         } else if (position == translationStyle) {
@@ -113,12 +113,12 @@ public class OwlgramGeneralSettings extends BaseSettingsActivity {
             types.add(BaseTranslator.INLINE_STYLE);
             arrayList.add(LocaleController.getString("TranslatorTypeTG", R.string.TranslatorTypeTG));
             types.add(BaseTranslator.DIALOG_STYLE);
-            AlertController.show(arrayList, LocaleController.getString("TranslatorType", R.string.TranslatorType), types.indexOf(OwlConfig.translatorStyle), context, i -> {
-                OwlConfig.setTranslatorStyle(types.get(i));
+            AlertController.show(arrayList, LocaleController.getString("TranslatorType", R.string.TranslatorType), types.indexOf(YukiConfig.translatorStyle), context, i -> {
+                YukiConfig.setTranslatorStyle(types.get(i));
                 listAdapter.notifyItemChanged(translationStyle, PARTIAL);
             });
         } else if (position == translationProviderSelectRow) {
-            final int oldProvider = OwlConfig.translationProvider;
+            final int oldProvider = YukiConfig.translationProvider;
             Translator.showTranslationProviderSelector(context, param -> {
                 if (param) {
                     listAdapter.notifyItemChanged(translationProviderSelectRow, PARTIAL);
@@ -126,7 +126,7 @@ public class OwlgramGeneralSettings extends BaseSettingsActivity {
                     listAdapter.notifyItemRangeChanged(translationProviderSelectRow, 2, PARTIAL);
                 }
                 listAdapter.notifyItemChanged(hintTranslation2);
-                if (oldProvider != OwlConfig.translationProvider) {
+                if (oldProvider != YukiConfig.translationProvider) {
                     updateListAnimated();
                 }
             });
@@ -147,19 +147,19 @@ public class OwlgramGeneralSettings extends BaseSettingsActivity {
             types.add(DeepLTranslator.FORMALITY_MORE);
             arrayList.add(LocaleController.getString("DeepLFormalityLess", R.string.DeepLFormalityLess));
             types.add(DeepLTranslator.FORMALITY_LESS);
-            AlertController.show(arrayList, LocaleController.getString("DeepLFormality", R.string.DeepLFormality), types.indexOf(OwlConfig.deepLFormality), context, i -> {
-                OwlConfig.setDeepLFormality(types.get(i));
+            AlertController.show(arrayList, LocaleController.getString("DeepLFormality", R.string.DeepLFormality), types.indexOf(YukiConfig.deepLFormality), context, i -> {
+                YukiConfig.setDeepLFormality(types.get(i));
                 listAdapter.notifyItemChanged(deepLFormalityRow, PARTIAL);
             });
         } else if (position == confirmCallSwitchRow) {
-            OwlConfig.toggleConfirmCall();
+            YukiConfig.toggleConfirmCall();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.confirmCall);
+                ((TextCheckCell) view).setChecked(YukiConfig.confirmCall);
             }
         } else if (position == notificationAccentRow) {
-            OwlConfig.toggleAccentColor();
+            YukiConfig.toggleAccentColor();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.accentAsNotificationColor);
+                ((TextCheckCell) view).setChecked(YukiConfig.accentAsNotificationColor);
             }
         } else if (position == idTypeRow) {
             ArrayList<String> arrayList = new ArrayList<>();
@@ -168,13 +168,13 @@ public class OwlgramGeneralSettings extends BaseSettingsActivity {
             types.add(0);
             arrayList.add("Telegram API");
             types.add(1);
-            AlertController.show(arrayList, LocaleController.getString("IDType", R.string.IDType), types.indexOf(OwlConfig.idType), context, i -> {
-                OwlConfig.setIdType(types.get(i));
+            AlertController.show(arrayList, LocaleController.getString("IDType", R.string.IDType), types.indexOf(YukiConfig.idType), context, i -> {
+                YukiConfig.setIdType(types.get(i));
                 listAdapter.notifyItemChanged(idTypeRow, PARTIAL);
                 reloadInterface();
             });
         } else if (position == autoTranslateRow) {
-            if (!getUserConfig().isPremium() && OwlConfig.translationProvider == Translator.PROVIDER_TELEGRAM) {
+            if (!getUserConfig().isPremium() && YukiConfig.translationProvider == Translator.PROVIDER_TELEGRAM) {
                 showDialog(new PremiumFeatureBottomSheet(OwlgramGeneralSettings.this, PremiumPreviewFragment.PREMIUM_FEATURE_TRANSLATIONS, false));
                 return;
             }
@@ -184,32 +184,32 @@ public class OwlgramGeneralSettings extends BaseSettingsActivity {
             }
             presentFragment(new AutoTranslateSettings());
         } else if (position == keepMarkdownRow) {
-            if (!getUserConfig().isPremium() && OwlConfig.translationProvider == Translator.PROVIDER_TELEGRAM) {
+            if (!getUserConfig().isPremium() && YukiConfig.translationProvider == Translator.PROVIDER_TELEGRAM) {
                 showDialog(new PremiumFeatureBottomSheet(OwlgramGeneralSettings.this, PremiumPreviewFragment.PREMIUM_FEATURE_TRANSLATIONS, false));
                 return;
             }
-            OwlConfig.toggleKeepTranslationMarkdown();
+            YukiConfig.toggleKeepTranslationMarkdown();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.keepTranslationMarkdown);
+                ((TextCheckCell) view).setChecked(YukiConfig.keepTranslationMarkdown);
             }
         } else if (position == showTranslateButtonRow) {
-            OwlConfig.toggleShowTranslate();
+            YukiConfig.toggleShowTranslate();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.showTranslate);
+                ((TextCheckCell) view).setChecked(YukiConfig.showTranslate);
             }
         } else if (position == crashlyticsEnabledRow) {
-            OwlConfig.toggleCrashlytics();
+            YukiConfig.toggleCrashlytics();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.crashlyticsEnabled);
+                ((TextCheckCell) view).setChecked(YukiConfig.crashlyticsEnabled);
             }
             restartTooltip.showWithAction(0, UndoView.ACTION_NEED_RESTART, null, null);
         } else if (position == translateEntireChatRow) {
-            if (!getUserConfig().isPremium() && OwlConfig.translationProvider == Translator.PROVIDER_TELEGRAM) {
+            if (!getUserConfig().isPremium() && YukiConfig.translationProvider == Translator.PROVIDER_TELEGRAM) {
                 showDialog(new PremiumFeatureBottomSheet(OwlgramGeneralSettings.this, PremiumPreviewFragment.PREMIUM_FEATURE_TRANSLATIONS, false));
             } else {
-                OwlConfig.toggleTranslateEntireChat();
+                YukiConfig.toggleTranslateEntireChat();
                 if (view instanceof TextCheckCell) {
-                    ((TextCheckCell) view).setChecked(OwlConfig.translateEntireChat);
+                    ((TextCheckCell) view).setChecked(YukiConfig.translateEntireChat);
                 }
             }
         }
@@ -229,7 +229,7 @@ public class OwlgramGeneralSettings extends BaseSettingsActivity {
         translationProviderSelectRow = rowCount++;
         destinationLanguageSelectRow = rowCount++;
         doNotTranslateSelectRow = rowCount++;
-        deepLFormalityRow = OwlConfig.translationProvider == Translator.PROVIDER_DEEPL ? rowCount++ : -1;
+        deepLFormalityRow = YukiConfig.translationProvider == Translator.PROVIDER_DEEPL ? rowCount++ : -1;
         autoTranslateRow = TranslatorHelper.isSupportAutoTranslate() ? rowCount++ : -1;
         keepMarkdownRow = TranslatorHelper.isSupportMarkdown() ? rowCount++ : -1;
         divisorTranslationRow = rowCount++;
@@ -284,27 +284,27 @@ public class OwlgramGeneralSettings extends BaseSettingsActivity {
                     TextCheckCell textCheckCell = (TextCheckCell) holder.itemView;
                     textCheckCell.setEnabled(true, null);
                     textCheckCell.setCheckBoxIcon(0);
-                    boolean isLocked = !getUserConfig().isPremium() && OwlConfig.translationProvider == Translator.PROVIDER_TELEGRAM;
+                    boolean isLocked = !getUserConfig().isPremium() && YukiConfig.translationProvider == Translator.PROVIDER_TELEGRAM;
                     if (position == phoneNumberSwitchRow) {
-                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("HidePhone", R.string.HidePhone), LocaleController.getString("HidePhoneDesc", R.string.HidePhoneDesc), OwlConfig.hidePhoneNumber, true, true);
+                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("HidePhone", R.string.HidePhone), LocaleController.getString("HidePhoneDesc", R.string.HidePhoneDesc), YukiConfig.hidePhoneNumber, true, true);
                     } else if (position == phoneContactsSwitchRow) {
-                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("HidePhoneOthers", R.string.HidePhoneOthers), LocaleController.getString("HidePhoneOthersDesc", R.string.HidePhoneOthersDesc), OwlConfig.hideContactNumber, true, true);
+                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("HidePhoneOthers", R.string.HidePhoneOthers), LocaleController.getString("HidePhoneOthersDesc", R.string.HidePhoneOthersDesc), YukiConfig.hideContactNumber, true, true);
                     } else if (position == dcIdRow) {
-                        textCheckCell.setTextAndCheck(LocaleController.getString("ShowID_DC", R.string.ShowID_DC), OwlConfig.showIDAndDC, true);
+                        textCheckCell.setTextAndCheck(LocaleController.getString("ShowID_DC", R.string.ShowID_DC), YukiConfig.showIDAndDC, true);
                     } else if (position == confirmCallSwitchRow) {
-                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("ConfirmCalls", R.string.ConfirmCalls), LocaleController.getString("ConfirmCallsDesc", R.string.ConfirmCallsDesc), OwlConfig.confirmCall, true, true);
+                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("ConfirmCalls", R.string.ConfirmCalls), LocaleController.getString("ConfirmCallsDesc", R.string.ConfirmCallsDesc), YukiConfig.confirmCall, true, true);
                     } else if (position == notificationAccentRow) {
-                        textCheckCell.setTextAndCheck(LocaleController.getString("AccentAsNotificationColor", R.string.AccentAsNotificationColor), OwlConfig.accentAsNotificationColor, true);
+                        textCheckCell.setTextAndCheck(LocaleController.getString("AccentAsNotificationColor", R.string.AccentAsNotificationColor), YukiConfig.accentAsNotificationColor, true);
                     } else if (position == keepMarkdownRow) {
-                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("KeepMarkdown", R.string.KeepMarkdown), LocaleController.getString("KeepMarkdownDesc", R.string.KeepMarkdownDesc), OwlConfig.keepTranslationMarkdown, true, false);
+                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("KeepMarkdown", R.string.KeepMarkdown), LocaleController.getString("KeepMarkdownDesc", R.string.KeepMarkdownDesc), YukiConfig.keepTranslationMarkdown, true, false);
                         textCheckCell.setCheckBoxIcon(isLocked ? R.drawable.permission_locked : 0);
                     } else if (position == showTranslateButtonRow) {
-                        textCheckCell.setTextAndCheck(LocaleController.getString("ShowTranslateButton", R.string.ShowTranslateButton), OwlConfig.showTranslate, true);
+                        textCheckCell.setTextAndCheck(LocaleController.getString("ShowTranslateButton", R.string.ShowTranslateButton), YukiConfig.showTranslate, true);
                     }  else if (position == translateEntireChatRow) {
-                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("ShowTranslateChatButton", R.string.ShowTranslateChatButton), LocaleController.getString("ShowTranslateChatButtonDesc", R.string.ShowTranslateChatButtonDesc), OwlConfig.translateEntireChat, true, true);
+                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("ShowTranslateChatButton", R.string.ShowTranslateChatButton), LocaleController.getString("ShowTranslateChatButtonDesc", R.string.ShowTranslateChatButtonDesc), YukiConfig.translateEntireChat, true, true);
                         textCheckCell.setCheckBoxIcon(isLocked ? R.drawable.permission_locked : 0);
                     } else if (position == crashlyticsEnabledRow) {
-                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("ToggleCrashlyticsButton", R.string.ToggleCrashlyticsButton), LocaleController.getString("ToggleCrashlyticsButtonDesc", R.string.ToggleCrashlyticsButtonDesc), OwlConfig.crashlyticsEnabled, true, true);
+                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("ToggleCrashlyticsButton", R.string.ToggleCrashlyticsButton), LocaleController.getString("ToggleCrashlyticsButtonDesc", R.string.ToggleCrashlyticsButtonDesc), YukiConfig.crashlyticsEnabled, true, true);
                     }
                     break;
                 case SETTINGS:
@@ -317,14 +317,14 @@ public class OwlgramGeneralSettings extends BaseSettingsActivity {
                         if (names == null || types == null) {
                             return;
                         }
-                        int index = types.indexOf(OwlConfig.translationProvider);
+                        int index = types.indexOf(YukiConfig.translationProvider);
                         if (index < 0) {
                             textSettingsCell.setTextAndValue(LocaleController.getString("TranslationProviderShort", R.string.TranslationProviderShort), names.get(Translator.PROVIDER_GOOGLE), partial,true);
                         } else {
                             textSettingsCell.setTextAndValue(LocaleController.getString("TranslationProviderShort", R.string.TranslationProviderShort), names.get(index), partial,true);
                         }
                     } else if (position == destinationLanguageSelectRow) {
-                        String language = OwlConfig.translationTarget;
+                        String language = YukiConfig.translationTarget;
                         CharSequence value;
                         if (language.equals("app")) {
                             value = LocaleController.getString("Default", R.string.Default);
@@ -367,7 +367,7 @@ public class OwlgramGeneralSettings extends BaseSettingsActivity {
                         textSettingsCell.setTextAndValue(LocaleController.getString("DoNotTranslate", R.string.DoNotTranslate), doNotTranslateCellValue, partial,true);
                     } else if (position == deepLFormalityRow) {
                         String value;
-                        switch (OwlConfig.deepLFormality) {
+                        switch (YukiConfig.deepLFormality) {
                             case DeepLTranslator.FORMALITY_DEFAULT:
                                 value = LocaleController.getString("DeepLFormalityDefault", R.string.DeepLFormalityDefault);
                                 break;
@@ -382,7 +382,7 @@ public class OwlgramGeneralSettings extends BaseSettingsActivity {
                         textSettingsCell.setTextAndValue(LocaleController.getString("DeepLFormality", R.string.DeepLFormality), value, partial,true);
                     } else if (position == translationStyle) {
                         String value;
-                        switch (OwlConfig.translatorStyle) {
+                        switch (YukiConfig.translatorStyle) {
                             case BaseTranslator.INLINE_STYLE:
                                 value = LocaleController.getString("TranslatorTypeOwl", R.string.TranslatorTypeOwl);
                                 break;
@@ -394,7 +394,7 @@ public class OwlgramGeneralSettings extends BaseSettingsActivity {
                         textSettingsCell.setTextAndValue(LocaleController.getString("TranslatorType", R.string.TranslatorType), value, partial,true);
                     } else if (position == idTypeRow) {
                         String value;
-                        switch (OwlConfig.idType) {
+                        switch (YukiConfig.idType) {
                             case 0:
                                 value = "Bot API";
                                 break;
@@ -407,7 +407,7 @@ public class OwlgramGeneralSettings extends BaseSettingsActivity {
                     } else if (position == autoTranslateRow) {
                         String value;
                         if (supportLanguageDetector) {
-                            value = OwlConfig.autoTranslate ? LocaleController.getString("UseLessDataAlways", R.string.UseLessDataAlways) : LocaleController.getString("UseLessDataNever", R.string.UseLessDataNever);
+                            value = YukiConfig.autoTranslate ? LocaleController.getString("UseLessDataAlways", R.string.UseLessDataAlways) : LocaleController.getString("UseLessDataNever", R.string.UseLessDataNever);
                             int always = AutoTranslateConfig.getExceptions(true).size();
                             int never = AutoTranslateConfig.getExceptions(false).size();
                             if (always > 0 && never > 0) {
@@ -423,7 +423,7 @@ public class OwlgramGeneralSettings extends BaseSettingsActivity {
                         textSettingsCell.setTextAndValue(LocaleController.getString("AutoTranslate", R.string.AutoTranslate), value, keepMarkdownRow != -1);
                         if (!supportLanguageDetector) textSettingsCell.setAlpha(0.5f);
                         ImageView imageView = textSettingsCell.getValueImageView();
-                        if (!getUserConfig().isPremium() && OwlConfig.translationProvider == Translator.PROVIDER_TELEGRAM) {
+                        if (!getUserConfig().isPremium() && YukiConfig.translationProvider == Translator.PROVIDER_TELEGRAM) {
                             imageView.setVisibility(View.VISIBLE);
                             imageView.setImageResource(R.drawable.msg_mini_premiumlock);
                             imageView.setTranslationY(AndroidUtilities.dp(1));
@@ -446,7 +446,7 @@ public class OwlgramGeneralSettings extends BaseSettingsActivity {
                         if (names == null || types == null) {
                             return;
                         }
-                        int index = types.indexOf(OwlConfig.translationProvider);
+                        int index = types.indexOf(YukiConfig.translationProvider);
                         if (index < 0) {
                             index = types.indexOf(Translator.PROVIDER_GOOGLE);
                         }
@@ -561,7 +561,7 @@ public class OwlgramGeneralSettings extends BaseSettingsActivity {
             newFeatures.add("Provider");
             newFeatures.add("Language");
             newFeatures.add("DoNotTranslate");
-            if (OwlConfig.translationProvider == Translator.PROVIDER_DEEPL) {
+            if (YukiConfig.translationProvider == Translator.PROVIDER_DEEPL) {
                 newFeatures.add("Formality");
             }
             if (TranslatorHelper.isSupportMarkdown()) {

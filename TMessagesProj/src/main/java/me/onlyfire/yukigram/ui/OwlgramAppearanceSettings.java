@@ -17,7 +17,7 @@ import org.telegram.ui.Cells.TextCheckCell;
 import org.telegram.ui.Cells.TextSettingsCell;
 
 import me.onlyfire.yukigram.android.CustomEmojiController;
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 import me.onlyfire.yukigram.ui.Cells.BlurIntensity;
 import me.onlyfire.yukigram.ui.Cells.DrawerProfilePreview;
 import me.onlyfire.yukigram.ui.Cells.DynamicButtonSelector;
@@ -84,128 +84,128 @@ public class OwlgramAppearanceSettings extends BaseSettingsActivity implements N
     @Override
     protected void onItemClick(View view, int position, float x, float y) {
         if (position == showAvatarRow) {
-            OwlConfig.toggleShowAvatarImage();
+            YukiConfig.toggleShowAvatarImage();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.showAvatarImage);
+                ((TextCheckCell) view).setChecked(YukiConfig.showAvatarImage);
             }
             reloadMainInfo();
             listAdapter.notifyItemChanged(drawerRow, PARTIAL);
         } else if (position == showGradientRow) {
-            OwlConfig.toggleShowGradientColor();
+            YukiConfig.toggleShowGradientColor();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.showGradientColor);
+                ((TextCheckCell) view).setChecked(YukiConfig.showGradientColor);
             }
             reloadMainInfo();
             listAdapter.notifyItemChanged(drawerRow, PARTIAL);
         } else if (position == drawerDarkenBackgroundRow) {
-            OwlConfig.toggleAvatarBackgroundDarken();
+            YukiConfig.toggleAvatarBackgroundDarken();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.avatarBackgroundDarken);
+                ((TextCheckCell) view).setChecked(YukiConfig.avatarBackgroundDarken);
             }
             reloadMainInfo();
             listAdapter.notifyItemChanged(drawerRow, PARTIAL);
         } else if (position == drawerBlurBackgroundRow) {
-            OwlConfig.toggleAvatarBackgroundBlur();
+            YukiConfig.toggleAvatarBackgroundBlur();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.avatarBackgroundBlur);
+                ((TextCheckCell) view).setChecked(YukiConfig.avatarBackgroundBlur);
             }
             reloadMainInfo();
             listAdapter.notifyItemChanged(drawerRow, PARTIAL);
-            if (OwlConfig.avatarBackgroundBlur) {
+            if (YukiConfig.avatarBackgroundBlur) {
                 listAdapter.notifyItemRangeInserted(drawerDividerRow, 3);
             } else {
                 listAdapter.notifyItemRangeRemoved(drawerDividerRow, 3);
             }
             updateRowsId();
         } else if (position == drawerAvatarAsBackgroundRow) {
-            OwlConfig.toggleAvatarAsDrawerBackground();
+            YukiConfig.toggleAvatarAsDrawerBackground();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.avatarAsDrawerBackground);
+                ((TextCheckCell) view).setChecked(YukiConfig.avatarAsDrawerBackground);
             }
             reloadMainInfo();
             TransitionManager.beginDelayedTransition(profilePreviewCell);
             listAdapter.notifyItemChanged(drawerRow, PARTIAL);
-            if (OwlConfig.avatarAsDrawerBackground) {
+            if (YukiConfig.avatarAsDrawerBackground) {
                 updateRowsId();
-                listAdapter.notifyItemRangeInserted(showGradientRow, 4 + (OwlConfig.avatarBackgroundBlur ? 3 : 0));
+                listAdapter.notifyItemRangeInserted(showGradientRow, 4 + (YukiConfig.avatarBackgroundBlur ? 3 : 0));
             } else {
-                listAdapter.notifyItemRangeRemoved(showGradientRow, 4 + (OwlConfig.avatarBackgroundBlur ? 3 : 0));
+                listAdapter.notifyItemRangeRemoved(showGradientRow, 4 + (YukiConfig.avatarBackgroundBlur ? 3 : 0));
                 updateRowsId();
             }
         } else if (position == menuItemsRow) {
             presentFragment(new DrawerOrderSettings());
         } else if (position == useSystemFontRow) {
-            OwlConfig.toggleUseSystemFont();
+            YukiConfig.toggleUseSystemFont();
             AndroidUtilities.clearTypefaceCache();
             rebuildAllFragmentsWithLast();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.useSystemFont);
+                ((TextCheckCell) view).setChecked(YukiConfig.useSystemFont);
             }
         } else if (position == forcePacmanRow) {
-            OwlConfig.togglePacmanForced();
+            YukiConfig.togglePacmanForced();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.pacmanForced);
+                ((TextCheckCell) view).setChecked(YukiConfig.pacmanForced);
             }
         } else if (position == smartButtonsRow) {
-            OwlConfig.toggleSmartButtons();
+            YukiConfig.toggleSmartButtons();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.smartButtons);
+                ((TextCheckCell) view).setChecked(YukiConfig.smartButtons);
             }
         } else if (position == appBarShadowRow) {
-            OwlConfig.toggleAppBarShadow();
-            parentLayout.setHeaderShadow(OwlConfig.showAppBarShadow ? parentLayout.getView().getResources().getDrawable(R.drawable.header_shadow).mutate():null);
+            YukiConfig.toggleAppBarShadow();
+            parentLayout.setHeaderShadow(YukiConfig.showAppBarShadow ? parentLayout.getView().getResources().getDrawable(R.drawable.header_shadow).mutate():null);
             rebuildAllFragmentsWithLast();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.showAppBarShadow);
+                ((TextCheckCell) view).setChecked(YukiConfig.showAppBarShadow);
             }
         } else if (position == showSantaHatRow) {
-            OwlConfig.toggleShowSantaHat();
+            YukiConfig.toggleShowSantaHat();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.showSantaHat);
+                ((TextCheckCell) view).setChecked(YukiConfig.showSantaHat);
             }
             Theme.lastHolidayCheckTime = 0;
             Theme.dialogs_holidayDrawable = null;
             reloadMainInfo();
         } else if (position == showFallingSnowRow) {
-            OwlConfig.toggleShowSnowFalling();
+            YukiConfig.toggleShowSnowFalling();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.showSnowFalling);
+                ((TextCheckCell) view).setChecked(YukiConfig.showSnowFalling);
             }
             Theme.lastHolidayCheckTime = 0;
             Theme.dialogs_holidayDrawable = null;
             reloadMainInfo();
         } else if (position == slidingTitleRow) {
-            OwlConfig.toggleSlidingChatTitle();
+            YukiConfig.toggleSlidingChatTitle();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.slidingChatTitle);
+                ((TextCheckCell) view).setChecked(YukiConfig.slidingChatTitle);
             }
         } else if (position == messageTimeSwitchRow) {
-            OwlConfig.toggleFullTime();
+            YukiConfig.toggleFullTime();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.fullTime);
+                ((TextCheckCell) view).setChecked(YukiConfig.fullTime);
             }
             LocaleController.getInstance().recreateFormatters();
         } else if (position == roundedNumberSwitchRow) {
-            OwlConfig.toggleRoundedNumbers();
+            YukiConfig.toggleRoundedNumbers();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.roundedNumbers);
+                ((TextCheckCell) view).setChecked(YukiConfig.roundedNumbers);
             }
         } else if (position == searchIconInActionBarRow) {
-            OwlConfig.toggleSearchIconInActionBar();
+            YukiConfig.toggleSearchIconInActionBar();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.searchIconInActionBar);
+                ((TextCheckCell) view).setChecked(YukiConfig.searchIconInActionBar);
             }
         } else if (position == showPencilIconRow) {
-            OwlConfig.toggleShowPencilIcon();
+            YukiConfig.toggleShowPencilIcon();
             parentLayout.rebuildAllFragmentViews(false, false);
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.showPencilIcon);
+                ((TextCheckCell) view).setChecked(YukiConfig.showPencilIcon);
             }
         } else if (position == showInActionBarRow) {
-            OwlConfig.toggleShowNameInActionBar();
+            YukiConfig.toggleShowNameInActionBar();
             reloadDialogs();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.showNameInActionBar);
+                ((TextCheckCell) view).setChecked(YukiConfig.showNameInActionBar);
             }
         } else if (position == chooseEmojiPackRow) {
             presentFragment(new EmojiPackSettings());
@@ -227,14 +227,14 @@ public class OwlgramAppearanceSettings extends BaseSettingsActivity implements N
 
         drawerRow = rowCount++;
         drawerAvatarAsBackgroundRow = rowCount++;
-        if (OwlConfig.avatarAsDrawerBackground) {
+        if (YukiConfig.avatarAsDrawerBackground) {
             showGradientRow = rowCount++;
             showAvatarRow = rowCount++;
             drawerDarkenBackgroundRow = rowCount++;
             drawerBlurBackgroundRow = rowCount++;
         }
         drawerDividerRow = rowCount++;
-        if (OwlConfig.avatarBackgroundBlur && OwlConfig.avatarAsDrawerBackground) {
+        if (YukiConfig.avatarBackgroundBlur && YukiConfig.avatarAsDrawerBackground) {
             editBlurHeaderRow = rowCount++;
             editBlurRow = rowCount++;
             editBlurDividerRow = rowCount++;
@@ -263,7 +263,7 @@ public class OwlgramAppearanceSettings extends BaseSettingsActivity implements N
 
         appearanceHeaderRow = rowCount++;
         forcePacmanRow = rowCount++;
-        if (((Theme.getEventType() == 0 && OwlConfig.eventType == 0) || OwlConfig.eventType == 1)) {
+        if (((Theme.getEventType() == 0 && YukiConfig.eventType == 0) || YukiConfig.eventType == 1)) {
             showSantaHatRow = rowCount++;
             showFallingSnowRow = rowCount++;
         }
@@ -317,39 +317,39 @@ public class OwlgramAppearanceSettings extends BaseSettingsActivity implements N
                 case SWITCH:
                     TextCheckCell textCheckCell = (TextCheckCell) holder.itemView;
                     if (position == showGradientRow) {
-                        textCheckCell.setTextAndCheck(LocaleController.getString("ShadeBackground", R.string.ShadeBackground), OwlConfig.showGradientColor, true);
+                        textCheckCell.setTextAndCheck(LocaleController.getString("ShadeBackground", R.string.ShadeBackground), YukiConfig.showGradientColor, true);
                     } else if (position == showAvatarRow) {
-                        textCheckCell.setTextAndCheck(LocaleController.getString("ShowAvatar", R.string.ShowAvatar), OwlConfig.showAvatarImage, drawerBlurBackgroundRow != -1);
+                        textCheckCell.setTextAndCheck(LocaleController.getString("ShowAvatar", R.string.ShowAvatar), YukiConfig.showAvatarImage, drawerBlurBackgroundRow != -1);
                     } else if (position == drawerAvatarAsBackgroundRow) {
-                        textCheckCell.setTextAndCheck(LocaleController.getString("AvatarAsBackground", R.string.AvatarAsBackground), OwlConfig.avatarAsDrawerBackground, OwlConfig.avatarAsDrawerBackground);
+                        textCheckCell.setTextAndCheck(LocaleController.getString("AvatarAsBackground", R.string.AvatarAsBackground), YukiConfig.avatarAsDrawerBackground, YukiConfig.avatarAsDrawerBackground);
                     } else if (position == drawerBlurBackgroundRow) {
-                        textCheckCell.setTextAndCheck(LocaleController.getString("AvatarBlur", R.string.AvatarBlur), OwlConfig.avatarBackgroundBlur, !OwlConfig.avatarBackgroundBlur);
+                        textCheckCell.setTextAndCheck(LocaleController.getString("AvatarBlur", R.string.AvatarBlur), YukiConfig.avatarBackgroundBlur, !YukiConfig.avatarBackgroundBlur);
                     } else if (position == drawerDarkenBackgroundRow) {
-                        textCheckCell.setTextAndCheck(LocaleController.getString("AvatarDarken", R.string.AvatarDarken), OwlConfig.avatarBackgroundDarken, true);
+                        textCheckCell.setTextAndCheck(LocaleController.getString("AvatarDarken", R.string.AvatarDarken), YukiConfig.avatarBackgroundDarken, true);
                     } else if (position == useSystemFontRow) {
-                        textCheckCell.setTextAndCheck(LocaleController.getString("UseSystemFonts", R.string.UseSystemFonts), OwlConfig.useSystemFont, true);
+                        textCheckCell.setTextAndCheck(LocaleController.getString("UseSystemFonts", R.string.UseSystemFonts), YukiConfig.useSystemFont, true);
                     } else if (position == messageTimeSwitchRow) {
-                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("FormatTimeSeconds", R.string.FormatTimeSeconds), LocaleController.getString("FormatTimeSecondsDesc", R.string.FormatTimeSecondsDesc), OwlConfig.fullTime, true, true);
+                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("FormatTimeSeconds", R.string.FormatTimeSeconds), LocaleController.getString("FormatTimeSecondsDesc", R.string.FormatTimeSecondsDesc), YukiConfig.fullTime, true, true);
                     } else if (position == roundedNumberSwitchRow) {
-                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("NumberRounding", R.string.NumberRounding), LocaleController.getString("NumberRoundingDesc", R.string.NumberRoundingDesc), OwlConfig.roundedNumbers, true, true);
+                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("NumberRounding", R.string.NumberRounding), LocaleController.getString("NumberRoundingDesc", R.string.NumberRoundingDesc), YukiConfig.roundedNumbers, true, true);
                     } else if (position == forcePacmanRow) {
-                        textCheckCell.setTextAndCheck(LocaleController.getString("PacManAnimation", R.string.PacManAnimation), OwlConfig.pacmanForced, true);
+                        textCheckCell.setTextAndCheck(LocaleController.getString("PacManAnimation", R.string.PacManAnimation), YukiConfig.pacmanForced, true);
                     } else if (position == smartButtonsRow) {
-                        textCheckCell.setTextAndCheck(LocaleController.getString("ShortcutsForAdmins", R.string.ShortcutsForAdmins), OwlConfig.smartButtons, false);
+                        textCheckCell.setTextAndCheck(LocaleController.getString("ShortcutsForAdmins", R.string.ShortcutsForAdmins), YukiConfig.smartButtons, false);
                     } else if (position == appBarShadowRow) {
-                        textCheckCell.setTextAndCheck(LocaleController.getString("AppBarShadow", R.string.AppBarShadow), OwlConfig.showAppBarShadow, true);
+                        textCheckCell.setTextAndCheck(LocaleController.getString("AppBarShadow", R.string.AppBarShadow), YukiConfig.showAppBarShadow, true);
                     } else if (position == showSantaHatRow) {
-                        textCheckCell.setTextAndCheck(LocaleController.getString("ChristmasHat", R.string.ChristmasHat), OwlConfig.showSantaHat, true);
+                        textCheckCell.setTextAndCheck(LocaleController.getString("ChristmasHat", R.string.ChristmasHat), YukiConfig.showSantaHat, true);
                     } else if (position == showFallingSnowRow) {
-                        textCheckCell.setTextAndCheck(LocaleController.getString("FallingSnow", R.string.FallingSnow), OwlConfig.showSnowFalling, true);
+                        textCheckCell.setTextAndCheck(LocaleController.getString("FallingSnow", R.string.FallingSnow), YukiConfig.showSnowFalling, true);
                     } else if (position == slidingTitleRow) {
-                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("SlidingTitle", R.string.SlidingTitle), LocaleController.getString("SlidingTitleDesc", R.string.SlidingTitleDesc), OwlConfig.slidingChatTitle, true, true);
+                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("SlidingTitle", R.string.SlidingTitle), LocaleController.getString("SlidingTitleDesc", R.string.SlidingTitleDesc), YukiConfig.slidingChatTitle, true, true);
                     } else if (position == searchIconInActionBarRow) {
-                        textCheckCell.setTextAndCheck(LocaleController.getString("SearchIconTitleBar", R.string.SearchIconTitleBar), OwlConfig.searchIconInActionBar, false);
+                        textCheckCell.setTextAndCheck(LocaleController.getString("SearchIconTitleBar", R.string.SearchIconTitleBar), YukiConfig.searchIconInActionBar, false);
                     } else if (position == showPencilIconRow) {
-                        textCheckCell.setTextAndCheck(LocaleController.getString("ShowPencilIcon", R.string.ShowPencilIcon), OwlConfig.showPencilIcon, true);
+                        textCheckCell.setTextAndCheck(LocaleController.getString("ShowPencilIcon", R.string.ShowPencilIcon), YukiConfig.showPencilIcon, true);
                     } else if (position == showInActionBarRow) {
-                        textCheckCell.setTextAndCheck(LocaleController.getString("AccountNameTitleBar", R.string.AccountNameTitleBar), OwlConfig.showNameInActionBar, true);
+                        textCheckCell.setTextAndCheck(LocaleController.getString("AccountNameTitleBar", R.string.AccountNameTitleBar), YukiConfig.showNameInActionBar, true);
                     }
                     break;
                 case PROFILE_PREVIEW:
@@ -393,7 +393,7 @@ public class OwlgramAppearanceSettings extends BaseSettingsActivity implements N
                         @Override
                         protected void onBlurIntensityChange(int percentage, boolean layout) {
                             super.onBlurIntensityChange(percentage, layout);
-                            OwlConfig.saveBlurIntensity(percentage);
+                            YukiConfig.saveBlurIntensity(percentage);
                             RecyclerView.ViewHolder holder = listView.findViewHolderForAdapterPosition(editBlurRow);
                             if (holder != null && holder.itemView instanceof BlurIntensity) {
                                 BlurIntensity cell = (BlurIntensity) holder.itemView;
@@ -410,12 +410,12 @@ public class OwlgramAppearanceSettings extends BaseSettingsActivity implements N
                     view.setBackgroundColor(Theme.getColor(Theme.key_windowBackgroundWhite));
                     break;
                 case THEME_SELECTOR:
-                    view = new ThemeSelectorDrawer(context, OwlConfig.eventType) {
+                    view = new ThemeSelectorDrawer(context, YukiConfig.eventType) {
                         @Override
                         protected void onSelectedEvent(int eventSelected) {
                             super.onSelectedEvent(eventSelected);
-                            int previousEvent = OwlConfig.eventType;
-                            OwlConfig.saveEventType(eventSelected);
+                            int previousEvent = YukiConfig.eventType;
+                            YukiConfig.saveEventType(eventSelected);
                             if (Theme.getEventType() == 0) {
                                 if (previousEvent == 0) {
                                     previousEvent = 1;

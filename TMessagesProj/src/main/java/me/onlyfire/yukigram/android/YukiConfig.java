@@ -20,7 +20,7 @@ import me.onlyfire.yukigram.android.translator.DeepLTranslator;
 import me.onlyfire.yukigram.android.translator.Translator;
 import me.onlyfire.yukigram.android.camera.CameraXUtils;
 
-public class OwlConfig extends SettingsController {
+public class YukiConfig extends SettingsController {
     public static final int TAB_TYPE_TEXT = 0;
     public static final int TAB_TYPE_MIX = 1;
     public static final int TAB_TYPE_ICON = 2;

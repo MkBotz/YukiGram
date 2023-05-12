@@ -19,13 +19,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 import me.onlyfire.yukigram.android.entities.HTMLKeeper;
 import me.onlyfire.yukigram.android.MessageHelper;
 import me.onlyfire.yukigram.ui.DoNotTranslateSettings;
@@ -71,7 +70,7 @@ public class TranslateController extends BaseController {
     }
 
     public boolean isFeatureAvailable() {
-        return !(!UserConfig.getInstance(currentAccount).isPremium() && OwlConfig.translationProvider == Translator.PROVIDER_TELEGRAM);
+        return !(!UserConfig.getInstance(currentAccount).isPremium() && YukiConfig.translationProvider == Translator.PROVIDER_TELEGRAM);
     }
 
     private Boolean chatTranslateEnabled;
@@ -246,11 +245,11 @@ public class TranslateController extends BaseController {
             lang = "no";
         }
         return lang;*/
-        return Translator.getTranslator(OwlConfig.translationProvider).getCurrentTargetLanguage();
+        return Translator.getTranslator(YukiConfig.translationProvider).getCurrentTargetLanguage();
     }
 
     public void setDialogTranslateTo(long dialogId, int topicId, String language) {
-        if (TextUtils.equals(OwlConfig.translationTarget, language)) {
+        if (TextUtils.equals(YukiConfig.translationTarget, language)) {
             return;
         }
 
@@ -275,7 +274,7 @@ public class TranslateController extends BaseController {
             translatingDialogs.remove(getIdWithTopic(dialogId, topicId));
         }
         NotificationCenter.getInstance(currentAccount).postNotificationName(NotificationCenter.dialogTranslate, dialogId, false);
-        OwlConfig.setTranslationTarget(language);
+        YukiConfig.setTranslationTarget(language);
     }
 
     public void updateDialogFull(long dialogId) {
@@ -520,7 +519,7 @@ public class TranslateController extends BaseController {
     public void applyTranslationResult(MessageObject messageObject, BaseTranslator.Result result) {
         messageObject.messageOwner.originalLanguage = result.sourceLanguage;
         messageObject.messageOwner.translatedToLanguage = getDialogTranslateTo(messageObject.getDialogId());
-        messageObject.messageOwner.translationProvider = OwlConfig.translationProvider;
+        messageObject.messageOwner.translationProvider = YukiConfig.translationProvider;
         if (result.translation instanceof String || result.translation instanceof TLRPC.TL_textWithEntities) {
             TLRPC.TL_textWithEntities textWithEntities;
             if (result.translation instanceof String) {
@@ -549,8 +548,8 @@ public class TranslateController extends BaseController {
     }
 
     public static boolean isValidTranslation(TLRPC.Message messageOwner) {
-        return TextUtils.equals(Translator.getTranslator(OwlConfig.translationProvider).getCurrentTargetLanguage(), messageOwner.translatedToLanguage)
-                && OwlConfig.translationProvider == messageOwner.translationProvider;
+        return TextUtils.equals(Translator.getTranslator(YukiConfig.translationProvider).getCurrentTargetLanguage(), messageOwner.translatedToLanguage)
+                && YukiConfig.translationProvider == messageOwner.translationProvider;
     }
 
     private boolean isRestrictedLanguage(MessageObject messageObject) {

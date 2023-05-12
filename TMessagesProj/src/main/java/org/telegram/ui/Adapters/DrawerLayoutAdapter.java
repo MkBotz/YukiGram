@@ -35,7 +35,7 @@ import org.telegram.ui.Components.SideMenultItemAnimator;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 import me.onlyfire.yukigram.android.MenuOrderController;
 import me.onlyfire.yukigram.android.PasscodeController;
 
@@ -257,8 +257,8 @@ public class DrawerLayoutAdapter extends RecyclerListView.SelectionAdapter {
             return;
         }
         int eventType = Theme.getEventType();
-        if (OwlConfig.eventType > 0) {
-            eventType = OwlConfig.eventType - 1;
+        if (YukiConfig.eventType > 0) {
+            eventType = YukiConfig.eventType - 1;
         }
         int newGroupIcon;
         int newSecretIcon;

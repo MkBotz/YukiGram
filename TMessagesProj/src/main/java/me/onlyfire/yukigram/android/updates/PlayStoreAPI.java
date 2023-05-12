@@ -21,7 +21,7 @@ import org.telegram.messenger.NotificationCenter;
 
 import java.util.HashMap;
 
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 
 public class PlayStoreAPI {
     private static final AppUpdateManager appUpdateManager;
@@ -122,7 +122,7 @@ public class PlayStoreAPI {
                                     appUpdateManager.registerListener(listener);
                                     lastInstallStatus = InstallStatus.PENDING;
                                 } else if (result == Activity.RESULT_CANCELED) {
-                                    OwlConfig.remindUpdate(getVersionCode(appUpdateInfo));
+                                    YukiConfig.remindUpdate(getVersionCode(appUpdateInfo));
                                     lastInstallStatus = InstallStatus.UNKNOWN;
                                     NotificationCenter.getGlobalInstance().postNotificationName(NotificationCenter.appUpdateAvailable);
                                 }

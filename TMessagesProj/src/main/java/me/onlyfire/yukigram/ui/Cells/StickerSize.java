@@ -16,7 +16,7 @@ import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Components.LayoutHelper;
 import org.telegram.ui.Components.SeekBarView;
 
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 
 @SuppressLint("ViewConstructor")
 public class StickerSize extends FrameLayout {
@@ -43,7 +43,7 @@ public class StickerSize extends FrameLayout {
             @Override
             public void onSeekBarDrag(boolean stop, float progress) {
                 int progressSave = Math.round(startStickerSize + (endStickerSize - startStickerSize) * progress);
-                OwlConfig.setStickerSize(progressSave);
+                YukiConfig.setStickerSize(progressSave);
                 onSeek();
                 StickerSize.this.invalidate();
             }
@@ -67,8 +67,8 @@ public class StickerSize extends FrameLayout {
     @Override
     protected void onDraw(Canvas canvas) {
         textPaint.setColor(Theme.getColor(Theme.key_windowBackgroundWhiteValueText));
-        canvas.drawText(String.valueOf(Math.round(OwlConfig.stickerSizeStack)), getMeasuredWidth() - AndroidUtilities.dp(39), AndroidUtilities.dp(28), textPaint);
-        sizeBar.setProgress((OwlConfig.stickerSizeStack - startStickerSize) / (float) (endStickerSize - startStickerSize));
+        canvas.drawText(String.valueOf(Math.round(YukiConfig.stickerSizeStack)), getMeasuredWidth() - AndroidUtilities.dp(39), AndroidUtilities.dp(28), textPaint);
+        sizeBar.setProgress((YukiConfig.stickerSizeStack - startStickerSize) / (float) (endStickerSize - startStickerSize));
     }
 
     @Override

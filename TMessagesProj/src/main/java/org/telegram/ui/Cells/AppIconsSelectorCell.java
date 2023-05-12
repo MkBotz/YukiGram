@@ -48,7 +48,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 
 public class AppIconsSelectorCell extends RecyclerListView implements NotificationCenter.NotificationCenterDelegate {
     public final static float ICONS_ROUND_RADIUS = 18;
@@ -166,7 +166,7 @@ public class AppIconsSelectorCell extends RecyclerListView implements Notificati
         for (int i = 0; i < availableIcons.size(); i++) {
             LauncherIconController.LauncherIcon icon = availableIcons.get(i);
             if (icon.hidden && !LauncherIconController.isEnabled(icon)) {
-                if (icon == LauncherIconController.LauncherIcon.FOXGRAM && OwlConfig.unlockedSecretIcon == -1) {
+                if (icon == LauncherIconController.LauncherIcon.FOXGRAM && YukiConfig.unlockedSecretIcon == -1) {
                     continue;
                 }
                 availableIcons.remove(i);

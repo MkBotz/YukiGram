@@ -24,7 +24,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import me.onlyfire.yukigram.android.MessageHelper;
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 
 
 abstract public class BaseTranslator {
@@ -237,11 +237,11 @@ abstract public class BaseTranslator {
     }
 
     public String getCurrentTargetLanguage() {
-        return getTargetLanguage(OwlConfig.translationTarget);
+        return getTargetLanguage(YukiConfig.translationTarget);
     }
 
     public String getCurrentTargetKeyboardLanguage() {
-        return getTargetLanguage(OwlConfig.translationKeyboardTarget);
+        return getTargetLanguage(YukiConfig.translationKeyboardTarget);
     }
 
     public static class Http429Exception extends IOException {

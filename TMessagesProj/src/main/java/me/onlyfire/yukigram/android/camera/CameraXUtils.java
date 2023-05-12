@@ -39,7 +39,7 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 
 public class CameraXUtils {
 
@@ -144,8 +144,8 @@ public class CameraXUtils {
                 .findFirst()
                 .ifPresent(height -> {
                     cameraResolution = height;
-                    if (OwlConfig.cameraResolution == -1 || OwlConfig.cameraResolution > max || OwlConfig.cameraResolution < min) {
-                        OwlConfig.saveCameraResolution(height);
+                    if (YukiConfig.cameraResolution == -1 || YukiConfig.cameraResolution > max || YukiConfig.cameraResolution < min) {
+                        YukiConfig.saveCameraResolution(height);
                     }
                 });
     }
@@ -157,14 +157,14 @@ public class CameraXUtils {
     public static Size getPreviewBestSize() {
         int suggestedRes = getSuggestedResolution(true);
         return getAvailableVideoSizes().values().stream()
-                .filter(size -> size.getHeight() <= OwlConfig.cameraResolution && size.getHeight() <= suggestedRes)
+                .filter(size -> size.getHeight() <= YukiConfig.cameraResolution && size.getHeight() <= suggestedRes)
                 .max(Comparator.comparingInt(Size::getHeight))
                 .orElse(new Size(0, 0));
     }
 
     public static Quality getVideoQuality() {
         return getAvailableVideoSizes().entrySet().stream()
-                .filter(entry -> entry.getValue().getHeight() == OwlConfig.cameraResolution)
+                .filter(entry -> entry.getValue().getHeight() == YukiConfig.cameraResolution)
                 .map(Map.Entry::getKey)
                 .findFirst()
                 .orElse(Quality.HIGHEST);
@@ -181,7 +181,7 @@ public class CameraXUtils {
                 break;
             case SharedConfig.PERFORMANCE_CLASS_HIGH:
             default:
-                suggestedRes = OwlConfig.useCameraXOptimizedMode && isPreview ? 1080 : 2160;
+                suggestedRes = YukiConfig.useCameraXOptimizedMode && isPreview ? 1080 : 2160;
                 break;
         }
         return suggestedRes;

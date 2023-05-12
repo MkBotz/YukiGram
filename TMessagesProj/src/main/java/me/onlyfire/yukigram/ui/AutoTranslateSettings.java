@@ -18,7 +18,7 @@ import org.telegram.ui.Cells.TextInfoPrivacyCell;
 import org.telegram.ui.Cells.TextSettingsCell;
 import org.telegram.ui.GroupCreateActivity;
 
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 import me.onlyfire.yukigram.android.translator.AutoTranslateConfig;
 
 public class AutoTranslateSettings extends BaseSettingsActivity {
@@ -42,7 +42,7 @@ public class AutoTranslateSettings extends BaseSettingsActivity {
     protected void onItemClick(View view, int position, float x, float y) {
         super.onItemClick(view, position, x, y);
         if (position == alwaysTranslateRow || position == neverTranslateRow) {
-            OwlConfig.setAutoTranslate(position == alwaysTranslateRow);
+            YukiConfig.setAutoTranslate(position == alwaysTranslateRow);
             listAdapter.notifyItemRangeChanged(alwaysTranslateRow, 2, PARTIAL);
         } else if (position == alwaysAllowExceptionRow || position == neverAllowExceptionRow) {
             final boolean isAllow = position == alwaysAllowExceptionRow;
@@ -126,15 +126,15 @@ public class AutoTranslateSettings extends BaseSettingsActivity {
                     RadioCell radioCell = (RadioCell) holder.itemView;
                     if (position == alwaysTranslateRow) {
                         if (partial) {
-                            radioCell.setChecked(OwlConfig.autoTranslate, true);
+                            radioCell.setChecked(YukiConfig.autoTranslate, true);
                         } else {
-                            radioCell.setText(LocaleController.getString("AlwaysTranslate", R.string.AlwaysTranslate), OwlConfig.autoTranslate, true);
+                            radioCell.setText(LocaleController.getString("AlwaysTranslate", R.string.AlwaysTranslate), YukiConfig.autoTranslate, true);
                         }
                     } else if (position == neverTranslateRow) {
                         if (partial) {
-                            radioCell.setChecked(!OwlConfig.autoTranslate, true);
+                            radioCell.setChecked(!YukiConfig.autoTranslate, true);
                         } else {
-                            radioCell.setText(LocaleController.getString("NeverTranslate", R.string.NeverTranslate), !OwlConfig.autoTranslate, true);
+                            radioCell.setText(LocaleController.getString("NeverTranslate", R.string.NeverTranslate), !YukiConfig.autoTranslate, true);
                         }
                     }
                     break;

@@ -20,7 +20,7 @@ import org.telegram.ui.Components.LayoutHelper;
 
 import java.util.Date;
 
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 import me.onlyfire.yukigram.android.StoreUtils;
 import me.onlyfire.yukigram.android.updates.UpdateManager;
 
@@ -103,7 +103,7 @@ public class UpdateCheckCell extends RelativeLayout {
     }
 
     public void setCheckTime() {
-        long date = OwlConfig.lastUpdateCheck;
+        long date = YukiConfig.lastUpdateCheck;
         checkUpdateButton.setText(LocaleController.getString("CheckUpdates", R.string.CheckUpdates));
         setTime(date);
         canCheckForUpdate = true;
@@ -111,7 +111,7 @@ public class UpdateCheckCell extends RelativeLayout {
     }
 
     private void updateTitle() {
-        long date = OwlConfig.lastUpdateCheck;
+        long date = YukiConfig.lastUpdateCheck;
         boolean isUpdateAvailable = UpdateManager.isAvailableUpdate();
         if (isUpdateAvailable) {
             titleTextView.setText(LocaleController.getString("UpdateAvailable", R.string.UpdateAvailable));
@@ -134,7 +134,7 @@ public class UpdateCheckCell extends RelativeLayout {
 
     public void setCheckingStatus() {
         checkUpdateButton.setText(LocaleController.getString("Checking", R.string.Checking));
-        setTime(OwlConfig.lastUpdateCheck);
+        setTime(YukiConfig.lastUpdateCheck);
         canCheckForUpdate = false;
     }
 
@@ -144,7 +144,7 @@ public class UpdateCheckCell extends RelativeLayout {
         } else {
             checkUpdateButton.setText(LocaleController.getString("CheckUpdates", R.string.CheckUpdates));
         }
-        setTime(OwlConfig.lastUpdateCheck);
+        setTime(YukiConfig.lastUpdateCheck);
         updateTitle();
         canCheckForUpdate = true;
     }
@@ -168,7 +168,7 @@ public class UpdateCheckCell extends RelativeLayout {
     }
 
     public void loadLastStatus() {
-        switch (OwlConfig.lastUpdateStatus) {
+        switch (YukiConfig.lastUpdateStatus) {
             case 1:
                 if (UpdateManager.isAvailableUpdate()) {
                     setUpdateAvailableStatus();

@@ -50,7 +50,7 @@ public class FolderIconController {
     }
 
     public static int getPadding() {
-        if (OwlConfig.tabMode == OwlConfig.TAB_TYPE_MIX) {
+        if (YukiConfig.tabMode == YukiConfig.TAB_TYPE_MIX) {
             return AndroidUtilities.dp(6);
         }
         return 0;
@@ -58,14 +58,14 @@ public class FolderIconController {
 
     public static int getTotalIconWidth() {
         int result = 0;
-        if (OwlConfig.tabMode != OwlConfig.TAB_TYPE_TEXT) {
+        if (YukiConfig.tabMode != YukiConfig.TAB_TYPE_TEXT) {
             result = getIconWidth() + getPadding();
         }
         return result;
     }
 
     public static int getPaddingTab() {
-        if (OwlConfig.tabMode != OwlConfig.TAB_TYPE_ICON) {
+        if (YukiConfig.tabMode != YukiConfig.TAB_TYPE_ICON) {
             return AndroidUtilities.dp(32);
         }
         return AndroidUtilities.dp(16);

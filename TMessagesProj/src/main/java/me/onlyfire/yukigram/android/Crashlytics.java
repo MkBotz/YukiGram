@@ -101,7 +101,7 @@ public class Crashlytics implements Thread.UncaughtExceptionHandler {
 
     public static String getReportMessage() {
         String CameraName;
-        switch (OwlConfig.cameraType) {
+        switch (YukiConfig.cameraType) {
             case 0:
                 CameraName = "Tg Camera";
                 break;

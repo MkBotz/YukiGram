@@ -34,7 +34,7 @@ import org.telegram.ui.ChatActivity;
 
 import java.util.ArrayList;
 
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 import me.onlyfire.yukigram.ui.DoNotTranslateSettings;
 
 public class TranslateButton extends FrameLayout {
@@ -164,7 +164,7 @@ public class TranslateButton extends FrameLayout {
 
         ActionBarMenuSubItem translateToButton = new ActionBarMenuSubItem(getContext(), true, false, resourcesProvider);
         translateToButton.setTextAndIcon(LocaleController.getString("TranslateTo", R.string.TranslateTo), R.drawable.msg_translate);
-        translateToButton.setSubtext(TranslateAlert2.capitalFirst(TranslateAlert2.languageName(OwlConfig.translationTarget)));
+        translateToButton.setSubtext(TranslateAlert2.capitalFirst(TranslateAlert2.languageName(YukiConfig.translationTarget)));
         translateToButton.setItemHeight(56);
         translateToButton.setOnClickListener(e -> popupLayout.getSwipeBack().openForeground(swipeBackIndex));
         popupLayout.addView(translateToButton);
@@ -179,7 +179,7 @@ public class TranslateButton extends FrameLayout {
         String detectedLanguage = translateController.getDialogDetectedLanguage(dialogId, topicId);
         String detectedLanguageName = TranslateAlert2.languageName(detectedLanguage);
         String detectedLanguageNameAccusative = TranslateAlert2.languageName(detectedLanguage, accusative);
-        String currentTranslateTo = OwlConfig.translationTarget;
+        String currentTranslateTo = YukiConfig.translationTarget;
 
         ArrayList<TranslateController.Language> suggestedLanguages = TranslateController.getSuggestedLanguages(currentTranslateTo);
         ArrayList<TranslateController.Language> allLanguages = TranslateController.getLanguages();

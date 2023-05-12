@@ -26,7 +26,7 @@ import org.telegram.ui.Cells.TextDetailSettingsCell;
 import org.telegram.ui.Components.BulletinFactory;
 
 import me.onlyfire.yukigram.android.Crashlytics;
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 import me.onlyfire.yukigram.android.StoreUtils;
 
 public class OwlgramSettings extends BaseSettingsActivity {
@@ -64,21 +64,21 @@ public class OwlgramSettings extends BaseSettingsActivity {
     protected void onMenuItemClick(int id) {
         super.onMenuItemClick(id);
         if (id == 1) {
-            OwlConfig.shareSettings(this);
+            YukiConfig.shareSettings(this);
         } else if (id == 2) {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle(LocaleController.getString("ThemeResetToDefaultsTitle", R.string.ThemeResetToDefaultsTitle));
             builder.setMessage(LocaleController.getString("ResetSettingsAlert", R.string.ResetSettingsAlert));
             builder.setNegativeButton(LocaleController.getString("Cancel", R.string.Cancel), null);
             builder.setPositiveButton(LocaleController.getString("Reset", R.string.Reset), (dialogInterface, i) -> {
-                int differenceUI = OwlConfig.getDifferenceUI();
-                boolean isDefault = OwlConfig.emojiPackSelected.equals("default");
-                OwlConfig.resetSettings();
+                int differenceUI = YukiConfig.getDifferenceUI();
+                boolean isDefault = YukiConfig.emojiPackSelected.equals("default");
+                YukiConfig.resetSettings();
                 Theme.lastHolidayCheckTime = 0;
                 Theme.dialogs_holidayDrawable = null;
                 reloadDialogs();
                 reloadMainInfo();
-                OwlConfig.doRebuildUIWithDiff(differenceUI, parentLayout);
+                YukiConfig.doRebuildUIWithDiff(differenceUI, parentLayout);
                 if (!isDefault) {
                     Emoji.reloadEmoji();
                     NotificationCenter.getGlobalInstance().postNotificationName(NotificationCenter.emojiLoaded);

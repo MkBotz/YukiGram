@@ -19,7 +19,7 @@ import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Components.LayoutHelper;
 import org.telegram.ui.Components.NumberPicker;
 
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 import me.onlyfire.yukigram.ui.Cells.Dynamic.ButtonCell;
 
 public class DynamicButtonSelector extends LinearLayout {
@@ -46,7 +46,7 @@ public class DynamicButtonSelector extends LinearLayout {
             @Override
             protected void onDraw(Canvas canvas) {
                 super.onDraw(canvas);
-                int selectedStyle = OwlConfig.buttonStyleType;
+                int selectedStyle = YukiConfig.buttonStyleType;
                 int w = ((getMeasuredWidth() - AndroidUtilities.dp(30)) >> 2) * 4;
                 int maxWidth = ((getMeasuredHeight() - AndroidUtilities.dp(40)) * 4);
                 w = Math.min(w, maxWidth);
@@ -110,12 +110,12 @@ public class DynamicButtonSelector extends LinearLayout {
         picker1.setFormatter(value -> strings[value]);
         picker1.setOnValueChangedListener((picker, oldVal, newVal) -> {
             imageview.invalidate();
-            OwlConfig.saveButtonStyle(newVal);
+            YukiConfig.saveButtonStyle(newVal);
             invalidate();
             picker.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP, HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING);
             onSelectionChange();
         });
-        int selectedButton = OwlConfig.buttonStyleType;
+        int selectedButton = YukiConfig.buttonStyleType;
         picker1.setValue(selectedButton);
         addView(picker1, LayoutHelper.createLinear(132, LayoutHelper.MATCH_PARENT, Gravity.RIGHT, 21, 0, 21, 0));
     }

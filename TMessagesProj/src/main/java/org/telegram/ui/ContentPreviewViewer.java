@@ -71,7 +71,7 @@ import org.telegram.ui.Components.SuggestEmojiView;
 
 import java.util.ArrayList;
 
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 import me.onlyfire.yukigram.android.MessageHelper;
 
 public class ContentPreviewViewer {
@@ -741,7 +741,7 @@ public class ContentPreviewViewer {
 
     private boolean canSend(View view) {
         boolean isGif = view instanceof ContextLinkCell && ((ContextLinkCell) view).isGif();
-        return !OwlConfig.confirmSending.sendGifs && isGif || !OwlConfig.confirmSending.sendStickers && !isGif;
+        return !YukiConfig.confirmSending.sendGifs && isGif || !YukiConfig.confirmSending.sendStickers && !isGif;
     }
 
     public boolean onTouch(MotionEvent event, final RecyclerListView listView, final int height, final Object listener, ContentPreviewViewerDelegate contentPreviewViewerDelegate, Theme.ResourcesProvider resourcesProvider) {

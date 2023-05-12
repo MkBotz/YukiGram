@@ -21,7 +21,7 @@ import java.util.HashSet;
 
 import me.onlyfire.yukigram.android.translator.BaseTranslator;
 import me.onlyfire.yukigram.android.translator.Translator;
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 
 public class DoNotTranslateSettings extends BaseSettingsActivity {
     private int languageHeaderRow;
@@ -109,7 +109,7 @@ public class DoNotTranslateSettings extends BaseSettingsActivity {
         if (!LanguageDetector.hasSupport()) return new HashSet<>();
         BaseTranslator translator = Translator.getCurrentTranslator();
         HashSet<String> result = new HashSet<>();
-        for (String language : OwlConfig.doNotTranslateLanguages) {
+        for (String language : YukiConfig.doNotTranslateLanguages) {
             if (detectMode) {
                 result.add(translator.getTargetLanguage(language));
             } else {
@@ -120,11 +120,11 @@ public class DoNotTranslateSettings extends BaseSettingsActivity {
     }
 
     public static void saveRestrictedLanguages(HashSet<String> languages) {
-        OwlConfig.doNotTranslateLanguages.clear();
+        YukiConfig.doNotTranslateLanguages.clear();
         for (String language : languages) {
-            OwlConfig.doNotTranslateLanguages.add(language);
+            YukiConfig.doNotTranslateLanguages.add(language);
         }
-        OwlConfig.applyDoNotTranslateLanguages();
+        YukiConfig.applyDoNotTranslateLanguages();
     }
 
     private BaseTranslator loadLanguages() {

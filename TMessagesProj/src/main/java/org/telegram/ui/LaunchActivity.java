@@ -61,7 +61,6 @@ import android.util.SparseIntArray;
 import android.util.TypedValue;
 import android.view.ActionMode;
 import android.view.Gravity;
-import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MotionEvent;
@@ -208,16 +207,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import me.onlyfire.yukigram.android.StoreUtils;
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 import me.onlyfire.yukigram.android.magic.OWLENC;
 import me.onlyfire.yukigram.ui.Components.Dialogs.UpdateAlertDialog;
 import me.onlyfire.yukigram.android.Crashlytics;
-import me.onlyfire.yukigram.android.CustomEmojiController;
 import me.onlyfire.yukigram.android.utils.ForwardContext;
-import me.onlyfire.yukigram.android.LanguageController;
 import me.onlyfire.yukigram.android.MonetThemeController;
 import me.onlyfire.yukigram.android.StickersUtils;
-import me.onlyfire.yukigram.android.updates.UpdateSignaling;
 import me.onlyfire.yukigram.ui.OwlgramAppearanceSettings;
 import me.onlyfire.yukigram.ui.OwlgramChatSettings;
 import me.onlyfire.yukigram.ui.OwlgramExperimentalSettings;
@@ -5009,10 +5005,10 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                     UpdateManager.installUpdate(LaunchActivity.this);
                 } else {
                     try {
-                        if(OwlConfig.updateData.isPresent()) {
-                            OWLENC.UpdateAvailable update = OwlConfig.updateData.get();
+                        if(YukiConfig.updateData.isPresent()) {
+                            OWLENC.UpdateAvailable update = YukiConfig.updateData.get();
                             if (FileDownloader.downloadFile(LaunchActivity.this, "appUpdate", UpdateManager.apkFile(), update.fileLink))
-                                OwlConfig.saveOldVersion(update.version);
+                                YukiConfig.saveOldVersion(update.version);
                         }
                     } catch (Exception ignored){}
                 }
@@ -5158,8 +5154,8 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                     updateSizeTextView.animate().alpha(0.0f).scaleX(0.0f).scaleY(0.0f).setDuration(180).start();
                 } else {
                     try {
-                        if(OwlConfig.updateData.isPresent()) {
-                            OWLENC.UpdateAvailable updateAvailable = OwlConfig.updateData.get();
+                        if(YukiConfig.updateData.isPresent()) {
+                            OWLENC.UpdateAvailable updateAvailable = YukiConfig.updateData.get();
                             if(updateAvailable.version > BuildVars.BUILD_VERSION) {
                                 createUpdateUI();
                                 updateLayoutIcon.setIcon(MediaActionDrawable.ICON_DOWNLOAD, true, true);
@@ -5191,7 +5187,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
     }
 
     public void checkAppUpdate(boolean force) {
-        if((!OwlConfig.notifyUpdates && !force) || UserConfig.getActivatedAccountsCount() == 0 || !StoreUtils.isFromCheckableStore() && StoreUtils.isDownloadedFromAnyStore()) {
+        if((!YukiConfig.notifyUpdates && !force) || UserConfig.getActivatedAccountsCount() == 0 || !StoreUtils.isFromCheckableStore() && StoreUtils.isDownloadedFromAnyStore()) {
             return;
         }
         UpdateManager.isDownloadedUpdate(result -> {
@@ -5223,27 +5219,27 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                     public void onSuccess(Object updateResult) {
                         if(updateResult instanceof OWLENC.UpdateAvailable) {
                             OWLENC.UpdateAvailable updateAvailable = (OWLENC.UpdateAvailable) updateResult;
-                            long passed_time = (new Date().getTime() - OwlConfig.lastUpdateCheck) / 1000;
-                            if(passed_time >= 3600 * 2 || OwlConfig.lastUpdateStatus != 1 && !updateAvailable.isReminded() || force) {
-                                OwlConfig.updateData.set(updateAvailable);
-                                OwlConfig.applyUpdateData();
-                                OwlConfig.applyUpdateData();
-                                OwlConfig.remindUpdate(-1);
+                            long passed_time = (new Date().getTime() - YukiConfig.lastUpdateCheck) / 1000;
+                            if(passed_time >= 3600 * 2 || YukiConfig.lastUpdateStatus != 1 && !updateAvailable.isReminded() || force) {
+                                YukiConfig.updateData.set(updateAvailable);
+                                YukiConfig.applyUpdateData();
+                                YukiConfig.applyUpdateData();
+                                YukiConfig.remindUpdate(-1);
                                 NotificationCenter.getGlobalInstance().postNotificationName(NotificationCenter.appUpdateAvailable);
                                 if (StoreUtils.isFromPlayStore()) {
                                     PlayStoreAPI.openUpdatePopup(LaunchActivity.this);
                                 } else {
                                     new UpdateAlertDialog(LaunchActivity.this, updateAvailable).show();
                                 }
-                                OwlConfig.saveUpdateStatus(1);
-                                OwlConfig.saveLastUpdateCheck();
+                                YukiConfig.saveUpdateStatus(1);
+                                YukiConfig.saveLastUpdateCheck();
                                 updateAppUpdateViews();
                             }
                         } else {
                             if (updateResult instanceof UpdateManager.UpdateNotAvailable && force) {
                                 NotificationCenter.getGlobalInstance().postNotificationName(NotificationCenter.showBulletin, Bulletin.TYPE_ERROR, LocaleController.formatString("NoUpdateAvailable", R.string.NoUpdateAvailable));
                             }
-                            OwlConfig.saveUpdateStatus(0);
+                            YukiConfig.saveUpdateStatus(0);
                         }
                     }
 
@@ -7335,7 +7331,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                         showVoiceChatTooltip(mute ? UndoView.ACTION_VOIP_SOUND_MUTED : UndoView.ACTION_VOIP_SOUND_UNMUTED);
                     }
                 }
-            } else if ((OwlConfig.turnSoundOnVDKey || event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_UP) && (!mainFragmentsStack.isEmpty() && (!PhotoViewer.hasInstance() || !PhotoViewer.getInstance().isVisible()) && event.getRepeatCount() == 0)) {
+            } else if ((YukiConfig.turnSoundOnVDKey || event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_UP) && (!mainFragmentsStack.isEmpty() && (!PhotoViewer.hasInstance() || !PhotoViewer.getInstance().isVisible()) && event.getRepeatCount() == 0)) {
                 BaseFragment fragment = mainFragmentsStack.get(mainFragmentsStack.size() - 1);
                 if (fragment instanceof ChatActivity) {
                     if (((ChatActivity) fragment).maybePlayVisibleVideo()) {

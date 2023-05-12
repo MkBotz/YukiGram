@@ -43,7 +43,7 @@ import org.telegram.ui.ChatBackgroundDrawable;
 
 import java.util.ArrayList;
 
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 
 public class SizeNotifierFrameLayout extends FrameLayout {
 
@@ -493,7 +493,7 @@ public class SizeNotifierFrameLayout extends FrameLayout {
     }
 
     private void checkSnowflake(Canvas canvas) {
-        if ((Theme.canStartHolidayAnimation() || OwlConfig.eventType == 1) && OwlConfig.showSnowFalling && LiteMode.isEnabled(LiteMode.FLAG_CHAT_BACKGROUND)) {
+        if ((Theme.canStartHolidayAnimation() || YukiConfig.eventType == 1) && YukiConfig.showSnowFalling && LiteMode.isEnabled(LiteMode.FLAG_CHAT_BACKGROUND)) {
             if (snowflakesEffect == null) {
                 snowflakesEffect = new SnowflakesEffect(1);
             }

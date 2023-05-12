@@ -30,7 +30,7 @@ import org.telegram.ui.Components.StickerImageView;
 
 import java.util.Map;
 
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 
 @RequiresApi(api = Build.VERSION_CODES.S)
 public class AppLinkVerifyBottomSheet extends OnceBottomSheet {
@@ -46,7 +46,7 @@ public class AppLinkVerifyBottomSheet extends OnceBottomSheet {
     }
 
     public static void checkBottomSheet(BaseFragment fragment) {
-        if (OwlConfig.verifyLinkTip) {
+        if (YukiConfig.verifyLinkTip) {
             return;
         }
         Context context = fragment.getParentActivity();
@@ -151,7 +151,7 @@ public class AppLinkVerifyBottomSheet extends OnceBottomSheet {
 
         textView.setOnClickListener(view -> {
             dismiss();
-            OwlConfig.setVerifyLinkTip(true);
+            YukiConfig.setVerifyLinkTip(true);
         });
 
         ScrollView scrollView = new ScrollView(context);

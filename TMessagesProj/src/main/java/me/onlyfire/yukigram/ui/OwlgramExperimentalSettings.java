@@ -29,7 +29,7 @@ import java.util.ArrayList;
 
 import me.onlyfire.yukigram.android.AlertController;
 import me.onlyfire.yukigram.android.MonetIconController;
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 
 public class OwlgramExperimentalSettings extends BaseSettingsActivity {
 
@@ -56,9 +56,9 @@ public class OwlgramExperimentalSettings extends BaseSettingsActivity {
     @Override
     protected void onItemClick(View view, int position, float x, float y) {
         if (position == betterAudioCallRow) {
-            OwlConfig.toggleBetterAudioQuality();
+            YukiConfig.toggleBetterAudioQuality();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.betterAudioQuality);
+                ((TextCheckCell) view).setChecked(YukiConfig.betterAudioQuality);
             }
         } else if (position == maxRecentStickersRow) {
             int[] counts = {20, 30, 40, 50, 80, 100, 120, 150, 180, 200};
@@ -68,8 +68,8 @@ public class OwlgramExperimentalSettings extends BaseSettingsActivity {
                     types.add(String.valueOf(count));
                 }
             }
-            AlertController.show(types, LocaleController.getString("MaxRecentStickers", R.string.MaxRecentStickers), types.indexOf(String.valueOf(OwlConfig.maxRecentStickers)), context, i -> {
-                OwlConfig.setMaxRecentStickers(Integer.parseInt(types.get(i)));
+            AlertController.show(types, LocaleController.getString("MaxRecentStickers", R.string.MaxRecentStickers), types.indexOf(String.valueOf(YukiConfig.maxRecentStickers)), context, i -> {
+                YukiConfig.setMaxRecentStickers(Integer.parseInt(types.get(i)));
                 listAdapter.notifyItemChanged(maxRecentStickersRow, PARTIAL);
             });
         } else if (position == checkBoxExperimentalRow) {
@@ -101,26 +101,26 @@ public class OwlgramExperimentalSettings extends BaseSettingsActivity {
                 ((TextCheckCell) view).setChecked(MonetIconController.isSelectedMonet());
             }
         } else if (position == uploadSpeedBoostRow) {
-            OwlConfig.toggleUploadSpeedBoost();
+            YukiConfig.toggleUploadSpeedBoost();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.uploadSpeedBoost);
+                ((TextCheckCell) view).setChecked(YukiConfig.uploadSpeedBoost);
             }
         } else if (position == sendLargePhotosRow) {
-            OwlConfig.toggleSendLargePhotos();
+            YukiConfig.toggleSendLargePhotos();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.sendLargePhotos);
+                ((TextCheckCell) view).setChecked(YukiConfig.sendLargePhotos);
             }
         } else if (position == reduceCameraXLatency) {
-            OwlConfig.toggleReduceCameraXLatency();
+            YukiConfig.toggleReduceCameraXLatency();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.reduceCameraXLatency);
+                ((TextCheckCell) view).setChecked(YukiConfig.reduceCameraXLatency);
             }
         }
     }
 
     private void toggleExperimentalMode(TextCheckCell textCheckCell) {
-        OwlConfig.toggleDevOpt();
-        boolean isEnabled = OwlConfig.isDevOptEnabled();
+        YukiConfig.toggleDevOpt();
+        boolean isEnabled = YukiConfig.isDevOptEnabled();
         textCheckCell.setChecked(isEnabled);
         textCheckCell.setText(isEnabled ? LocaleController.getString("OnModeCheckTitle", R.string.OnModeCheckTitle) : LocaleController.getString("OffModeCheckTitle", R.string.OffModeCheckTitle));
         textCheckCell.setBackgroundColorAnimated(isEnabled, Theme.getColor(isEnabled ? Theme.key_windowBackgroundChecked : Theme.key_windowBackgroundUnchecked));
@@ -153,7 +153,7 @@ public class OwlgramExperimentalSettings extends BaseSettingsActivity {
         bottomSpaceRow = -1;
 
         checkBoxExperimentalRow = rowCount++;
-        if (OwlConfig.isDevOptEnabled()) {
+        if (YukiConfig.isDevOptEnabled()) {
             headerImageRow = rowCount++;
             headerExperimental = rowCount++;
             betterAudioCallRow = rowCount++;
@@ -186,9 +186,9 @@ public class OwlgramExperimentalSettings extends BaseSettingsActivity {
                 case SWITCH:
                     TextCheckCell textCheckCell = (TextCheckCell) holder.itemView;
                     if (position == betterAudioCallRow) {
-                        textCheckCell.setTextAndCheck(LocaleController.getString("MediaStreamVoip", R.string.MediaStreamVoip), OwlConfig.betterAudioQuality, true);
+                        textCheckCell.setTextAndCheck(LocaleController.getString("MediaStreamVoip", R.string.MediaStreamVoip), YukiConfig.betterAudioQuality, true);
                     } else if (position == checkBoxExperimentalRow) {
-                        boolean isEnabled = OwlConfig.isDevOptEnabled();
+                        boolean isEnabled = YukiConfig.isDevOptEnabled();
                         textCheckCell.setDrawCheckRipple(true);
                         textCheckCell.setTextAndCheck(isEnabled ? LocaleController.getString("OnModeCheckTitle", R.string.OnModeCheckTitle) : LocaleController.getString("OffModeCheckTitle", R.string.OffModeCheckTitle), isEnabled, false);
                         textCheckCell.setBackgroundColor(Theme.getColor(isEnabled ? Theme.key_windowBackgroundChecked : Theme.key_windowBackgroundUnchecked));
@@ -198,11 +198,11 @@ public class OwlgramExperimentalSettings extends BaseSettingsActivity {
                     } else if (position == monetIconRow) {
                         textCheckCell.setTextAndValueAndCheck(LocaleController.getString("MonetIcon", R.string.MonetIcon), LocaleController.getString("MonetIconDesc", R.string.MonetIconDesc), MonetIconController.isSelectedMonet(), true, true);
                     } else if (position == uploadSpeedBoostRow) {
-                        textCheckCell.setTextAndCheck(LocaleController.getString("FasterUploadSpeed", R.string.FasterUploadSpeed), OwlConfig.uploadSpeedBoost, false);
+                        textCheckCell.setTextAndCheck(LocaleController.getString("FasterUploadSpeed", R.string.FasterUploadSpeed), YukiConfig.uploadSpeedBoost, false);
                     } else if (position == sendLargePhotosRow) {
-                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("HRPhotos", R.string.HRPhotos), LocaleController.getString("HRPhotosDesc", R.string.HRPhotosDesc), OwlConfig.sendLargePhotos, true, true);
+                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("HRPhotos", R.string.HRPhotos), LocaleController.getString("HRPhotosDesc", R.string.HRPhotosDesc), YukiConfig.sendLargePhotos, true, true);
                     } else if (position == reduceCameraXLatency) {
-                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("ZeroShutterLag", R.string.ZeroShutterLag), LocaleController.getString("ZeroShutterLagDesc", R.string.ZeroShutterLagDesc), OwlConfig.reduceCameraXLatency, true, true);
+                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("ZeroShutterLag", R.string.ZeroShutterLag), LocaleController.getString("ZeroShutterLagDesc", R.string.ZeroShutterLagDesc), YukiConfig.reduceCameraXLatency, true, true);
                     }
                     break;
                 case TEXT_HINT_WITH_PADDING:
@@ -223,7 +223,7 @@ public class OwlgramExperimentalSettings extends BaseSettingsActivity {
                     TextSettingsCell textCell = (TextSettingsCell) holder.itemView;
                     textCell.setTextColor(Theme.getColor(Theme.key_windowBackgroundWhiteBlackText));
                     if (position == maxRecentStickersRow) {
-                        textCell.setTextAndValue(LocaleController.getString("MaxRecentStickers", R.string.MaxRecentStickers), String.valueOf(OwlConfig.maxRecentStickers), partial, true);
+                        textCell.setTextAndValue(LocaleController.getString("MaxRecentStickers", R.string.MaxRecentStickers), String.valueOf(YukiConfig.maxRecentStickers), partial, true);
                     }
                     break;
             }
@@ -262,13 +262,13 @@ public class OwlgramExperimentalSettings extends BaseSettingsActivity {
                     ArrayList<String> arrayList = new ArrayList<>();
                     ArrayList<Integer> types = new ArrayList<>();
                     arrayList.add(LocaleController.getString("DownloadSpeedDefault", R.string.DownloadSpeedDefault));
-                    types.add(OwlConfig.DOWNLOAD_BOOST_DEFAULT);
+                    types.add(YukiConfig.DOWNLOAD_BOOST_DEFAULT);
                     arrayList.add(LocaleController.getString("DownloadSpeedFast", R.string.DownloadSpeedFast));
-                    types.add(OwlConfig.DOWNLOAD_BOOST_FAST);
+                    types.add(YukiConfig.DOWNLOAD_BOOST_FAST);
                     arrayList.add(LocaleController.getString("DownloadSpeedExtreme", R.string.DownloadSpeedExtreme));
-                    types.add(OwlConfig.DOWNLOAD_BOOST_EXTREME);
-                    slideChooseView.setCallback(index -> OwlConfig.setDownloadSpeedBoost(types.get(index)));
-                    slideChooseView.setOptions(types.indexOf(OwlConfig.downloadSpeedBoost), arrayList.toArray(new String[0]));
+                    types.add(YukiConfig.DOWNLOAD_BOOST_EXTREME);
+                    slideChooseView.setCallback(index -> YukiConfig.setDownloadSpeedBoost(types.get(index)));
+                    slideChooseView.setOptions(types.indexOf(YukiConfig.downloadSpeedBoost), arrayList.toArray(new String[0]));
                     slideChooseView.setDivider(true);
                     break;
             }

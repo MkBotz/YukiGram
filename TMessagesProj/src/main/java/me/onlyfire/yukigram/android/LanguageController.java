@@ -44,15 +44,15 @@ public class LanguageController {
                     if (!obj.has("error")) {
                         String remoteMD5 = obj.getString("md5");
                         if (getFileFromLang(langCode).exists()) {
-                            if (OwlConfig.languagePackVersioning.containsKey(langCode)) {
-                                if (OwlConfig.languagePackVersioning.get(langCode).equals(remoteMD5)) {
+                            if (YukiConfig.languagePackVersioning.containsKey(langCode)) {
+                                if (YukiConfig.languagePackVersioning.get(langCode).equals(remoteMD5)) {
                                     return;
                                 }
                             }
                         }
                         loadRemoteLanguage(langCode);
-                        OwlConfig.languagePackVersioning.put(langCode, remoteMD5);
-                        OwlConfig.applyLanguagePackVersioning();
+                        YukiConfig.languagePackVersioning.put(langCode, remoteMD5);
+                        YukiConfig.applyLanguagePackVersioning();
                     }
                 } catch (Exception ignored) {
                 }

@@ -17,7 +17,7 @@ import org.telegram.tgnet.TLRPC;
 import java.util.Locale;
 
 import me.onlyfire.yukigram.android.MessageHelper;
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 import me.onlyfire.yukigram.android.entities.HTMLKeeper;
 
 public class TranslatorHelper {
@@ -28,7 +28,7 @@ public class TranslatorHelper {
     }
 
     public static boolean isSupportHTMLMode() {
-        return isSupportHTMLMode(OwlConfig.translationProvider);
+        return isSupportHTMLMode(YukiConfig.translationProvider);
     }
 
     public static boolean isSupportHTMLMode(int provider) {
@@ -42,11 +42,11 @@ public class TranslatorHelper {
     }
 
     public static boolean isSupportMarkdown() {
-        return isSupportMarkdown(OwlConfig.translationProvider);
+        return isSupportMarkdown(YukiConfig.translationProvider);
     }
 
     public static boolean showPremiumFeatures() {
-        return showPremiumFeatures(OwlConfig.translationProvider);
+        return showPremiumFeatures(YukiConfig.translationProvider);
     }
 
     public static boolean showPremiumFeatures(int provider) {
@@ -56,7 +56,7 @@ public class TranslatorHelper {
     }
 
     public static boolean isSupportAutoTranslate() {
-        return isSupportAutoTranslate(OwlConfig.translationProvider);
+        return isSupportAutoTranslate(YukiConfig.translationProvider);
     }
 
     public static boolean isSupportAutoTranslate(int provider) {
@@ -99,7 +99,7 @@ public class TranslatorHelper {
                 }
             }
             if (messageObject.messageOwner.entities != null && additionalObjectTranslation.translation instanceof String) {
-                if (OwlConfig.keepTranslationMarkdown) {
+                if (YukiConfig.keepTranslationMarkdown) {
                     if (isSupportHTMLMode()) {
                         additionalObjectTranslation.translation = HTMLKeeper.entitiesToHtml((String) additionalObjectTranslation.translation, messageObject.messageOwner.entities, false);
                     } else if (isSupportMarkdown()) { // Use Telegram entities

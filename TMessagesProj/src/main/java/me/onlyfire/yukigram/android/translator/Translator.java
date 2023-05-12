@@ -21,7 +21,7 @@ import java.util.Collections;
 import java.util.Locale;
 
 import me.onlyfire.yukigram.android.AlertController;
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 import me.onlyfire.yukigram.android.entities.HTMLKeeper;
 
 public class Translator {
@@ -97,11 +97,11 @@ public class Translator {
         targetLanguages.add(0, "app");
         names.add(0, LocaleController.getString("Default", R.string.Default));
 
-        AlertController.show(names, LocaleController.getString("TranslationLanguage", R.string.TranslationLanguage), targetLanguages.indexOf(isKeyboard ? OwlConfig.translationKeyboardTarget : OwlConfig.translationTarget), context, i -> {
+        AlertController.show(names, LocaleController.getString("TranslationLanguage", R.string.TranslationLanguage), targetLanguages.indexOf(isKeyboard ? YukiConfig.translationKeyboardTarget : YukiConfig.translationTarget), context, i -> {
             if (isKeyboard) {
-                OwlConfig.setTranslationKeyboardTarget(targetLanguages.get(i));
+                YukiConfig.setTranslationKeyboardTarget(targetLanguages.get(i));
             } else {
-                OwlConfig.setTranslationTarget(targetLanguages.get(i));
+                YukiConfig.setTranslationTarget(targetLanguages.get(i));
             }
             callback.run();
         }, resourcesProvider);
@@ -118,30 +118,30 @@ public class Translator {
         if (names == null || types == null) {
             return;
         }
-        int index = types.indexOf(OwlConfig.translationProvider);
+        int index = types.indexOf(YukiConfig.translationProvider);
         if (index == -1) {
             index = types.indexOf(Translator.PROVIDER_GOOGLE);
         }
         AlertController.show(names, LocaleController.getString("TranslationProvider", R.string.TranslationProvider), index, context, i -> {
             BaseTranslator translator = getTranslator(types.get(i));
-            String targetLanguage = translator.getTargetLanguage(OwlConfig.translationTarget);
+            String targetLanguage = translator.getTargetLanguage(YukiConfig.translationTarget);
 
             if (translator.supportLanguage(targetLanguage)) {
-                OwlConfig.setTranslationProvider(types.get(i));
+                YukiConfig.setTranslationProvider(types.get(i));
                 if (callback != null) callback.run(true);
             } else {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context, resourcesProvider)
                         .setMessage(LocaleController.getString("TranslateApiUnsupported", R.string.TranslateApiUnsupported));
-                if ("app".equals(OwlConfig.translationTarget)) {
+                if ("app".equals(YukiConfig.translationTarget)) {
                     builder.setPositiveButton(LocaleController.getString("UseGoogleTranslate", R.string.UseGoogleTranslate), (dialog, which) -> {
-                        OwlConfig.setTranslationProvider(Translator.PROVIDER_GOOGLE);
+                        YukiConfig.setTranslationProvider(Translator.PROVIDER_GOOGLE);
                         if (callback != null) callback.run(false);
                     });
                     builder.setNegativeButton(LocaleController.getString("Cancel", R.string.Cancel), null);
                 } else if (translator.supportLanguage(translator.getCurrentAppLanguage())) {
                     builder.setPositiveButton(LocaleController.getString("ResetLanguage", R.string.ResetLanguage), (dialog, which) -> {
-                        OwlConfig.setTranslationProvider(types.get(i));
-                        OwlConfig.setTranslationTarget("app");
+                        YukiConfig.setTranslationProvider(types.get(i));
+                        YukiConfig.setTranslationTarget("app");
                         if (callback != null) callback.run(false);
                     });
                     builder.setNegativeButton(LocaleController.getString("Cancel", R.string.Cancel), null);
@@ -154,7 +154,7 @@ public class Translator {
     }
 
     public static BaseTranslator getCurrentTranslator() {
-        return getTranslator(OwlConfig.translationProvider);
+        return getTranslator(YukiConfig.translationProvider);
     }
 
     public static BaseTranslator getTranslator(int type) {

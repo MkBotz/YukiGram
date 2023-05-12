@@ -163,7 +163,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 import me.onlyfire.yukigram.android.entities.EntitiesHelper;
 import me.onlyfire.yukigram.android.MessageHelper;
 import me.onlyfire.yukigram.android.translator.BaseTranslator;
@@ -2042,9 +2042,9 @@ public class ChatActivityEnterView extends BlurredFrameLayout implements Notific
                         if (!hasRecordVideo || calledRecordRunnable) {
                             startedDraggingX = -1;
                             if (hasRecordVideo && isInVideoMode()) {
-                                delegate.needStartRecordVideo(OwlConfig.confirmSending.sendVideo ? 3 : 1, true, 0);
+                                delegate.needStartRecordVideo(YukiConfig.confirmSending.sendVideo ? 3 : 1, true, 0);
                             } else {
-                                if (OwlConfig.confirmSending.sendAudio) {
+                                if (YukiConfig.confirmSending.sendAudio) {
                                     MediaController.getInstance().stopRecording(2, true, 0);
                                 } else {
                                     if (recordingAudioVideo && isInScheduleMode()) {
@@ -2054,7 +2054,7 @@ public class ChatActivityEnterView extends BlurredFrameLayout implements Notific
                                 }
                                 delegate.needStartRecordAudio(0);
                             }
-                            if (!OwlConfig.confirmSending.sendAudio && !OwlConfig.confirmSending.sendVideo) {
+                            if (!YukiConfig.confirmSending.sendAudio && !YukiConfig.confirmSending.sendVideo) {
                                 recordingAudioVideo = false;
                                 messageTransitionIsRunning = false;
                                 AndroidUtilities.runOnUIThread(moveToSendStateRunnable = () -> {
@@ -2135,23 +2135,23 @@ public class ChatActivityEnterView extends BlurredFrameLayout implements Notific
                             startedDraggingX = -1;
                             if (hasRecordVideo && isInVideoMode()) {
                                 CameraController.getInstance().cancelOnInitRunnable(onFinishInitCameraRunnable);
-                                delegate.needStartRecordVideo(OwlConfig.confirmSending.sendVideo ? 3 : 1, true, 0);
+                                delegate.needStartRecordVideo(YukiConfig.confirmSending.sendVideo ? 3 : 1, true, 0);
                             } else if (!sendVoiceEnabled) {
                                 delegate.needShowMediaBanHint();
                             } else {
-                                if (!OwlConfig.confirmSending.sendAudio) {
+                                if (!YukiConfig.confirmSending.sendAudio) {
                                     if (recordingAudioVideo && isInScheduleMode()) {
                                         AlertsCreator.createScheduleDatePickerDialog(parentActivity, parentFragment.getDialogId(), (notify, scheduleDate) -> MediaController.getInstance().stopRecording(1, notify, scheduleDate), () -> MediaController.getInstance().stopRecording(0, false, 0), resourcesProvider);
                                     }
                                 }
                                 delegate.needStartRecordAudio(0);
-                                if (!OwlConfig.confirmSending.sendAudio) {
+                                if (!YukiConfig.confirmSending.sendAudio) {
                                     MediaController.getInstance().stopRecording(isInScheduleMode() ? 3 : 1, true, 0);
                                 } else {
                                     MediaController.getInstance().stopRecording(2, true, 0);
                                 }
                             }
-                            if (!OwlConfig.confirmSending.sendAudio && !OwlConfig.confirmSending.sendVideo) {
+                            if (!YukiConfig.confirmSending.sendAudio && !YukiConfig.confirmSending.sendVideo) {
                                 recordingAudioVideo = false;
                                 messageTransitionIsRunning = false;
                                 AndroidUtilities.runOnUIThread(moveToSendStateRunnable = () -> {
@@ -3555,9 +3555,9 @@ public class ChatActivityEnterView extends BlurredFrameLayout implements Notific
                     sendPopupLayout.addView(sendWithoutMarkdownButton, LayoutHelper.createLinear(LayoutHelper.MATCH_PARENT, 48));
                 }
 
-                if (OwlConfig.showTranslate) {
+                if (YukiConfig.showTranslate) {
                     ActionBarMenuSubItem preSentTranslateButton = new ActionBarMenuSubItem(getContext(), false, false, resourcesProvider);
-                    String languageText = Translator.getTranslator(OwlConfig.translationProvider).getCurrentTargetKeyboardLanguage().toUpperCase();
+                    String languageText = Translator.getTranslator(YukiConfig.translationProvider).getCurrentTargetKeyboardLanguage().toUpperCase();
                     preSentTranslateButton.setTextAndIcon(LocaleController.getString("TranslateMessage", R.string.TranslateMessage) + " (" + languageText + ")", R.drawable.msg_translate);
                     preSentTranslateButton.setMinimumWidth(AndroidUtilities.dp(196));
                     preSentTranslateButton.setOnClickListener(v -> {
@@ -3571,7 +3571,7 @@ public class ChatActivityEnterView extends BlurredFrameLayout implements Notific
                             sendPopupWindow.dismiss();
                         }
                         Translator.showTranslationTargetSelector(getContext(), true, () -> {
-                            String language = Translator.getTranslator(OwlConfig.translationProvider).getCurrentTargetKeyboardLanguage().toUpperCase();
+                            String language = Translator.getTranslator(YukiConfig.translationProvider).getCurrentTargetKeyboardLanguage().toUpperCase();
                             preSentTranslateButton.setTextAndIcon(LocaleController.getString("TranslateMessage", R.string.TranslateMessage) + " (" + language + ")", R.drawable.msg_translate);
                             translatePreSend();
                         }, resourcesProvider);
@@ -7819,7 +7819,7 @@ public class ChatActivityEnterView extends BlurredFrameLayout implements Notific
             defPeer = delegate.getSendAsPeers().peers.get(0).peer;
         }
         boolean isVisible = defPeer != null && (delegate.getSendAsPeers() == null || delegate.getSendAsPeers().peers.size() > 1) &&
-            !isEditingMessage() && !isRecordingAudioVideo() && !OwlConfig.hideSendAsChannel && (recordedAudioPanel == null || recordedAudioPanel.getVisibility() != View.VISIBLE);
+            !isEditingMessage() && !isRecordingAudioVideo() && !YukiConfig.hideSendAsChannel && (recordedAudioPanel == null || recordedAudioPanel.getVisibility() != View.VISIBLE);
         if (isVisible) {
             createSenderSelectView();
         }

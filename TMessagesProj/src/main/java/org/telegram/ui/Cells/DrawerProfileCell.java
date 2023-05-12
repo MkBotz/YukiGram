@@ -64,7 +64,7 @@ import org.telegram.ui.Components.Reactions.AnimatedEmojiEffect;
 import org.telegram.ui.Components.Reactions.ReactionsLayoutInBubble;
 import org.telegram.ui.Components.SnowflakesEffect;
 import org.telegram.ui.ThemeActivity;
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 
 import java.util.ArrayList;
 
@@ -111,28 +111,28 @@ public class DrawerProfileCell extends FrameLayout implements NotificationCenter
         imageReceiver.setCrossfadeWithOldImage(true);
         imageReceiver.setForceCrossfade(true);
         imageReceiver.setDelegate((imageReceiver, set, thumb, memCache) -> {
-            if (OwlConfig.avatarBackgroundDarken || OwlConfig.avatarBackgroundBlur) {
+            if (YukiConfig.avatarBackgroundDarken || YukiConfig.avatarBackgroundBlur) {
                 if (thumb) {
                     return;
                 }
                 ImageReceiver.BitmapHolder bmp = imageReceiver.getBitmapSafe();
                 if (bmp != null) {
                     new Thread(() -> {
-                        int width_percentage = ((bmp.bitmap.getWidth()) * (100 - OwlConfig.blurIntensity)) / 100;
-                        int height_percentage = ((bmp.bitmap.getHeight()) * (100 - OwlConfig.blurIntensity)) / 100;
-                        int width = OwlConfig.avatarBackgroundBlur ? width_percentage : bmp.bitmap.getWidth();
-                        int height = OwlConfig.avatarBackgroundBlur ? height_percentage : bmp.bitmap.getHeight();
+                        int width_percentage = ((bmp.bitmap.getWidth()) * (100 - YukiConfig.blurIntensity)) / 100;
+                        int height_percentage = ((bmp.bitmap.getHeight()) * (100 - YukiConfig.blurIntensity)) / 100;
+                        int width = YukiConfig.avatarBackgroundBlur ? width_percentage : bmp.bitmap.getWidth();
+                        int height = YukiConfig.avatarBackgroundBlur ? height_percentage : bmp.bitmap.getHeight();
                         Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
                         Canvas canvas = new Canvas(bitmap);
                         canvas.drawBitmap(bmp.bitmap, null, new Rect(0, 0, width, height), new Paint(Paint.FILTER_BITMAP_FLAG));
-                        if (OwlConfig.avatarBackgroundBlur) {
+                        if (YukiConfig.avatarBackgroundBlur) {
                             try {
                                 Utilities.stackBlurBitmap(bitmap, 3);
                             } catch (Exception e) {
                                 FileLog.e(e);
                             }
                         }
-                        if (OwlConfig.avatarBackgroundDarken) {
+                        if (YukiConfig.avatarBackgroundDarken) {
                             final Palette palette = Palette.from(bmp.bitmap).generate();
                             Paint paint = new Paint();
                             paint.setColor((palette.getDarkMutedColor(0xFF547499) & 0x00FFFFFF) | 0x44000000);
@@ -592,13 +592,13 @@ public class DrawerProfileCell extends FrameLayout implements NotificationCenter
             sunDrawable.setLayerColor("Path 5.**", currentMoonColor);
             sunDrawable.commitApplyLayerColors();
         }
-        if(AndroidUtilities.isLight(colorBackground) && OwlConfig.showGradientColor && OwlConfig.avatarAsDrawerBackground) {
+        if(AndroidUtilities.isLight(colorBackground) && YukiConfig.showGradientColor && YukiConfig.avatarAsDrawerBackground) {
             nameTextView.setTextColor(Theme.getColor(Theme.key_dialogTextBlack));
         } else {
             nameTextView.setTextColor(Theme.getColor(Theme.key_chats_menuName));
         }
         if (avatarAsDrawerBackground || useImageBackground) {
-            if(AndroidUtilities.isLight(colorBackground) && OwlConfig.showGradientColor && OwlConfig.avatarAsDrawerBackground) {
+            if(AndroidUtilities.isLight(colorBackground) && YukiConfig.showGradientColor && YukiConfig.avatarAsDrawerBackground) {
                 phoneTextView.getTextView().setTextColor(AndroidUtilities.getTransparentColor(Theme.getColor(Theme.key_dialogTextBlack), 0.4f));
             } else {
                 phoneTextView.getTextView().setTextColor(Theme.getColor(Theme.key_chats_menuPhone));
@@ -637,7 +637,7 @@ public class DrawerProfileCell extends FrameLayout implements NotificationCenter
             if (shadowView.getVisibility() != visibility) {
                 shadowView.setVisibility(visibility);
             }
-            if(AndroidUtilities.isLight(colorBackground) && OwlConfig.showGradientColor && OwlConfig.avatarAsDrawerBackground) {
+            if(AndroidUtilities.isLight(colorBackground) && YukiConfig.showGradientColor && YukiConfig.avatarAsDrawerBackground) {
                 phoneTextView.getTextView().setTextColor(AndroidUtilities.getTransparentColor(Theme.getColor(Theme.key_dialogTextBlack), 0.4f));
             } else {
                 phoneTextView.getTextView().setTextColor(Theme.getColor(Theme.key_chats_menuPhoneCats));
@@ -681,7 +681,7 @@ public class DrawerProfileCell extends FrameLayout implements NotificationCenter
             }
             invalidate();
         }
-        if (((Theme.getEventType() == 0 && OwlConfig.eventType == 0) || OwlConfig.eventType == 1) && OwlConfig.showSnowFalling) {
+        if (((Theme.getEventType() == 0 && YukiConfig.eventType == 0) || YukiConfig.eventType == 1) && YukiConfig.showSnowFalling) {
             snowflakesEffect.onDraw(this, canvas);
         }
     }
@@ -756,7 +756,7 @@ public class DrawerProfileCell extends FrameLayout implements NotificationCenter
         }
         animatedStatus.setColor(Theme.getColor(Theme.isCurrentThemeDark() ? Theme.key_chats_verifiedBackground : Theme.key_chats_menuPhoneCats));
         status.setColor(Theme.getColor(Theme.isCurrentThemeDark() ? Theme.key_chats_verifiedBackground : Theme.key_chats_menuPhoneCats));
-        if (!OwlConfig.hidePhoneNumber) {
+        if (!YukiConfig.hidePhoneNumber) {
             phoneTextView.setText(PhoneFormat.getInstance().format("+" + user.phone));
         } else if (!TextUtils.isEmpty(user.username)) {
             phoneTextView.setText("@" + user.username);
@@ -766,16 +766,16 @@ public class DrawerProfileCell extends FrameLayout implements NotificationCenter
         AvatarDrawable avatarDrawable = new AvatarDrawable(user);
         avatarDrawable.setColor(Theme.getColor(Theme.key_avatar_backgroundInProfileBlue));
         avatarImageView.setForUserOrChat(user, avatarDrawable);
-        if (OwlConfig.avatarAsDrawerBackground) {
+        if (YukiConfig.avatarAsDrawerBackground) {
             ImageLocation imageLocation = ImageLocation.getForUser(user, ImageLocation.TYPE_BIG);
             avatarAsDrawerBackground = imageLocation != null;
             imageReceiver.setImage(imageLocation, "512_512", null, null, new ColorDrawable(0x00000000), 0, null, user, 1);
-            if(OwlConfig.showGradientColor) {
+            if(YukiConfig.showGradientColor) {
                 gradientBackground.setVisibility(VISIBLE);
             } else {
                 gradientBackground.setVisibility(INVISIBLE);
             }
-            if(OwlConfig.showAvatarImage) {
+            if(YukiConfig.showAvatarImage) {
                 avatarImageView.setVisibility(VISIBLE);
             } else {
                 avatarImageView.setVisibility(INVISIBLE);
@@ -800,7 +800,7 @@ public class DrawerProfileCell extends FrameLayout implements NotificationCenter
     }
 
     public void updateColors() {
-        if (Theme.getEventType() == 0 && OwlConfig.eventType == 0 || OwlConfig.eventType == 1) {
+        if (Theme.getEventType() == 0 && YukiConfig.eventType == 0 || YukiConfig.eventType == 1) {
             snowflakesEffect.updateColors();
         }
         if (animatedStatus != null) {

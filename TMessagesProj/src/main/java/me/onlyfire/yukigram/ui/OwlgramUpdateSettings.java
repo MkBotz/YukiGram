@@ -18,7 +18,7 @@ import org.telegram.ui.Cells.TextCheckCell;
 
 import me.onlyfire.yukigram.android.http.FileDownloader;
 import me.onlyfire.yukigram.android.magic.OWLENC;
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 import me.onlyfire.yukigram.android.StoreUtils;
 import me.onlyfire.yukigram.android.updates.AppDownloader;
 import me.onlyfire.yukigram.android.updates.PlayStoreAPI;
@@ -44,13 +44,13 @@ public class OwlgramUpdateSettings extends BaseSettingsActivity {
 
     @Override
     public boolean onFragmentCreate() {
-        if (OwlConfig.updateData.isPresent()) {
-            updateAvailable = OwlConfig.updateData.get();
+        if (YukiConfig.updateData.isPresent()) {
+            updateAvailable = YukiConfig.updateData.get();
             if (updateAvailable.isReminded()) {
                 updateAvailable = null;
             } else if (updateAvailable.version <= BuildVars.BUILD_VERSION) {
                 updateAvailable = null;
-                OwlConfig.saveUpdateStatus(0);
+                YukiConfig.saveUpdateStatus(0);
             }
         }
         AppDownloader.setListener("settings", new AppDownloader.UpdateListener() {
@@ -93,12 +93,12 @@ public class OwlgramUpdateSettings extends BaseSettingsActivity {
     protected void onItemClick(View view, int position, float x, float y) {
         if (position == betaUpdatesRow) {
             if (!UpdateManager.updateDownloaded() && !checkingUpdates) {
-                OwlConfig.toggleBetaUpdates();
+                YukiConfig.toggleBetaUpdates();
                 FileDownloader.cancel("appUpdate");
                 UpdateManager.deleteUpdate();
                 listAdapter.notifyItemChanged(apkChannelRow, PARTIAL);
                 if (updateAvailable != null) {
-                    OwlConfig.remindUpdate(updateAvailable.version);
+                    YukiConfig.remindUpdate(updateAvailable.version);
                     NotificationCenter.getGlobalInstance().postNotificationName(NotificationCenter.appUpdateAvailable);
                     updateAvailable = null;
                     listAdapter.notifyItemRangeRemoved(updateSectionAvailableRow, 2);
@@ -107,13 +107,13 @@ public class OwlgramUpdateSettings extends BaseSettingsActivity {
                 }
                 checkUpdates();
                 if (view instanceof TextCheckCell) {
-                    ((TextCheckCell) view).setChecked(OwlConfig.betaUpdates);
+                    ((TextCheckCell) view).setChecked(YukiConfig.betaUpdates);
                 }
             }
         } else if (position == notifyWhenAvailableRow) {
-            OwlConfig.toggleNotifyUpdates();
+            YukiConfig.toggleNotifyUpdates();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.notifyUpdates);
+                ((TextCheckCell) view).setChecked(YukiConfig.notifyUpdates);
             }
         } else if (position == apkChannelRow) {
             MessagesController.getInstance(currentAccount).openByUserName(UpdateManager.getApkChannel(), this, 1);
@@ -193,9 +193,9 @@ public class OwlgramUpdateSettings extends BaseSettingsActivity {
                     textCheckCell.setEnabled(!AppDownloader.updateDownloaded() || position != betaUpdatesRow, null);
                     if (position == betaUpdatesRow) {
                         changeBetaMode = textCheckCell;
-                        changeBetaMode.setTextAndValueAndCheck(LocaleController.getString("InstallBetas", R.string.InstallBetas), LocaleController.getString("InstallBetasDesc", R.string.InstallBetasDesc), OwlConfig.betaUpdates, true, true);
+                        changeBetaMode.setTextAndValueAndCheck(LocaleController.getString("InstallBetas", R.string.InstallBetas), LocaleController.getString("InstallBetasDesc", R.string.InstallBetasDesc), YukiConfig.betaUpdates, true, true);
                     } else if (position == notifyWhenAvailableRow) {
-                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("AutoUpdate", R.string.AutoUpdate), LocaleController.getString("AutoUpdatePrompt", R.string.AutoUpdatePrompt), OwlConfig.notifyUpdates, true, true);
+                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("AutoUpdate", R.string.AutoUpdate), LocaleController.getString("AutoUpdatePrompt", R.string.AutoUpdatePrompt), YukiConfig.notifyUpdates, true, true);
                     }
                     break;
                 case TEXT_CELL:
@@ -229,7 +229,7 @@ public class OwlgramUpdateSettings extends BaseSettingsActivity {
                             super.onConfirmUpdate();
                             if (!FileDownloader.isRunningDownload("appUpdate")) {
                                 if (FileDownloader.downloadFile(context, "appUpdate", UpdateManager.apkFile(), updateAvailable.fileLink))
-                                    OwlConfig.saveOldVersion(updateAvailable.version);
+                                    YukiConfig.saveOldVersion(updateAvailable.version);
                                 updateCell.setDownloadMode();
                             }
                         }
@@ -240,7 +240,7 @@ public class OwlgramUpdateSettings extends BaseSettingsActivity {
                             updateCheckCell.setCheckTime();
                             if (updateAvailable != null) {
                                 UpdateManager.deleteUpdate();
-                                OwlConfig.remindUpdate(updateAvailable.version);
+                                YukiConfig.remindUpdate(updateAvailable.version);
                                 NotificationCenter.getGlobalInstance().postNotificationName(NotificationCenter.appUpdateAvailable);
                                 updateCheckCell.setCheckTime();
                                 updateAvailable = null;
@@ -258,7 +258,7 @@ public class OwlgramUpdateSettings extends BaseSettingsActivity {
                             super.onCheckUpdate();
                             if (PlayStoreAPI.updateDownloaded()) {
                                 PlayStoreAPI.installUpdate();
-                            } else if (StoreUtils.isFromPlayStore() && !PlayStoreAPI.updateDownloaded() && OwlConfig.lastUpdateStatus == 1 && updateAvailable != null) {
+                            } else if (StoreUtils.isFromPlayStore() && !PlayStoreAPI.updateDownloaded() && YukiConfig.lastUpdateStatus == 1 && updateAvailable != null) {
                                 PlayStoreAPI.openUpdatePopup(getParentActivity());
                             } else if (!AppDownloader.updateDownloaded()) {
                                 checkUpdates();
@@ -297,14 +297,14 @@ public class OwlgramUpdateSettings extends BaseSettingsActivity {
             @Override
             public void onSuccess(Object updateResult) {
                 checkingUpdates = false;
-                OwlConfig.saveLastUpdateCheck();
+                YukiConfig.saveLastUpdateCheck();
                 if (updateResult instanceof OWLENC.UpdateAvailable) {
                     if (updateAvailable == null) {
-                        OwlConfig.saveUpdateStatus(1);
-                        OwlConfig.remindUpdate(-1);
+                        YukiConfig.saveUpdateStatus(1);
+                        YukiConfig.remindUpdate(-1);
                         updateAvailable = (OWLENC.UpdateAvailable) updateResult;
-                        OwlConfig.updateData.set(updateAvailable);
-                        OwlConfig.applyUpdateData();
+                        YukiConfig.updateData.set(updateAvailable);
+                        YukiConfig.applyUpdateData();
                         if (StoreUtils.isFromPlayStore()) {
                             PlayStoreAPI.openUpdatePopup(getParentActivity());
                         } else {
@@ -316,11 +316,11 @@ public class OwlgramUpdateSettings extends BaseSettingsActivity {
                     }
                     updateCheckCell.setUpdateAvailableStatus();
                 } else {
-                    OwlConfig.saveUpdateStatus(0);
+                    YukiConfig.saveUpdateStatus(0);
                     updateCheckCell.setCheckTime();
                     if (updateAvailable != null) {
-                        OwlConfig.updateData.set(null);
-                        OwlConfig.applyUpdateData();
+                        YukiConfig.updateData.set(null);
+                        YukiConfig.applyUpdateData();
                         updateAvailable = null;
                         if (!StoreUtils.isFromPlayStore()) {
                             listAdapter.notifyItemRangeRemoved(updateSectionAvailableRow, 2);
@@ -334,7 +334,7 @@ public class OwlgramUpdateSettings extends BaseSettingsActivity {
             @Override
             public void onError(Exception e) {
                 FileLog.e(e);
-                OwlConfig.saveUpdateStatus(2);
+                YukiConfig.saveUpdateStatus(2);
                 updateCheckCell.setFailedStatus();
             }
         });

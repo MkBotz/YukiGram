@@ -9,11 +9,11 @@ import org.telegram.tgnet.TLRPC;
 
 import java.util.ArrayList;
 
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 
 public class UpdateSignaling {
     public static void checkWasUpdated() {
-        String oldBuildVersion = OwlConfig.oldBuildVersion;
+        String oldBuildVersion = YukiConfig.oldBuildVersion;
         int selected_account = UserConfig.selectedAccount;
         if (oldBuildVersion == null) {
             for (int i = 0; i < UserConfig.getActivatedAccountsCount(); i++) {
@@ -24,7 +24,7 @@ public class UpdateSignaling {
                 }
             }
         }
-        if ((oldBuildVersion != null && oldBuildVersion.equals(OwlConfig.currentNotificationVersion())) || BuildConfig.DEBUG_PRIVATE_VERSION) {
+        if ((oldBuildVersion != null && oldBuildVersion.equals(YukiConfig.currentNotificationVersion())) || BuildConfig.DEBUG_PRIVATE_VERSION) {
             return;
         }
         UpdateManager.getChangelogs(updateResult -> {
@@ -39,7 +39,7 @@ public class UpdateSignaling {
             ArrayList<TLRPC.Update> updates = new ArrayList<>();
             updates.add(update);
             MessagesController.getInstance(selected_account).processUpdateArray(updates, null, null, false, 0);
-            OwlConfig.updateCurrentVersion();
+            YukiConfig.updateCurrentVersion();
         });
     }
 }

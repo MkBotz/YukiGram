@@ -18,16 +18,16 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 
 public class AutoTranslateConfig {
     private static final SharedPreferences preferences = ApplicationLoader.applicationContext.getSharedPreferences("OwlDialogConfig", Context.MODE_PRIVATE);
 
     public static boolean isAutoTranslateEnabled(long dialogId, int topicId) {
         if (hasAutoTranslateConfig(dialogId, topicId)) {
-            return preferences.getBoolean(getExceptionsKey(dialogId, topicId), OwlConfig.autoTranslate);
+            return preferences.getBoolean(getExceptionsKey(dialogId, topicId), YukiConfig.autoTranslate);
         } else {
-            return preferences.getBoolean(getExceptionsKey(dialogId, 0), OwlConfig.autoTranslate);
+            return preferences.getBoolean(getExceptionsKey(dialogId, 0), YukiConfig.autoTranslate);
         }
     }
 

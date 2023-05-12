@@ -144,7 +144,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 
 @SuppressLint("NewApi")
 public class VoIPService extends Service implements SensorEventListener, AudioManager.OnAudioFocusChangeListener, VoIPController.ConnectionStateListener, NotificationCenter.NotificationCenterDelegate {
@@ -3627,7 +3627,7 @@ public class VoIPService extends Service implements SensorEventListener, AudioMa
 
 	private int currentStreamType;
 	private void loadResources() {
-		if (chat != null && OwlConfig.betterAudioQuality) {
+		if (chat != null && YukiConfig.betterAudioQuality) {
 			currentStreamType = AudioManager.STREAM_MUSIC;
 			if (Build.VERSION.SDK_INT >= 21) {
 				WebRtcAudioTrack.setAudioTrackUsageAttribute(AudioAttributes.USAGE_MEDIA);
@@ -3698,8 +3698,8 @@ public class VoIPService extends Service implements SensorEventListener, AudioMa
 		}
 
 		if (Build.VERSION.SDK_INT >= 21) {
-			WebRtcAudioTrack.setAudioTrackUsageAttribute(hasRtmpStream() || OwlConfig.betterAudioQuality ? AudioAttributes.USAGE_MEDIA : AudioAttributes.USAGE_VOICE_COMMUNICATION);
-			WebRtcAudioTrack.setAudioStreamType(hasRtmpStream() || OwlConfig.betterAudioQuality ? AudioManager.USE_DEFAULT_STREAM_TYPE : AudioManager.STREAM_VOICE_CALL);
+			WebRtcAudioTrack.setAudioTrackUsageAttribute(hasRtmpStream() || YukiConfig.betterAudioQuality ? AudioAttributes.USAGE_MEDIA : AudioAttributes.USAGE_VOICE_COMMUNICATION);
+			WebRtcAudioTrack.setAudioStreamType(hasRtmpStream() || YukiConfig.betterAudioQuality ? AudioManager.USE_DEFAULT_STREAM_TYPE : AudioManager.STREAM_VOICE_CALL);
 		}
 
 		needPlayEndSound = true;
@@ -3707,7 +3707,7 @@ public class VoIPService extends Service implements SensorEventListener, AudioMa
 		if (!USE_CONNECTION_SERVICE) {
 			Utilities.globalQueue.postRunnable(() -> {
 				try {
-					if (hasRtmpStream() || OwlConfig.betterAudioQuality) {
+					if (hasRtmpStream() || YukiConfig.betterAudioQuality) {
 						am.setMode(AudioManager.MODE_NORMAL);
 						am.setBluetoothScoOn(false);
 						AndroidUtilities.runOnUIThread(() -> {
@@ -3767,7 +3767,7 @@ public class VoIPService extends Service implements SensorEventListener, AudioMa
 		SensorManager sm = (SensorManager) getSystemService(SENSOR_SERVICE);
 		Sensor proximity = sm.getDefaultSensor(Sensor.TYPE_PROXIMITY);
 		try {
-			if (!OwlConfig.disableProximityEvents && proximity != null) {
+			if (!YukiConfig.disableProximityEvents && proximity != null) {
 				proximityWakelock = ((PowerManager) getSystemService(Context.POWER_SERVICE)).newWakeLock(PROXIMITY_SCREEN_OFF_WAKE_LOCK, "telegram-voip-prx");
 				sm.registerListener(this, proximity, SensorManager.SENSOR_DELAY_NORMAL);
 			}
@@ -4428,7 +4428,7 @@ public class VoIPService extends Service implements SensorEventListener, AudioMa
 	}
 
 	public void updateOutputGainControlState() {
-		if (hasRtmpStream() || OwlConfig.betterAudioQuality) {
+		if (hasRtmpStream() || YukiConfig.betterAudioQuality) {
 			return;
 		}
 		if (tgVoip[CAPTURE_DEVICE_CAMERA] != null) {

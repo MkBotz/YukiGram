@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import me.onlyfire.yukigram.android.MenuOrderController;
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 import me.onlyfire.yukigram.android.updates.PlayStoreAPI;
 
 public class OWLENC {
@@ -122,7 +122,7 @@ public class OWLENC {
         }
 
         public boolean isReminded() {
-            return OwlConfig.remindedUpdate == version;
+            return YukiConfig.remindedUpdate == version;
         }
     }
 

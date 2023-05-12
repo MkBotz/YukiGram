@@ -20,7 +20,7 @@ import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Components.LayoutHelper;
 import org.telegram.ui.Components.NumberPicker;
 
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 
 public class DcStyleSelector extends LinearLayout {
     Paint pickerDividersPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -101,13 +101,13 @@ public class DcStyleSelector extends LinearLayout {
         picker1.setMaxValue(strings.length - 1);
         picker1.setFormatter(value -> strings[value]);
         picker1.setOnValueChangedListener((picker, oldVal, newVal) -> {
-            OwlConfig.setDcStyleType(newVal);
+            YukiConfig.setDcStyleType(newVal);
             imageView.invalidate();
             invalidate();
             onSelectedStyle();
             picker.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP, HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING);
         });
-        picker1.setValue(OwlConfig.dcStyleType);
+        picker1.setValue(YukiConfig.dcStyleType);
         addView(picker1, LayoutHelper.createLinear(132, LayoutHelper.MATCH_PARENT, Gravity.RIGHT, 21, 0, 21, 0));
     }
 
@@ -128,7 +128,7 @@ public class DcStyleSelector extends LinearLayout {
         p2.setStrokeCap(Paint.Cap.ROUND);
 
         canvas.save();
-        if (OwlConfig.dcStyleType == 0) {
+        if (YukiConfig.dcStyleType == 0) {
             canvas.rotate(-rotation, maxW >> 1, maxH >> 1);
             Path clipPath = new Path();
             clipPath.addRect(0, 0, maxW, (strokeWidth * 2) + (maxH >> 1), Path.Direction.CW);
@@ -136,7 +136,7 @@ public class DcStyleSelector extends LinearLayout {
             canvas.rotate(rotation, maxW >> 1, maxH >> 1);
         }
 
-        if (OwlConfig.dcStyleType == 1 || OwlConfig.dcStyleType == 0) {
+        if (YukiConfig.dcStyleType == 1 || YukiConfig.dcStyleType == 0) {
             int circleHeight = (h * 75) / 100;
             RectF rectF = new RectF(x, yMiddleTexts, x + Math.round((w * 70f) / 100f), yMiddleTexts + heightTopText);
             canvas.drawRoundRect(rectF, heightTopText >> 1, heightTopText >> 1, p);
@@ -151,7 +151,7 @@ public class DcStyleSelector extends LinearLayout {
         }
         canvas.restore();
         canvas.save();
-        if (OwlConfig.dcStyleType == 0) {
+        if (YukiConfig.dcStyleType == 0) {
             canvas.drawLine(x, y + h, x + w, y, p2);
             canvas.rotate(-rotation, maxW >> 1, maxH >> 1);
             Path clipPath = new Path();
@@ -159,7 +159,7 @@ public class DcStyleSelector extends LinearLayout {
             canvas.clipPath(clipPath, Region.Op.DIFFERENCE);
             canvas.rotate(rotation, maxW >> 1, maxH >> 1);
         }
-        if (OwlConfig.dcStyleType == 2 || OwlConfig.dcStyleType == 0) {
+        if (YukiConfig.dcStyleType == 2 || YukiConfig.dcStyleType == 0) {
             int iconHeight = (h * 75) / 100;
             int spaceBetweenIcons = (h * 18) / 100;
             int startX = x + iconHeight + spaceBetweenIcons;
@@ -186,7 +186,7 @@ public class DcStyleSelector extends LinearLayout {
     }
 
     public static int getStyleSelected() {
-        return OwlConfig.dcStyleType == 0 ? (OwlConfig.buttonStyleType == 5 ? 1 : 2) : OwlConfig.dcStyleType;
+        return YukiConfig.dcStyleType == 0 ? (YukiConfig.buttonStyleType == 5 ? 1 : 2) : YukiConfig.dcStyleType;
     }
 
     private static long angleOf(PointF p1, PointF p2) {

@@ -63,7 +63,7 @@ import org.telegram.ui.Components.UndoView;
 
 import java.util.ArrayList;
 
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 import me.onlyfire.yukigram.android.FolderIconController;
 
 public class FiltersSetupActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate {
@@ -501,9 +501,9 @@ public class FiltersSetupActivity extends BaseFragment implements NotificationCe
 
         // YukiGram - START
         items.add(ItemInner.asHeader(LocaleController.getString("FoldersType", R.string.FoldersType)));
-        items.add(ItemInner.asRadio(LocaleController.getString("FoldersTypeTitles", R.string.FoldersTypeTitles), OwlConfig.tabMode == OwlConfig.TAB_TYPE_TEXT, true));
-        items.add(ItemInner.asRadio(LocaleController.getString("FoldersTypeIcons", R.string.FoldersTypeIcons), OwlConfig.tabMode == OwlConfig.TAB_TYPE_ICON, true));
-        items.add(ItemInner.asRadio(LocaleController.getString("FoldersTypeIconsTitles", R.string.FoldersTypeIconsTitles), OwlConfig.tabMode == OwlConfig.TAB_TYPE_MIX, true));
+        items.add(ItemInner.asRadio(LocaleController.getString("FoldersTypeTitles", R.string.FoldersTypeTitles), YukiConfig.tabMode == YukiConfig.TAB_TYPE_TEXT, true));
+        items.add(ItemInner.asRadio(LocaleController.getString("FoldersTypeIcons", R.string.FoldersTypeIcons), YukiConfig.tabMode == YukiConfig.TAB_TYPE_ICON, true));
+        items.add(ItemInner.asRadio(LocaleController.getString("FoldersTypeIconsTitles", R.string.FoldersTypeIconsTitles), YukiConfig.tabMode == YukiConfig.TAB_TYPE_MIX, true));
         items.add(ItemInner.asShadow(null));
         // YukiGram - END
 
@@ -618,11 +618,11 @@ public class FiltersSetupActivity extends BaseFragment implements NotificationCe
             if (item.viewType == VIEW_TYPE_RADIO) {
                 int oldRow = getCurrentSelectedStylePosition();
                 if (position == 2) {
-                    OwlConfig.setTabMode(0);
+                    YukiConfig.setTabMode(0);
                 } else if (position == 3) {
-                    OwlConfig.setTabMode(2);
+                    YukiConfig.setTabMode(2);
                 } else {
-                    OwlConfig.setTabMode(1);
+                    YukiConfig.setTabMode(1);
                 }
                 RadioCell oldRadioCell = (RadioCell) listView.getChildAt(oldRow);
                 RadioCell currRadioCell = (RadioCell) listView.getChildAt(position);
@@ -659,7 +659,7 @@ public class FiltersSetupActivity extends BaseFragment implements NotificationCe
     }
 
     private int getCurrentSelectedStylePosition() {
-        switch (OwlConfig.tabMode) {
+        switch (YukiConfig.tabMode) {
             case 0:
                 return 2;
             case 1:

@@ -22,7 +22,7 @@ import org.telegram.ui.Components.BulletinFactory;
 import org.telegram.ui.Components.LayoutHelper;
 import org.telegram.ui.Components.StickerImageView;
 
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 
 public class ImportSettingsDialog extends BottomSheet {
     private final int difference;
@@ -32,7 +32,7 @@ public class ImportSettingsDialog extends BottomSheet {
         super(fragment.getParentActivity(), false, fragment.getResourceProvider());
         this.fragment = fragment;
         Activity activity = fragment.getParentActivity();
-        difference = OwlConfig.getDifferenceBetweenCurrentConfig(messageObject).size();
+        difference = YukiConfig.getDifferenceBetweenCurrentConfig(messageObject).size();
         FrameLayout frameLayout = new FrameLayout(activity);
         LinearLayout linearLayout = new LinearLayout(activity);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
@@ -40,7 +40,7 @@ public class ImportSettingsDialog extends BottomSheet {
 
         StickerImageView imageView = new StickerImageView(activity, currentAccount);
         imageView.setStickerPackName("AniDucks");
-        if (OwlConfig.isLegacy(messageObject)) {
+        if (YukiConfig.isLegacy(messageObject)) {
             imageView.setStickerNum(16);
         } else {
             imageView.setStickerNum(5);
@@ -75,12 +75,12 @@ public class ImportSettingsDialog extends BottomSheet {
         buttonTextView.setText(LocaleController.getString("ImportSettings", R.string.ImportSettings));
         buttonTextView.setOnClickListener(view -> {
             dismiss();
-            int differenceUI = OwlConfig.getDifferenceUI(messageObject);
-            OwlConfig.restoreBackup(messageObject);
+            int differenceUI = YukiConfig.getDifferenceUI(messageObject);
+            YukiConfig.restoreBackup(messageObject);
             fragment.getNotificationCenter().postNotificationName(NotificationCenter.dialogFiltersUpdated);
             fragment.getNotificationCenter().postNotificationName(NotificationCenter.mainUserInfoChanged);
             fragment.getNotificationCenter().postNotificationName(NotificationCenter.mainUserInfoChanged);
-            OwlConfig.doRebuildUIWithDiff(differenceUI, fragment.getParentLayout());
+            YukiConfig.doRebuildUIWithDiff(differenceUI, fragment.getParentLayout());
             BulletinFactory.of(fragment).createSimpleBulletin(R.raw.forward, LocaleController.getString("SettingsImported", R.string.SettingsImported)).show();
         });
 

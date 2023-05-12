@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import me.onlyfire.yukigram.android.translator.raw.RawDeepLTranslator;
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 
 public class DeepLTranslator extends BaseTranslator {
 
@@ -58,7 +58,7 @@ public class DeepLTranslator extends BaseTranslator {
     }
 
     private String getFormalityString() {
-        switch (OwlConfig.deepLFormality) {
+        switch (YukiConfig.deepLFormality) {
             case FORMALITY_DEFAULT:
             default:
                 return null;

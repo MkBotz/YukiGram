@@ -28,13 +28,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 import me.onlyfire.yukigram.android.CustomEmojiController;
 
 import org.telegram.ui.Components.AnimatedEmojiSpan;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -87,11 +86,11 @@ public class Emoji {
     private static void reloadCache() {
         isSelectedCustomEmojiPack = CustomEmojiController.isSelectedCustomEmojiPack();
         emojiFile = CustomEmojiController.getCurrentEmojiPackOffline();
-        isSelectedEmojiPack = !OwlConfig.emojiPackSelected.equals("default") && emojiFile != null && emojiFile.exists();
+        isSelectedEmojiPack = !YukiConfig.emojiPackSelected.equals("default") && emojiFile != null && emojiFile.exists();
     }
 
     public static boolean isSelectedCustomPack() {
-        return isSelectedCustomEmojiPack || isSelectedEmojiPack || OwlConfig.useSystemEmoji;
+        return isSelectedCustomEmojiPack || isSelectedEmojiPack || YukiConfig.useSystemEmoji;
     }
 
     public static void reloadEmoji() {

@@ -271,7 +271,7 @@ public class ActionButtonController {
     }
 
     public static boolean canShowTopActions(TLRPC.Chat currentChat, boolean editItemVisible, boolean isTopic) {
-        return (!canShowShortcuts(currentChat, isTopic) || !editItemVisible) && (OwlConfig.buttonStyleType == 5 || isTopic);
+        return (!canShowShortcuts(currentChat, isTopic) || !editItemVisible) && (YukiConfig.buttonStyleType == 5 || isTopic);
     }
 
     public static boolean canShowCall(TLRPC.Chat currentChat, boolean isTopic) {
@@ -285,11 +285,11 @@ public class ActionButtonController {
     }
 
     public static boolean canShowButtons(boolean isTopic) {
-        return OwlConfig.buttonStyleType == 5 || isTopic;
+        return YukiConfig.buttonStyleType == 5 || isTopic;
     }
 
     public static boolean canShowShortcuts(TLRPC.Chat currentChat, boolean isTopic) {
-        return (OwlConfig.smartButtons && (ChatObject.hasAdminRights(currentChat) || currentChat != null && currentChat.megagroup && ChatObject.canChangeChatInfo(currentChat))) && !isTopic;
+        return (YukiConfig.smartButtons && (ChatObject.hasAdminRights(currentChat) || currentChat != null && currentChat.megagroup && ChatObject.canChangeChatInfo(currentChat))) && !isTopic;
     }
 
     public static class ActionButtonInfo {

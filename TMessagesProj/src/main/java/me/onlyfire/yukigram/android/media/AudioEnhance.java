@@ -5,7 +5,7 @@ import android.media.audiofx.AcousticEchoCanceler;
 import android.media.audiofx.AutomaticGainControl;
 import android.media.audiofx.NoiseSuppressor;
 
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 
 public class AudioEnhance {
     private static AutomaticGainControl automaticGainControl = null;
@@ -13,7 +13,7 @@ public class AudioEnhance {
     private static AcousticEchoCanceler acousticEchoCanceler = null;
 
     public static void initVoiceEnhancements(AudioRecord audioRecord) {
-        if (!OwlConfig.voicesAgc) return;
+        if (!YukiConfig.voicesAgc) return;
         if (AutomaticGainControl.isAvailable()) {
             automaticGainControl = AutomaticGainControl.create(audioRecord.getAudioSessionId());
             automaticGainControl.setEnabled(true);

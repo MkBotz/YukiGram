@@ -76,7 +76,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.nio.ByteBuffer;
 import java.util.concurrent.ExecutionException;
 
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 import me.onlyfire.yukigram.ui.Components.CameraXView;
 import me.onlyfire.yukigram.android.media.JpegImageUtils;
 
@@ -329,9 +329,9 @@ public class CameraXController {
         vCapture = VideoCapture.withOutput(recorder);
 
         ImageCapture.Builder iCaptureBuilder = new ImageCapture.Builder()
-                .setCaptureMode(OwlConfig.reduceCameraXLatency ?
+                .setCaptureMode(YukiConfig.reduceCameraXLatency ?
                                 ImageCapture.CAPTURE_MODE_ZERO_SHUTTER_LAG:
-                                (OwlConfig.useCameraXOptimizedMode ? ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY : ImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY)
+                                (YukiConfig.useCameraXOptimizedMode ? ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY : ImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY)
                 )
                 .setTargetAspectRatio(AspectRatio.RATIO_16_9);
 

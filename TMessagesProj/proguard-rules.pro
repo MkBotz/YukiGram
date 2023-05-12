@@ -96,7 +96,7 @@
 -keep class com.huawei.hms.**{ *; }
 
 # Keep OwlConfig fields name
--keepnames class me.onlyfire.yukigram.android.OwlConfig { <fields>; }
+-keepnames class me.onlyfire.yukigram.android.YukiConfig { <fields>; }
 
 # Keep all classes and fiels name of Magic Objects
 -keepattributes InnerClasses, EnclosingMethod -keepnames class me.onlyfire.yukigram.android.magic.** { <fields>; }

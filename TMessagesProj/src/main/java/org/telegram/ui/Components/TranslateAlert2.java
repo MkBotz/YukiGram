@@ -63,7 +63,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 import me.onlyfire.yukigram.android.entities.HTMLKeeper;
 import me.onlyfire.yukigram.android.translator.Translator;
 import me.onlyfire.yukigram.android.translator.TranslatorHelper;
@@ -1130,11 +1130,11 @@ public class TranslateAlert2 extends BottomSheet implements NotificationCenter.N
     }
 
     public static String getToLanguage() {
-        return OwlConfig.translationTarget;
+        return YukiConfig.translationTarget;
     }
 
     public static void setToLanguage(String toLang) {
-        OwlConfig.setTranslationTarget(toLang);
+        YukiConfig.setTranslationTarget(toLang);
     }
 
     public static void resetToLanguage() {

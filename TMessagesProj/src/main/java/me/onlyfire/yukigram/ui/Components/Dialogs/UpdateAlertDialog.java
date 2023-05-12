@@ -35,7 +35,7 @@ import org.telegram.ui.Components.CubicBezierInterpolator;
 import org.telegram.ui.Components.LayoutHelper;
 import org.telegram.ui.LaunchActivity;
 
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 import me.onlyfire.yukigram.android.http.FileDownloader;
 import me.onlyfire.yukigram.android.magic.OWLENC;
 import me.onlyfire.yukigram.android.updates.UpdateManager;
@@ -133,7 +133,7 @@ public class UpdateAlertDialog extends BottomSheet {
         doneButton.setText(LocaleController.formatString("AppUpdateDownloadNow", R.string.AppUpdateDownloadNow), false);
         doneButton.background.setOnClickListener(v -> {
             if (FileDownloader.downloadFile(activity, "appUpdate", UpdateManager.apkFile(), updateAvailable.fileLink))
-                OwlConfig.saveOldVersion(updateAvailable.version);
+                YukiConfig.saveOldVersion(updateAvailable.version);
             dismiss();
         });
         linearLayout.addView(doneButton, LayoutHelper.createLinear(LayoutHelper.MATCH_PARENT, 50, 0, AndroidUtilities.dp(8), 0, 0));
@@ -141,7 +141,7 @@ public class UpdateAlertDialog extends BottomSheet {
         BottomSheetCell scheduleButton = new BottomSheetCell(activity, true);
         scheduleButton.setText(LocaleController.getString("AppUpdateRemindMeLater", R.string.AppUpdateRemindMeLater), false);
         scheduleButton.background.setOnClickListener(v -> {
-            OwlConfig.remindUpdate(updateAvailable.version);
+            YukiConfig.remindUpdate(updateAvailable.version);
             NotificationCenter.getGlobalInstance().postNotificationName(NotificationCenter.appUpdateAvailable);
             dismiss();
         });

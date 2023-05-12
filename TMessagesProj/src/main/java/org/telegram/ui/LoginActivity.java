@@ -93,7 +93,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.safetynet.SafetyNet;
-import com.google.zxing.common.detector.MathUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -178,7 +177,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicReference;
 
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 import me.onlyfire.yukigram.android.PasscodeController;
 
 @SuppressLint("HardwareIds")
@@ -475,7 +474,7 @@ public class LoginActivity extends BaseFragment {
         });
 
         if (UserConfig.getActivatedAccountsCount() == 0) {
-            OwlConfig.updateCurrentVersion();
+            YukiConfig.updateCurrentVersion();
         }
 
         currentDoneType = DONE_TYPE_FLOATING;

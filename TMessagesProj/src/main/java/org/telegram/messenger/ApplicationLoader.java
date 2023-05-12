@@ -43,7 +43,7 @@ import org.telegram.ui.LauncherIconController;
 
 import java.io.File;
 
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 import me.onlyfire.yukigram.android.camera.CameraXUtils;
 
 public class ApplicationLoader extends Application {
@@ -288,7 +288,7 @@ public class ApplicationLoader extends Application {
         ProxyRotationController.init();
 
         FirebaseApp.initializeApp(applicationContext);
-        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(OwlConfig.crashlyticsEnabled);
+        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(YukiConfig.crashlyticsEnabled);
     }
 
     public static void startPushService() {

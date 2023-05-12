@@ -48,7 +48,7 @@ import java.util.Objects;
 
 import me.onlyfire.yukigram.android.http.FileDownloader;
 import me.onlyfire.yukigram.android.CustomEmojiController;
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 import me.onlyfire.yukigram.android.utils.FileUnzip;
 import me.onlyfire.yukigram.ui.Cells.EmojiSet;
 
@@ -121,12 +121,12 @@ public class EmojiPackSettings extends BaseSettingsActivity implements Notificat
             }
             if (isDownloading || isUnzipping) return;
             if (CustomEmojiController.emojiDir(cell.packId, cell.versionWithMD5).exists() || cell.packId.equals("default")) {
-                OwlConfig.setEmojiPackSelected(cell.packId);
+                YukiConfig.setEmojiPackSelected(cell.packId);
                 cell.setChecked(true, true);
                 Emoji.reloadEmoji();
                 NotificationCenter.getGlobalInstance().postNotificationName(NotificationCenter.emojiLoaded);
-                if (OwlConfig.useSystemEmoji) {
-                    OwlConfig.toggleUseSystemEmoji();
+                if (YukiConfig.useSystemEmoji) {
+                    YukiConfig.toggleUseSystemEmoji();
                     listAdapter.notifyItemChanged(useSystemEmojiRow, PARTIAL);
                 }
             } else {
@@ -136,13 +136,13 @@ public class EmojiPackSettings extends BaseSettingsActivity implements Notificat
             }
             adapter.notifyEmojiSetsChanged();
         } else if (position == useSystemEmojiRow) {
-            OwlConfig.toggleUseSystemEmoji();
+            YukiConfig.toggleUseSystemEmoji();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.useSystemEmoji);
+                ((TextCheckCell) view).setChecked(YukiConfig.useSystemEmoji);
             }
             Emoji.reloadEmoji();
             NotificationCenter.getGlobalInstance().postNotificationName(NotificationCenter.emojiLoaded);
-            if (OwlConfig.useSystemEmoji) {
+            if (YukiConfig.useSystemEmoji) {
                 FileDownloader.cancel(getCurrentDownloading());
                 FileUnzip.cancel(getCurrentUnzipping());
             }
@@ -160,13 +160,13 @@ public class EmojiPackSettings extends BaseSettingsActivity implements Notificat
                 if (cell.isChecked()) return;
                 cell.setChecked(true, true);
                 adapter.notifyEmojiSetsChanged();
-                OwlConfig.setEmojiPackSelected(cell.packId);
+                YukiConfig.setEmojiPackSelected(cell.packId);
                 FileDownloader.cancel(getCurrentDownloading());
                 FileUnzip.cancel(getCurrentUnzipping());
                 Emoji.reloadEmoji();
                 NotificationCenter.getGlobalInstance().postNotificationName(NotificationCenter.emojiLoaded);
-                if (OwlConfig.useSystemEmoji) {
-                    OwlConfig.toggleUseSystemEmoji();
+                if (YukiConfig.useSystemEmoji) {
+                    YukiConfig.toggleUseSystemEmoji();
                     listAdapter.notifyItemChanged(useSystemEmojiRow, PARTIAL);
                 }
             }
@@ -226,12 +226,12 @@ public class EmojiPackSettings extends BaseSettingsActivity implements Notificat
             if (cell.packId.equals(id)) {
                 CustomEmojiController.emojiTmp(cell.packId).delete();
                 if (CustomEmojiController.emojiDir(cell.packId, cell.versionWithMD5).exists()) {
-                    OwlConfig.setEmojiPackSelected(cell.packId);
+                    YukiConfig.setEmojiPackSelected(cell.packId);
                     CustomEmojiController.deleteOldVersions(cell.packId, cell.versionWithMD5);
                     Emoji.reloadEmoji();
                     NotificationCenter.getGlobalInstance().postNotificationName(NotificationCenter.emojiLoaded);
-                    if (OwlConfig.useSystemEmoji) {
-                        OwlConfig.toggleUseSystemEmoji();
+                    if (YukiConfig.useSystemEmoji) {
+                        YukiConfig.toggleUseSystemEmoji();
                         listAdapter.notifyItemChanged(useSystemEmojiRow, PARTIAL);
                     }
                 }
@@ -353,7 +353,7 @@ public class EmojiPackSettings extends BaseSettingsActivity implements Notificat
                     }
                     emojiPackSetCell.setSelected(selectedItems.get(position, false), partial);
                     if (emojiPackInfo != null) {
-                        emojiPackSetCell.setChecked(!hasSelected() && emojiPackInfo.getPackId().equals(CustomEmojiController.getSelectedEmojiPackId()) && getCurrentDownloading() == null && getCurrentUnzipping() == null && !OwlConfig.useSystemEmoji, partial);
+                        emojiPackSetCell.setChecked(!hasSelected() && emojiPackInfo.getPackId().equals(CustomEmojiController.getSelectedEmojiPackId()) && getCurrentDownloading() == null && getCurrentUnzipping() == null && !YukiConfig.useSystemEmoji, partial);
                         emojiPackSetCell.setData(
                                 emojiPackInfo,
                                 partial,
@@ -375,8 +375,8 @@ public class EmojiPackSettings extends BaseSettingsActivity implements Notificat
                 case SWITCH:
                     TextCheckCell textCheckCell = (TextCheckCell) holder.itemView;
                     if (position == useSystemEmojiRow) {
-                        if (!partial) textCheckCell.setTextAndValueAndCheck(LocaleController.getString("UseSystemEmojis", R.string.UseSystemEmojis), LocaleController.getString("UseSystemEmojisDesc", R.string.UseSystemEmojisDesc), OwlConfig.useSystemEmoji, true, false);
-                        if (partial) textCheckCell.setChecked(OwlConfig.useSystemEmoji);
+                        if (!partial) textCheckCell.setTextAndValueAndCheck(LocaleController.getString("UseSystemEmojis", R.string.UseSystemEmojis), LocaleController.getString("UseSystemEmojisDesc", R.string.UseSystemEmojisDesc), YukiConfig.useSystemEmoji, true, false);
+                        if (partial) textCheckCell.setChecked(YukiConfig.useSystemEmoji);
                     }
                     break;
                 case CREATION_TEXT_CELL:

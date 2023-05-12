@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import me.onlyfire.yukigram.android.AlertController;
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 import me.onlyfire.yukigram.android.camera.CameraXUtils;
 import me.onlyfire.yukigram.android.entities.EntitiesHelper;
 import me.onlyfire.yukigram.android.media.AudioEnhance;
@@ -104,143 +104,143 @@ public class OwlgramChatSettings extends BaseSettingsActivity implements Notific
     @Override
     protected void onItemClick(View view, int position, float x, float y) {
         if (position == mediaSwipeByTapRow) {
-            OwlConfig.toggleMediaFlipByTap();
+            YukiConfig.toggleMediaFlipByTap();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.mediaFlipByTap);
+                ((TextCheckCell) view).setChecked(YukiConfig.mediaFlipByTap);
             }
         } else if (position == jumpChannelRow) {
-            OwlConfig.toggleJumpChannel();
+            YukiConfig.toggleJumpChannel();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.jumpChannel);
+                ((TextCheckCell) view).setChecked(YukiConfig.jumpChannel);
             }
         } else if (position == showGreetings) {
-            OwlConfig.toggleShowGreetings();
+            YukiConfig.toggleShowGreetings();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.showGreetings);
+                ((TextCheckCell) view).setChecked(YukiConfig.showGreetings);
             }
         } else if (position == hideKeyboardRow) {
-            OwlConfig.toggleHideKeyboard();
+            YukiConfig.toggleHideKeyboard();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.hideKeyboard);
+                ((TextCheckCell) view).setChecked(YukiConfig.hideKeyboard);
             }
         } else if (position == playGifAsVideoRow) {
-            OwlConfig.toggleGifAsVideo();
+            YukiConfig.toggleGifAsVideo();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.gifAsVideo);
+                ((TextCheckCell) view).setChecked(YukiConfig.gifAsVideo);
             }
         } else if (position == showFolderWhenForwardRow) {
-            OwlConfig.toggleShowFolderWhenForward();
+            YukiConfig.toggleShowFolderWhenForward();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.showFolderWhenForward);
+                ((TextCheckCell) view).setChecked(YukiConfig.showFolderWhenForward);
             }
         } else if (position == rearCameraStartingRow) {
-            OwlConfig.toggleUseRearCamera();
+            YukiConfig.toggleUseRearCamera();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.useRearCamera);
+                ((TextCheckCell) view).setChecked(YukiConfig.useRearCamera);
             }
         } else if (position == showAddToSMRow) {
-            OwlConfig.contextMenu.toggleSaveMessage();
-            OwlConfig.applyContextMenu();
+            YukiConfig.contextMenu.toggleSaveMessage();
+            YukiConfig.applyContextMenu();
             if (view instanceof TextCheckbox2Cell) {
-                ((TextCheckbox2Cell) view).setChecked(OwlConfig.contextMenu.saveMessage);
+                ((TextCheckbox2Cell) view).setChecked(YukiConfig.contextMenu.saveMessage);
             }
         } else if (position == showRepeatRow) {
-            OwlConfig.contextMenu.toggleRepeatMessage();
-            OwlConfig.applyContextMenu();
+            YukiConfig.contextMenu.toggleRepeatMessage();
+            YukiConfig.applyContextMenu();
             if (view instanceof TextCheckbox2Cell) {
-                ((TextCheckbox2Cell) view).setChecked(OwlConfig.contextMenu.repeatMessage);
+                ((TextCheckbox2Cell) view).setChecked(YukiConfig.contextMenu.repeatMessage);
             }
         } else if (position == showMessageDetailsRow) {
-            OwlConfig.contextMenu.toggleMessageDetails();
-            OwlConfig.applyContextMenu();
+            YukiConfig.contextMenu.toggleMessageDetails();
+            YukiConfig.applyContextMenu();
             if (view instanceof TextCheckbox2Cell) {
-                ((TextCheckbox2Cell) view).setChecked(OwlConfig.contextMenu.messageDetails);
+                ((TextCheckbox2Cell) view).setChecked(YukiConfig.contextMenu.messageDetails);
             }
         } else if (position == showNoQuoteForwardRow) {
-            OwlConfig.contextMenu.toggleNoQuoteForward();
-            OwlConfig.applyContextMenu();
+            YukiConfig.contextMenu.toggleNoQuoteForward();
+            YukiConfig.applyContextMenu();
             if (view instanceof TextCheckbox2Cell) {
-                ((TextCheckbox2Cell) view).setChecked(OwlConfig.contextMenu.noQuoteForward);
+                ((TextCheckbox2Cell) view).setChecked(YukiConfig.contextMenu.noQuoteForward);
             }
         } else if (position == showReportRow) {
-            OwlConfig.contextMenu.toggleReportMessage();
-            OwlConfig.applyContextMenu();
+            YukiConfig.contextMenu.toggleReportMessage();
+            YukiConfig.applyContextMenu();
             if (view instanceof TextCheckbox2Cell) {
-                ((TextCheckbox2Cell) view).setChecked(OwlConfig.contextMenu.reportMessage);
+                ((TextCheckbox2Cell) view).setChecked(YukiConfig.contextMenu.reportMessage);
             }
         } else if (position == showDeleteRow) {
-            OwlConfig.contextMenu.toggleClearFromCache();
-            OwlConfig.applyContextMenu();
+            YukiConfig.contextMenu.toggleClearFromCache();
+            YukiConfig.applyContextMenu();
             if (view instanceof TextCheckbox2Cell) {
-                ((TextCheckbox2Cell) view).setChecked(OwlConfig.contextMenu.clearFromCache);
+                ((TextCheckbox2Cell) view).setChecked(YukiConfig.contextMenu.clearFromCache);
             }
         } else if (position == showCopyPhotoRow) {
-            OwlConfig.contextMenu.toggleCopyPhoto();
-            OwlConfig.applyContextMenu();
+            YukiConfig.contextMenu.toggleCopyPhoto();
+            YukiConfig.applyContextMenu();
             if (view instanceof TextCheckbox2Cell) {
-                ((TextCheckbox2Cell) view).setChecked(OwlConfig.contextMenu.copyPhoto);
+                ((TextCheckbox2Cell) view).setChecked(YukiConfig.contextMenu.copyPhoto);
             }
         } else if (position == hideAllTabRow) {
-            OwlConfig.toggleHideAllTab();
+            YukiConfig.toggleHideAllTab();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.hideAllTab);
+                ((TextCheckCell) view).setChecked(YukiConfig.hideAllTab);
             }
             reloadDialogs();
         } else if (position == showPatpatRow) {
-            OwlConfig.contextMenu.togglePatpat();
-            OwlConfig.applyContextMenu();
+            YukiConfig.contextMenu.togglePatpat();
+            YukiConfig.applyContextMenu();
             if (view instanceof TextCheckbox2Cell) {
-                ((TextCheckbox2Cell) view).setChecked(OwlConfig.contextMenu.patpat);
+                ((TextCheckbox2Cell) view).setChecked(YukiConfig.contextMenu.patpat);
             }
         } else if (position == cameraXOptimizeRow) {
-            OwlConfig.toggleCameraXOptimizedMode();
+            YukiConfig.toggleCameraXOptimizedMode();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.useCameraXOptimizedMode);
+                ((TextCheckCell) view).setChecked(YukiConfig.useCameraXOptimizedMode);
             }
         } else if (position == cameraXQualityRow) {
             Map<Quality, Size> availableSizes = CameraXUtils.getAvailableVideoSizes();
             Stream<Integer> tmp = availableSizes.values().stream().sorted(Comparator.comparingInt(Size::getWidth).reversed()).map(Size::getHeight);
             ArrayList<Integer> types = tmp.collect(Collectors.toCollection(ArrayList::new));
             ArrayList<String> arrayList = types.stream().map(p -> p + "p").collect(Collectors.toCollection(ArrayList::new));
-            AlertController.show(arrayList, LocaleController.getString("CameraQuality", R.string.CameraQuality), types.indexOf(OwlConfig.cameraResolution), context, i -> {
-                OwlConfig.saveCameraResolution(types.get(i));
+            AlertController.show(arrayList, LocaleController.getString("CameraQuality", R.string.CameraQuality), types.indexOf(YukiConfig.cameraResolution), context, i -> {
+                YukiConfig.saveCameraResolution(types.get(i));
                 listAdapter.notifyItemChanged(cameraXQualityRow, PARTIAL);
             });
         } else if (position == proximitySensorRow) {
-            OwlConfig.toggleDisableProximityEvents();
+            YukiConfig.toggleDisableProximityEvents();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.disableProximityEvents);
+                ((TextCheckCell) view).setChecked(YukiConfig.disableProximityEvents);
             }
             restartTooltip.showWithAction(0, UndoView.ACTION_NEED_RESTART, null, null);
         } else if (position == suppressionRow) {
-            OwlConfig.toggleVoicesAgc();
+            YukiConfig.toggleVoicesAgc();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.voicesAgc);
+                ((TextCheckCell) view).setChecked(YukiConfig.voicesAgc);
             }
         } else if (position == turnSoundOnVDKeyRow) {
-            OwlConfig.toggleTurnSoundOnVDKey();
+            YukiConfig.toggleTurnSoundOnVDKey();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.turnSoundOnVDKey);
+                ((TextCheckCell) view).setChecked(YukiConfig.turnSoundOnVDKey);
             }
         } else if (position == openArchiveOnPullRow) {
-            OwlConfig.toggleOpenArchiveOnPull();
+            YukiConfig.toggleOpenArchiveOnPull();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.openArchiveOnPull);
+                ((TextCheckCell) view).setChecked(YukiConfig.openArchiveOnPull);
             }
         } else if (position == hideTimeOnStickerRow) {
-            OwlConfig.toggleHideTimeOnSticker();
+            YukiConfig.toggleHideTimeOnSticker();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.hideTimeOnSticker);
+                ((TextCheckCell) view).setChecked(YukiConfig.hideTimeOnSticker);
             }
         } else if (position == onlineStatusRow) {
-            OwlConfig.toggleShowStatusInChat();
+            YukiConfig.toggleShowStatusInChat();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.showStatusInChat);
+                ((TextCheckCell) view).setChecked(YukiConfig.showStatusInChat);
             }
         } else if (position == hideSendAsChannelRow) {
-            OwlConfig.toggleHideSendAsChannel();
+            YukiConfig.toggleHideSendAsChannel();
             if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(OwlConfig.hideSendAsChannel);
+                ((TextCheckCell) view).setChecked(YukiConfig.hideSendAsChannel);
             }
             getNotificationCenter().postNotificationName(NotificationCenter.updateInterfaces, MessagesController.UPDATE_MASK_CHAT);
         } else if (position == confirmSendRow) {
@@ -253,23 +253,23 @@ public class OwlgramChatSettings extends BaseSettingsActivity implements Notific
                 listAdapter.notifyItemRangeRemoved(confirmSendRow + 1, 4);
             }
         } else if (position == confirmSendStickersRow) {
-            OwlConfig.confirmSending.toggleStickers();
-            OwlConfig.applyConfirmSending();
+            YukiConfig.confirmSending.toggleStickers();
+            YukiConfig.applyConfirmSending();
             listAdapter.notifyItemChanged(confirmSendStickersRow, PARTIAL);
             listAdapter.notifyItemChanged(confirmSendRow, PARTIAL);
         } else if (position == confirmSendGifsRow) {
-            OwlConfig.confirmSending.toggleGifs();
-            OwlConfig.applyConfirmSending();
+            YukiConfig.confirmSending.toggleGifs();
+            YukiConfig.applyConfirmSending();
             listAdapter.notifyItemChanged(confirmSendGifsRow, PARTIAL);
             listAdapter.notifyItemChanged(confirmSendRow, PARTIAL);
         } else if (position == confirmSendAudioRow) {
-            OwlConfig.confirmSending.toggleAudio();
-            OwlConfig.applyConfirmSending();
+            YukiConfig.confirmSending.toggleAudio();
+            YukiConfig.applyConfirmSending();
             listAdapter.notifyItemChanged(confirmSendAudioRow, PARTIAL);
             listAdapter.notifyItemChanged(confirmSendRow, PARTIAL);
         } else if (position == confirmSendVideoRow) {
-            OwlConfig.confirmSending.toggleVideo();
-            OwlConfig.applyConfirmSending();
+            YukiConfig.confirmSending.toggleVideo();
+            YukiConfig.applyConfirmSending();
             listAdapter.notifyItemChanged(confirmSendVideoRow, PARTIAL);
             listAdapter.notifyItemChanged(confirmSendRow, PARTIAL);
         }
@@ -279,7 +279,7 @@ public class OwlgramChatSettings extends BaseSettingsActivity implements Notific
     protected void onMenuItemClick(int id) {
         super.onMenuItemClick(id);
         if (id == 1) {
-            OwlConfig.setStickerSize(14);
+            YukiConfig.setStickerSize(14);
             menuItem.setVisibility(View.GONE);
             listAdapter.notifyItemChanged(stickerSizeRow, new Object());
         }
@@ -296,7 +296,7 @@ public class OwlgramChatSettings extends BaseSettingsActivity implements Notific
         ActionBarMenuItem menuItem = menu.addItem(0, R.drawable.ic_ab_other);
         menuItem.setContentDescription(LocaleController.getString("AccDescrMoreOptions", R.string.AccDescrMoreOptions));
         menuItem.addSubItem(1, R.drawable.msg_reset, LocaleController.getString("ResetStickersSize", R.string.ResetStickersSize));
-        menuItem.setVisibility(OwlConfig.stickerSizeStack != 14.0f ? View.VISIBLE : View.GONE);
+        menuItem.setVisibility(YukiConfig.stickerSizeStack != 14.0f ? View.VISIBLE : View.GONE);
         return menuItem;
     }
 
@@ -321,7 +321,7 @@ public class OwlgramChatSettings extends BaseSettingsActivity implements Notific
         if (CameraXUtils.isCameraXSupported()) {
             cameraTypeHeaderRow = rowCount++;
             cameraTypeSelectorRow = rowCount++;
-            if (OwlConfig.cameraType == 1) {
+            if (YukiConfig.cameraType == 1) {
                 cameraXOptimizeRow = rowCount++;
                 cameraXQualityRow = rowCount++;
             }
@@ -404,51 +404,51 @@ public class OwlgramChatSettings extends BaseSettingsActivity implements Notific
                     TextCheckCell textCheckCell = (TextCheckCell) holder.itemView;
                     textCheckCell.setEnabled(true, null);
                     if (position == mediaSwipeByTapRow) {
-                        textCheckCell.setTextAndCheck(LocaleController.getString("FlipMediaByTapping", R.string.FlipMediaByTapping), OwlConfig.mediaFlipByTap, true);
+                        textCheckCell.setTextAndCheck(LocaleController.getString("FlipMediaByTapping", R.string.FlipMediaByTapping), YukiConfig.mediaFlipByTap, true);
                     } else if (position == jumpChannelRow) {
-                        textCheckCell.setTextAndCheck(LocaleController.getString("JumpToNextChannel", R.string.JumpToNextChannel), OwlConfig.jumpChannel, true);
+                        textCheckCell.setTextAndCheck(LocaleController.getString("JumpToNextChannel", R.string.JumpToNextChannel), YukiConfig.jumpChannel, true);
                     } else if (position == showGreetings) {
-                        textCheckCell.setTextAndCheck(LocaleController.getString("GreetingSticker", R.string.GreetingSticker), OwlConfig.showGreetings, true);
+                        textCheckCell.setTextAndCheck(LocaleController.getString("GreetingSticker", R.string.GreetingSticker), YukiConfig.showGreetings, true);
                     } else if (position == hideKeyboardRow) {
-                        textCheckCell.setTextAndCheck(LocaleController.getString("HideChatKeyboard", R.string.HideChatKeyboard), OwlConfig.hideKeyboard, true);
+                        textCheckCell.setTextAndCheck(LocaleController.getString("HideChatKeyboard", R.string.HideChatKeyboard), YukiConfig.hideKeyboard, true);
                     } else if (position == playGifAsVideoRow) {
-                        textCheckCell.setTextAndCheck(LocaleController.getString("GIFsAsVideo", R.string.GIFsAsVideo), OwlConfig.gifAsVideo, true);
+                        textCheckCell.setTextAndCheck(LocaleController.getString("GIFsAsVideo", R.string.GIFsAsVideo), YukiConfig.gifAsVideo, true);
                     } else if (position == showFolderWhenForwardRow) {
-                        textCheckCell.setTextAndCheck(LocaleController.getString("FoldersWhenForwarding", R.string.FoldersWhenForwarding), OwlConfig.showFolderWhenForward, true);
+                        textCheckCell.setTextAndCheck(LocaleController.getString("FoldersWhenForwarding", R.string.FoldersWhenForwarding), YukiConfig.showFolderWhenForward, true);
                     } else if (position == rearCameraStartingRow) {
-                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("UseRearRoundVideos", R.string.UseRearRoundVideos), LocaleController.getString("UseRearRoundVideosDesc", R.string.UseRearRoundVideosDesc), OwlConfig.useRearCamera, true, true);
+                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("UseRearRoundVideos", R.string.UseRearRoundVideos), LocaleController.getString("UseRearRoundVideosDesc", R.string.UseRearRoundVideosDesc), YukiConfig.useRearCamera, true, true);
                     } else if (position == hideAllTabRow) {
-                        textCheckCell.setTextAndCheck(LocaleController.getString("HideAllChatsFolder", R.string.HideAllChatsFolder), OwlConfig.hideAllTab, true);
+                        textCheckCell.setTextAndCheck(LocaleController.getString("HideAllChatsFolder", R.string.HideAllChatsFolder), YukiConfig.hideAllTab, true);
                     } else if (position == cameraXOptimizeRow) {
-                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("PerformanceMode", R.string.PerformanceMode), LocaleController.getString("PerformanceModeDesc", R.string.PerformanceModeDesc), OwlConfig.useCameraXOptimizedMode, true, true);
+                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("PerformanceMode", R.string.PerformanceMode), LocaleController.getString("PerformanceModeDesc", R.string.PerformanceModeDesc), YukiConfig.useCameraXOptimizedMode, true, true);
                     } else if (position == proximitySensorRow) {
-                        textCheckCell.setTextAndCheck(LocaleController.getString("DisableProximityEvents", R.string.DisableProximityEvents), OwlConfig.disableProximityEvents, true);
+                        textCheckCell.setTextAndCheck(LocaleController.getString("DisableProximityEvents", R.string.DisableProximityEvents), YukiConfig.disableProximityEvents, true);
                     } else if (position == suppressionRow) {
-                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("VoiceEnhancements", R.string.VoiceEnhancements), LocaleController.getString("VoiceEnhancementsDesc", R.string.VoiceEnhancementsDesc), OwlConfig.voicesAgc, true, true);
+                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("VoiceEnhancements", R.string.VoiceEnhancements), LocaleController.getString("VoiceEnhancementsDesc", R.string.VoiceEnhancementsDesc), YukiConfig.voicesAgc, true, true);
                     } else if (position == turnSoundOnVDKeyRow) {
-                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("TurnSoundOnVDKey", R.string.TurnSoundOnVDKey), LocaleController.getString("TurnSoundOnVDKeyDesc", R.string.TurnSoundOnVDKeyDesc), OwlConfig.turnSoundOnVDKey, true, true);
+                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("TurnSoundOnVDKey", R.string.TurnSoundOnVDKey), LocaleController.getString("TurnSoundOnVDKeyDesc", R.string.TurnSoundOnVDKeyDesc), YukiConfig.turnSoundOnVDKey, true, true);
                     } else if (position == openArchiveOnPullRow) {
-                        textCheckCell.setTextAndCheck(LocaleController.getString("OpenArchiveOnPull", R.string.OpenArchiveOnPull), OwlConfig.openArchiveOnPull, true);
+                        textCheckCell.setTextAndCheck(LocaleController.getString("OpenArchiveOnPull", R.string.OpenArchiveOnPull), YukiConfig.openArchiveOnPull, true);
                     } else if (position == hideTimeOnStickerRow) {
-                        textCheckCell.setTextAndCheck(LocaleController.getString("HideTimeOnSticker", R.string.HideTimeOnSticker), OwlConfig.hideTimeOnSticker, false);
+                        textCheckCell.setTextAndCheck(LocaleController.getString("HideTimeOnSticker", R.string.HideTimeOnSticker), YukiConfig.hideTimeOnSticker, false);
                     } else if (position == onlineStatusRow) {
-                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("OnlineStatus", R.string.OnlineStatus), LocaleController.getString("OnlineStatusDesc", R.string.OnlineStatusDesc), OwlConfig.showStatusInChat, true, false);
+                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("OnlineStatus", R.string.OnlineStatus), LocaleController.getString("OnlineStatusDesc", R.string.OnlineStatusDesc), YukiConfig.showStatusInChat, true, false);
                     } else if (position == hideSendAsChannelRow) {
-                        textCheckCell.setTextAndCheck(LocaleController.getString("HideSendAsChannel", R.string.HideSendAsChannel), OwlConfig.hideSendAsChannel, true);
+                        textCheckCell.setTextAndCheck(LocaleController.getString("HideSendAsChannel", R.string.HideSendAsChannel), YukiConfig.hideSendAsChannel, true);
                     }
                     break;
                 case TEXT_HINT_WITH_PADDING:
                     TextInfoPrivacyCell textInfoPrivacyCell = (TextInfoPrivacyCell) holder.itemView;
                     if (position == cameraAdviseRow) {
                         String advise;
-                        switch (OwlConfig.cameraType) {
-                            case OwlConfig.TELEGRAM_CAMERA:
+                        switch (YukiConfig.cameraType) {
+                            case YukiConfig.TELEGRAM_CAMERA:
                                 advise = LocaleController.getString("DefaultCameraDesc", R.string.DefaultCameraDesc);
                                 break;
-                            case OwlConfig.CAMERA_X:
+                            case YukiConfig.CAMERA_X:
                                 advise = LocaleController.getString("CameraXDesc", R.string.CameraXDesc);
                                 break;
-                            case OwlConfig.SYSTEM_CAMERA:
+                            case YukiConfig.SYSTEM_CAMERA:
                             default:
                                 advise = LocaleController.getString("SystemCameraDesc", R.string.SystemCameraDesc);
                                 break;
@@ -461,38 +461,38 @@ public class OwlgramChatSettings extends BaseSettingsActivity implements Notific
                     TextSettingsCell textSettingsCell = (TextSettingsCell) holder.itemView;
                     textSettingsCell.setTextColor(Theme.getColor(Theme.key_windowBackgroundWhiteBlackText));
                     if (position == cameraXQualityRow) {
-                        textSettingsCell.setTextAndValue(LocaleController.getString("CameraQuality", R.string.CameraQuality), OwlConfig.cameraResolution + "p", partial,false);
+                        textSettingsCell.setTextAndValue(LocaleController.getString("CameraQuality", R.string.CameraQuality), YukiConfig.cameraResolution + "p", partial,false);
                     }
                     break;
                 case CHECKBOX:
                     TextCheckbox2Cell textCheckbox2Cell = (TextCheckbox2Cell) holder.itemView;
                     if (position == showDeleteRow) {
-                        textCheckbox2Cell.setTextAndCheck(LocaleController.getString("ClearFromCache", R.string.ClearFromCache), OwlConfig.contextMenu.clearFromCache, true);
+                        textCheckbox2Cell.setTextAndCheck(LocaleController.getString("ClearFromCache", R.string.ClearFromCache), YukiConfig.contextMenu.clearFromCache, true);
                     } else if (position == showNoQuoteForwardRow) {
-                        textCheckbox2Cell.setTextAndCheck(LocaleController.getString("NoQuoteForward", R.string.NoQuoteForward), OwlConfig.contextMenu.noQuoteForward, true);
+                        textCheckbox2Cell.setTextAndCheck(LocaleController.getString("NoQuoteForward", R.string.NoQuoteForward), YukiConfig.contextMenu.noQuoteForward, true);
                     } else if (position == showAddToSMRow) {
-                        textCheckbox2Cell.setTextAndCheck(LocaleController.getString("AddToSavedMessages", R.string.AddToSavedMessages), OwlConfig.contextMenu.saveMessage, true);
+                        textCheckbox2Cell.setTextAndCheck(LocaleController.getString("AddToSavedMessages", R.string.AddToSavedMessages), YukiConfig.contextMenu.saveMessage, true);
                     } else if (position == showRepeatRow) {
-                        textCheckbox2Cell.setTextAndCheck(LocaleController.getString("Repeat", R.string.Repeat), OwlConfig.contextMenu.repeatMessage, true);
+                        textCheckbox2Cell.setTextAndCheck(LocaleController.getString("Repeat", R.string.Repeat), YukiConfig.contextMenu.repeatMessage, true);
                     } else if (position == showReportRow) {
-                        textCheckbox2Cell.setTextAndCheck(LocaleController.getString("ReportChat", R.string.ReportChat), OwlConfig.contextMenu.reportMessage, true);
+                        textCheckbox2Cell.setTextAndCheck(LocaleController.getString("ReportChat", R.string.ReportChat), YukiConfig.contextMenu.reportMessage, true);
                     } else if (position == showMessageDetailsRow) {
-                        textCheckbox2Cell.setTextAndCheck(LocaleController.getString("MessageDetails", R.string.MessageDetails), OwlConfig.contextMenu.messageDetails, false);
+                        textCheckbox2Cell.setTextAndCheck(LocaleController.getString("MessageDetails", R.string.MessageDetails), YukiConfig.contextMenu.messageDetails, false);
                     } else if (position == showCopyPhotoRow) {
-                        textCheckbox2Cell.setTextAndCheck(LocaleController.getString("CopyPhoto", R.string.CopyPhoto), OwlConfig.contextMenu.copyPhoto, true);
+                        textCheckbox2Cell.setTextAndCheck(LocaleController.getString("CopyPhoto", R.string.CopyPhoto), YukiConfig.contextMenu.copyPhoto, true);
                     } else if (position == showPatpatRow) {
-                        textCheckbox2Cell.setTextAndCheck(LocaleController.getString("Patpat", R.string.Patpat), OwlConfig.contextMenu.patpat, true);
+                        textCheckbox2Cell.setTextAndCheck(LocaleController.getString("Patpat", R.string.Patpat), YukiConfig.contextMenu.patpat, true);
                     }
                     break;
                 case TEXT_CHECK_CELL2:
                     TextCheckCell2 checkCell = (TextCheckCell2) holder.itemView;
                     if (position == confirmSendRow) {
-                        int confirmSendCount = OwlConfig.confirmSending.count();
+                        int confirmSendCount = YukiConfig.confirmSending.count();
                         checkCell.setTextAndCheck(LocaleController.getString("ConfirmSending", R.string.ConfirmSending), confirmSendCount > 0, true, true);
                         checkCell.setCollapseArrow(String.format(Locale.US, "%d/4", confirmSendCount), !confirmSendExpanded, () -> {
                             boolean checked = !checkCell.isChecked();
                             checkCell.setChecked(checked);
-                            OwlConfig.confirmSending.setAll(checked);
+                            YukiConfig.confirmSending.setAll(checked);
                             AndroidUtilities.updateVisibleRows(listView);
                         });
                         checkCell.getCheckBox().setColors(Theme.key_switchTrack, Theme.key_switchTrackChecked, Theme.key_windowBackgroundWhite, Theme.key_windowBackgroundWhite);
@@ -502,13 +502,13 @@ public class OwlgramChatSettings extends BaseSettingsActivity implements Notific
                 case CHECKBOX_CELL:
                     CheckBoxCell checkBoxCell = (CheckBoxCell) holder.itemView;
                     if (position == confirmSendStickersRow) {
-                        checkBoxCell.setText(LocaleController.getString("SendMediaPermissionStickers", R.string.SendMediaPermissionStickers), "", OwlConfig.confirmSending.sendStickers, true, true);
+                        checkBoxCell.setText(LocaleController.getString("SendMediaPermissionStickers", R.string.SendMediaPermissionStickers), "", YukiConfig.confirmSending.sendStickers, true, true);
                     } else if (position == confirmSendGifsRow) {
-                        checkBoxCell.setText(LocaleController.getString("SendMediaPermissionGifs", R.string.SendMediaPermissionGifs), "", OwlConfig.confirmSending.sendGifs, true, true);
+                        checkBoxCell.setText(LocaleController.getString("SendMediaPermissionGifs", R.string.SendMediaPermissionGifs), "", YukiConfig.confirmSending.sendGifs, true, true);
                     } else if (position == confirmSendAudioRow) {
-                        checkBoxCell.setText(LocaleController.getString("SendMediaPermissionVoice", R.string.SendMediaPermissionVoice), "", OwlConfig.confirmSending.sendAudio, true, true);
+                        checkBoxCell.setText(LocaleController.getString("SendMediaPermissionVoice", R.string.SendMediaPermissionVoice), "", YukiConfig.confirmSending.sendAudio, true, true);
                     } else if (position == confirmSendVideoRow) {
-                        checkBoxCell.setText(LocaleController.getString("SendMediaPermissionRound", R.string.SendMediaPermissionRound), "", OwlConfig.confirmSending.sendVideo, true, true);
+                        checkBoxCell.setText(LocaleController.getString("SendMediaPermissionRound", R.string.SendMediaPermissionRound), "", YukiConfig.confirmSending.sendVideo, true, true);
                     }
                     checkBoxCell.setPad(1);
                     break;
@@ -530,7 +530,7 @@ public class OwlgramChatSettings extends BaseSettingsActivity implements Notific
                         @Override
                         protected void onSeek() {
                             super.onSeek();
-                            if (OwlConfig.stickerSizeStack != 14) {
+                            if (YukiConfig.stickerSizeStack != 14) {
                                 menuItem.setVisibility(VISIBLE);
                             } else {
                                 menuItem.setVisibility(INVISIBLE);
@@ -543,14 +543,14 @@ public class OwlgramChatSettings extends BaseSettingsActivity implements Notific
                         @Override
                         protected void onSelectedCamera(int cameraSelected) {
                             super.onSelectedCamera(cameraSelected);
-                            int oldValue = OwlConfig.cameraType;
-                            OwlConfig.saveCameraType(cameraSelected);
-                            if (cameraSelected == OwlConfig.CAMERA_X) {
+                            int oldValue = YukiConfig.cameraType;
+                            YukiConfig.saveCameraType(cameraSelected);
+                            if (cameraSelected == YukiConfig.CAMERA_X) {
                                 updateRowsId();
                                 listAdapter.notifyItemInserted(cameraXOptimizeRow);
                                 listAdapter.notifyItemInserted(cameraXQualityRow);
                                 listAdapter.notifyItemChanged(cameraAdviseRow);
-                            } else if (oldValue == OwlConfig.CAMERA_X){
+                            } else if (oldValue == YukiConfig.CAMERA_X){
                                 listAdapter.notifyItemRemoved(cameraXOptimizeRow);
                                 listAdapter.notifyItemRemoved(cameraXQualityRow);
                                 listAdapter.notifyItemChanged(cameraAdviseRow - 1);

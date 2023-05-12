@@ -24,7 +24,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 import me.onlyfire.yukigram.ui.Components.Dialogs.UpdateInstallingDialog;
 
 public class ApkInstaller {
@@ -58,7 +58,7 @@ public class ApkInstaller {
 
     public static void installApk(Activity context) {
         File apk = UpdateManager.apkFile();
-        if (OwlConfig.xiaomiBlockedInstaller && XiaomiUtilities.isMIUI()) {
+        if (YukiConfig.xiaomiBlockedInstaller && XiaomiUtilities.isMIUI()) {
             AndroidUtilities.openForView(apk, "update.apk", "application/vnd.android.package-archive", context, null);
             return;
         }
@@ -74,7 +74,7 @@ public class ApkInstaller {
                     if (checkFailed(installReceiver.resultValue)) {
                         if (checkFailedByXiaomi(installReceiver.resultValue)) {
                             updateInstallingDialog.cancel();
-                            OwlConfig.setXiaomiBlockedInstaller();
+                            YukiConfig.setXiaomiBlockedInstaller();
                             installApk(context);
                         } else {
                             updateInstallingDialog.setError(getErrorMessage(installReceiver.resultValue));

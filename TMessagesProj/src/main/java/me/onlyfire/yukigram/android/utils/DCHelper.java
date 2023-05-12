@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.NoSuchElementException;
 
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 import me.onlyfire.yukigram.android.http.StandardHTTPRequest;
 
 public class DCHelper {
@@ -44,7 +44,7 @@ public class DCHelper {
             id = user.id;
         } else if (chat != null) {
             DC = chat.photo != null ? chat.photo.dc_id : -1;
-            if (OwlConfig.idType == 0) {
+            if (YukiConfig.idType == 0) {
                 if (ChatObject.isChannel(chat)) {
                     id = -1000000000000L - chat.id;
                 } else {

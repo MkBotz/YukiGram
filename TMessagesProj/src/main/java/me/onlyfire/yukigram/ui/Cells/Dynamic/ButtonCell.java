@@ -6,11 +6,11 @@ import android.graphics.Paint;
 
 import org.telegram.ui.ActionBar.Theme;
 
-import me.onlyfire.yukigram.android.OwlConfig;
+import me.onlyfire.yukigram.android.YukiConfig;
 
 public class ButtonCell {
     public static BaseButtonCell getCurrentButtonCell(Context context, Theme.ResourcesProvider resourcesProvider, String text, int iconId, int color) {
-        switch (OwlConfig.buttonStyleType) {
+        switch (YukiConfig.buttonStyleType) {
             case 1:
                 return new RoundedButtonCell(context, resourcesProvider, text, iconId, color);
             case 2:
@@ -25,7 +25,7 @@ public class ButtonCell {
     }
 
     public static void drawFlickerPreview(Canvas canvas, int x, int y, int w, int pos, Context context, Paint paint) {
-        drawButtonPreview(canvas, x, y, w, pos, OwlConfig.buttonStyleType, context, paint);
+        drawButtonPreview(canvas, x, y, w, pos, YukiConfig.buttonStyleType, context, paint);
     }
 
     public static void drawButtonPreview(Canvas canvas, int x, int y, int w, int pos, int style, Context context) {
@@ -53,7 +53,7 @@ public class ButtonCell {
     }
 
     public static int getPreviewHeight() {
-        switch (OwlConfig.buttonStyleType) {
+        switch (YukiConfig.buttonStyleType) {
             case 1:
                 return RoundedButtonCell.getPreviewHeight();
             case 2:
