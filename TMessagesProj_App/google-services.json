@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "834341133607-2gjmivtdi2hdi9tisc6vue0ljurmug6b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "me.onlyfire.yukigram",
+            "certificate_hash": "87d4af7e467c3578fa75b70df6989c64f58d0b06"
+          }
+        },
+        {
           "client_id": "834341133607-6ja0s95jsr99gum6j6cmpoo4s2280s9u.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -42,6 +50,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "834341133607-pa7j69pvkijjrr0vdse62i6ufl0oj2lm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "me.onlyfire.yukigram.beta",
+            "certificate_hash": "87d4af7e467c3578fa75b70df6989c64f58d0b06"
+          }
+        },
         {
           "client_id": "834341133607-6ja0s95jsr99gum6j6cmpoo4s2280s9u.apps.googleusercontent.com",
           "client_type": 3
