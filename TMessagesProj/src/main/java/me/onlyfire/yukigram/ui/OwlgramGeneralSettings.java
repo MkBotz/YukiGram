@@ -77,7 +77,6 @@ public class OwlgramGeneralSettings extends BaseSettingsActivity {
     private int callHeaderRow;
     private int confirmCallSwitchRow;
     private int deepLFormalityRow;
-    private int crashlyticsEnabledRow;
     private int translateEntireChatRow;
 
     public OwlgramGeneralSettings() {
@@ -205,12 +204,6 @@ public class OwlgramGeneralSettings extends BaseSettingsActivity {
             if (view instanceof TextCheckCell) {
                 ((TextCheckCell) view).setChecked(YukiConfig.showTranslate);
             }
-        } else if (position == crashlyticsEnabledRow) {
-            YukiConfig.toggleCrashlytics();
-            if (view instanceof TextCheckCell) {
-                ((TextCheckCell) view).setChecked(YukiConfig.crashlyticsEnabled);
-            }
-            restartTooltip.showWithAction(0, UndoView.ACTION_NEED_RESTART, null, null);
         } else if (position == translateEntireChatRow) {
             if (!getUserConfig().isPremium() && YukiConfig.translationProvider == Translator.PROVIDER_TELEGRAM) {
                 showDialog(new PremiumFeatureBottomSheet(OwlgramGeneralSettings.this, PremiumPreviewFragment.PREMIUM_FEATURE_TRANSLATIONS, false));
@@ -259,7 +252,6 @@ public class OwlgramGeneralSettings extends BaseSettingsActivity {
         notificationContentWhenBlockedRow = rowCount++;
         divisorAntiPrivacyRow = rowCount++;
         otherRow = rowCount++;
-        crashlyticsEnabledRow = rowCount++;
     }
 
     @Override
@@ -315,11 +307,9 @@ public class OwlgramGeneralSettings extends BaseSettingsActivity {
                         textCheckCell.setCheckBoxIcon(isLocked ? R.drawable.permission_locked : 0);
                     } else if (position == showTranslateButtonRow) {
                         textCheckCell.setTextAndCheck(LocaleController.getString("ShowTranslateButton", R.string.ShowTranslateButton), YukiConfig.showTranslate, true);
-                    }  else if (position == translateEntireChatRow) {
+                    } else if (position == translateEntireChatRow) {
                         textCheckCell.setTextAndValueAndCheck(LocaleController.getString("ShowTranslateChatButton", R.string.ShowTranslateChatButton), LocaleController.getString("ShowTranslateChatButtonDesc", R.string.ShowTranslateChatButtonDesc), YukiConfig.translateEntireChat, true, true);
                         textCheckCell.setCheckBoxIcon(isLocked ? R.drawable.permission_locked : 0);
-                    } else if (position == crashlyticsEnabledRow) {
-                        textCheckCell.setTextAndValueAndCheck(LocaleController.getString("ToggleCrashlyticsButton", R.string.ToggleCrashlyticsButton), LocaleController.getString("ToggleCrashlyticsButtonDesc", R.string.ToggleCrashlyticsButtonDesc), YukiConfig.crashlyticsEnabled, true, true);
                     }
                     break;
                 case SETTINGS:
@@ -510,7 +500,7 @@ public class OwlgramGeneralSettings extends BaseSettingsActivity {
                 return ViewType.HEADER;
             } else if (position == phoneNumberSwitchRow || position == phoneContactsSwitchRow || position == notificationContentWhenBlockedRow
                     || position == dcIdRow || position == confirmCallSwitchRow || position == notificationAccentRow || position == keepMarkdownRow ||
-                    position == showTranslateButtonRow || position == crashlyticsEnabledRow || position == translateEntireChatRow) {
+                    position == showTranslateButtonRow || position == translateEntireChatRow) {
                 return ViewType.SWITCH;
             } else if (position == translationProviderSelectRow || position == destinationLanguageSelectRow || position == deepLFormalityRow ||
                     position == translationStyle || position == doNotTranslateSelectRow || position == idTypeRow || position == autoTranslateRow) {
@@ -644,7 +634,6 @@ public class OwlgramGeneralSettings extends BaseSettingsActivity {
             put(++pointer, confirmCallSwitchRow, sparseIntArray);
             put(++pointer, dividerCallRow, sparseIntArray);
             put(++pointer, otherRow, sparseIntArray);
-            put(++pointer, crashlyticsEnabledRow, sparseIntArray);
         }
 
         private void put(int id, int position, SparseIntArray sparseIntArray) {

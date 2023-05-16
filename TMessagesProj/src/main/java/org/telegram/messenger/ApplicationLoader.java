@@ -33,7 +33,6 @@ import androidx.annotation.NonNull;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import org.telegram.messenger.voip.VideoCapturerDevice;
 import org.telegram.tgnet.ConnectionsManager;
@@ -286,9 +285,6 @@ public class ApplicationLoader extends Application {
 
         LauncherIconController.tryFixLauncherIconIfNeeded();
         ProxyRotationController.init();
-
-        FirebaseApp.initializeApp(applicationContext);
-        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(YukiConfig.crashlyticsEnabled);
     }
 
     public static void startPushService() {

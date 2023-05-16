@@ -77,6 +77,7 @@ public class YukiConfig extends SettingsController {
     public static boolean searchIconInActionBar;
     public static boolean autoTranslate;
     public static boolean showPencilIcon;
+    public static boolean useCameraPreview;
     public static boolean keepTranslationMarkdown;
     public static boolean uploadSpeedBoost;
     public static boolean hideTimeOnSticker;
@@ -205,6 +206,7 @@ public class YukiConfig extends SettingsController {
             searchIconInActionBar = getBoolean("searchIconInActionBar", false);
             autoTranslate = getBoolean("autoTranslate", false);
             showPencilIcon = getBoolean("showPencilIcon", false);
+            useCameraPreview = getBoolean("useCameraPreview", true);
             keepTranslationMarkdown = getBoolean("keepTranslationMarkdown", true);
             hideTimeOnSticker = getBoolean("hideTimeOnSticker", false);
             showStatusInChat = getBoolean("showStatusInChat", false);
@@ -287,6 +289,11 @@ public class YukiConfig extends SettingsController {
     public static void toggleUseRearCamera() {
         putValue("useRearCamera", useRearCamera ^= true);
     }
+
+    public static void toggleCameraPreview() {
+        putValue("useCameraPreview", useCameraPreview ^= true);
+    }
+
 
     public static void toggleUseSystemFont() {
         putValue("useSystemFont", useSystemFont ^= true);

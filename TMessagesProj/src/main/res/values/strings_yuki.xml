@@ -334,4 +334,5 @@
     <string name="TelegramName">Telegram</string>
     <string name="AltNavigation">Alternative navigation</string>
     <string name="AltNavigationDesc">Enable old telegram animations when navigating through the user interface</string>
+    <string name="UseCameraPreview">Enable Camera preview</string>
 </resources>
