@@ -75,8 +75,6 @@ public class FiltersSetupActivity extends BaseFragment implements NotificationCe
 
     private boolean orderChanged;
 
-    private boolean ignoreUpdates;
-
     public static class TextCell extends FrameLayout {
 
         private SimpleTextView textView;
@@ -616,7 +614,6 @@ public class FiltersSetupActivity extends BaseFragment implements NotificationCe
                 return;
             }
             if (item.viewType == VIEW_TYPE_RADIO) {
-                int oldRow = getCurrentSelectedStylePosition();
                 if (position == 2) {
                     YukiConfig.setTabMode(0);
                 } else if (position == 3) {
@@ -624,13 +621,8 @@ public class FiltersSetupActivity extends BaseFragment implements NotificationCe
                 } else {
                     YukiConfig.setTabMode(1);
                 }
-                RadioCell oldRadioCell = (RadioCell) listView.getChildAt(oldRow);
-                RadioCell currRadioCell = (RadioCell) listView.getChildAt(position);
-                oldRadioCell.setChecked(false, true);
-                currRadioCell.setChecked(true, true);
-                ignoreUpdates = true;
+                updateRows(true);
                 getNotificationCenter().postNotificationName(NotificationCenter.dialogFiltersUpdated);
-                ignoreUpdates = false;
             }
             if (item.viewType == VIEW_TYPE_FILTER) {
                 MessagesController.DialogFilter filter = item.filter;
@@ -690,13 +682,7 @@ public class FiltersSetupActivity extends BaseFragment implements NotificationCe
 
     @Override
     public void didReceivedNotification(int id, int account, Object... args) {
-        if (ignoreUpdates) {
-            return;
-        }
         if (id == NotificationCenter.dialogFiltersUpdated) {
-            if (ignoreUpdates) {
-                return;
-            }
             updateRows(true);
         } else if (id == NotificationCenter.suggestedFiltersLoaded) {
             updateRows(true);
@@ -771,6 +757,11 @@ public class FiltersSetupActivity extends BaseFragment implements NotificationCe
             }
             if (viewType == VIEW_TYPE_HEADER || viewType == VIEW_TYPE_BUTTON || viewType == VIEW_TYPE_SHADOW) {
                 if (!TextUtils.equals(text, other.text)) {
+                    return false;
+                }
+            }
+            if (viewType == VIEW_TYPE_RADIO) {
+                if (text != other.text) {
                     return false;
                 }
             }
