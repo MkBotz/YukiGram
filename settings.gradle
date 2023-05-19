@@ -13,7 +13,7 @@ dependencyResolutionManagement {
         maven { url 'https://jitpack.io' }
     }
 }
-rootProject.name = "Micogram"
+rootProject.name = "Picogram"
 include ':TMessagesProj'
 include ':TMessagesProj_App'
 //include ':TMessagesProj_AppHuawei'
